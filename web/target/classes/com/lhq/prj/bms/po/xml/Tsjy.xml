@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Tsjy">
+
+	<typeAlias alias="tsjy" type="com.lhq.prj.bms.po.Tsjy" />
+	<typeAlias alias="page" type="com.lhq.prj.bms.core.Page" />
+
+	<parameterMap class="tsjy" id="pm_tsjy_without_id">
+		<parameter property="jyTitle" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="fbUserId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="fbUserName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="dtFbrq" javaType="string" jdbcType="DATETIME" />
+		<parameter property="strContent" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="ipAddr" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="hfUserId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="hfUserName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="dtHfrq" javaType="string" jdbcType="DATETIME" />
+		<parameter property="hfContent" javaType="string" jdbcType="VARCHAR" />
+	</parameterMap>
+	<sql id="byTsjyIdCondition">
+		<![CDATA[
+		   tsjyId = #tsjyId:NUMBER#
+	    ]]>
+	</sql>
+
+	<insert id="save" parameterMap="pm_tsjy_without_id">
+		<![CDATA[
+			INSERT INTO tb_tsjy 
+						(jyTitle,fbUserId,fbUserName,dtFbrq,strContent,ipAddr,hfUserId,hfUserName,dtHfrq,hfContent) 
+				 VALUES (?,?,?,?,?,?,?,?,?,?)
+		]]>
+	</insert>
+
+	<delete id="deleteById" parameterClass="Integer" >
+		<![CDATA[
+			delete tb_tsjy where tsjyId=#tsjyId#
+		]]>
+	</delete>
+	<select id="findByCount" parameterClass="page" resultClass="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM TB_TSJY
+		]]>
+	</select>
+	<update id="saveTsjyHf" parameterClass="tsjy">
+		<![CDATA[
+			UPDATE tb_tsjy
+		]]>
+		<dynamic prepend="SET">
+			<isNotNull property="hfContent" prepend=",">
+				<![CDATA[
+					hfContent = #hfContent:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="dtHfrq" prepend=",">
+				<![CDATA[
+					dtHfrq = #dtHfrq:DATETIME#
+				]]>
+			</isNotNull>
+			<isNotNull property="hfUserName" prepend=",">
+				<![CDATA[
+					hfUserName = #hfUserName:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="hfUserId" prepend=",">
+				<![CDATA[
+					hfUserId = #hfUserId:NUMBER#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="WHERE">
+			<![CDATA[
+				tsjyId = #tsjyId:NUMBER#
+			]]>
+		</dynamic>
+	</update>
+	
+	<select id="findTsjyById" parameterClass="integer" resultClass="tsjy">
+		<![CDATA[
+			SELECT * FROM TB_TSJY where tsjyId=#tsjyId:NUMBER#
+		]]>
+	</select>
+	<select id="findAllTsjy" parameterClass="page" resultClass="tsjy">
+		<![CDATA[
+			SELECT top $limit$ * FROM TB_TSJY where tsjyId not in(
+			select top $start$ tsjyId from TB_TSJY order by dtFbrq desc
+			) 
+			order by dtFbrq desc
+		]]>
+	</select>
+	
+	
+</sqlMap>

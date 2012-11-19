@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="UserEj">
+
+	<typeAlias alias="userEj" type="com.lhq.prj.bms.po.UserEj" />
+	<typeAlias alias="page" type="com.lhq.prj.bms.core.Page" />
+
+	<parameterMap class="userEj" id="pm_userEj_without_id">
+		<parameter property="userId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="userName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="nickName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="dtZcrq" javaType="string" jdbcType="DATETIME" />
+		<parameter property="dtYzrq" javaType="string" jdbcType="DATETIME" />
+		<parameter property="sex" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="headImg" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="userStatus" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="userJfzs" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="userXfjf" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="userSyjf" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="strContent" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="lxTel" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="lxSj" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="lxEmail" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="lxQq" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="lxMsn" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="ssName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="strCity" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="ejId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="ejName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="syPhoto" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="homeXy" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="grLable" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="dtUpdate" javaType="string" jdbcType="DATETIME" />
+		<parameter property="ejContent" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="intReaders" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="photoStatus" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="intTxsh" javaType="integer" jdbcType="NUMBER" />
+	</parameterMap>
+
+	<select id="findByCount" resultClass="int">
+		<![CDATA[
+			SELECT count(*) FROM ( 
+			select a.userId,a.userName,a.nickName,a.dtZcrq,a.dtYzrq,a.sex,a.headImg,a.userStatus,
+			a.userJfzs,a.userXfjf,a.userSyjf,a.strContent,a.lxTel,a.lxSj,a.lxEmail,a.lxQq,a.lxMsn,
+			a.ssName,a.strCity,b.ejId,b.ejName,b.syPhoto,b.homeXy,b.grLable,b.dtUpdate,
+			b.strContent as ejContent,b.intReaders,b.photoStatus,b.intTxsh
+			from tb_userInfo as a left join tb_lmbaej as b on a.userId=b.userId where a.userName<>'admin'
+			) as m 
+		]]>
+	</select>
+
+	<select id="findAllEj" resultClass="userEj">
+		<![CDATA[
+			SELECT * FROM ( 
+			select a.userId,a.userName,a.nickName,a.dtZcrq,a.dtYzrq,a.sex,a.headImg,a.userStatus,
+			a.userJfzs,a.userXfjf,a.userSyjf,a.strContent,a.lxTel,a.lxSj,a.lxEmail,a.lxQq,a.lxMsn,
+			a.ssName,a.strCity,b.ejId,b.ejName,b.syPhoto,b.homeXy,b.grLable,b.dtUpdate,
+			b.strContent as ejContent,b.intReaders,b.photoStatus,b.intTxsh
+			from tb_userInfo as a left join tb_lmbaej as b on a.userId=b.userId where a.userName<>'admin'
+			) as m 
+			order by dtUpdate desc
+		]]>
+	</select>
+	<select id="findEjById" parameterClass="integer" resultClass="userEj">
+		<![CDATA[
+			SELECT * FROM ( 
+			select a.userId,a.userName,a.nickName,a.dtZcrq,a.dtYzrq,a.sex,a.headImg,a.userStatus,
+			a.userJfzs,a.userXfjf,a.userSyjf,a.strContent,a.lxTel,a.lxSj,a.lxEmail,a.lxQq,a.lxMsn,
+			a.ssName,a.strCity,b.ejId,b.ejName,b.syPhoto,b.homeXy,b.grLable,b.dtUpdate,
+			b.strContent as ejContent,b.intReaders,b.photoStatus,b.intTxsh
+			from tb_userInfo as a left join tb_lmbaej as b on a.userId=b.userId where a.userName<>'admin'
+			) as m where userId=#userId:NUMBER#
+		]]>
+	</select>
+	<select id="findAllBaejByTxsh" parameterClass="page" resultClass="userEj">
+		<![CDATA[
+			SELECT top $limit$ * FROM (
+				select a.userId,a.userName,a.nickName,a.dtZcrq,a.dtYzrq,a.sex,a.headImg,a.userStatus,
+				a.userJfzs,a.userXfjf,a.userSyjf,a.strContent,a.lxTel,a.lxSj,a.lxEmail,a.lxQq,a.lxMsn,
+				a.ssName,a.strCity,b.ejId,b.ejName,b.syPhoto,b.homeXy,b.grLable,b.dtUpdate,
+				b.strContent as ejContent,b.intReaders,b.photoStatus,b.intTxsh
+				from tb_userInfo as a left join tb_lmbaej as b on a.userId=b.userId where a.userName<>'admin'
+			) as u where u.ejId not in (
+			SELECT top $start$ ejId FROM (
+				select a.userId,a.userName,a.nickName,a.dtZcrq,a.dtYzrq,a.sex,a.headImg,a.userStatus,
+				a.userJfzs,a.userXfjf,a.userSyjf,a.strContent,a.lxTel,a.lxSj,a.lxEmail,a.lxQq,a.lxMsn,
+				a.ssName,a.strCity,b.ejId,b.ejName,b.syPhoto,b.homeXy,b.grLable,b.dtUpdate,
+				b.strContent as ejContent,b.intReaders,b.photoStatus,b.intTxsh
+				from tb_userInfo as a left join tb_lmbaej as b on a.userId=b.userId where a.userName<>'admin'
+			) as v order by v.intTxsh,v.dtupdate desc
+			)
+			order by intTxsh,dtupdate desc
+		]]>
+	</select>
+	
+</sqlMap>

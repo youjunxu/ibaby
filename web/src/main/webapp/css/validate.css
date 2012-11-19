@@ -1,0 +1,51 @@
+/*Modified by andchen  2007-09-17
+表单验证错误时的字段错误信息样式
+2007-11-13 新增validation-memo
+*/
+.validation-advice {
+	background: transparent url(../images/icons/exclamation.gif) no-repeat 5px 0.2em;
+	margin: 5px;
+	padding: 2px;
+	padding-left:25px;
+	color : #f00;
+	line-height:1.3em;	
+}
+.validation-right {
+	background-image: url(../images/icons/check_right.gif); 
+	background-repeat: no-repeat;
+	background-position: 5px 50%;
+	margin: 5px 0;
+	padding: 5px;
+	padding-left:25px;
+	background-color: #FFF8DC;
+	border:1px solid #EEE8AA;
+	color : #000;
+	font-weight: normal;
+	font-size: 0.95em;
+}
+.validation-summary {
+	background-image: url(../images/icons/error.gif); 
+	background-repeat: no-repeat;
+	background-position: 5px 50%;
+	margin: 5px 0;
+	padding: 5px;
+	padding-left:25px;
+	background-color: #FFF8DC;
+	border:1px solid #EEE8AA;
+	color : #000;
+	font-weight: normal;
+	font-size: 0.95em;
+}
+.validation-memo {
+	background-image: url(../images/icons/error.gif); 
+	background-repeat: no-repeat;
+	background-position: 5px 50%;
+	margin: 5px 0;
+	padding: 5px;
+	padding-left:25px;
+	background-color: #FFF8DC;
+	border:1px solid #EEE8AA;
+	color : #F00;
+	font-weight: normal;
+	font-size: 0.80em;
+}

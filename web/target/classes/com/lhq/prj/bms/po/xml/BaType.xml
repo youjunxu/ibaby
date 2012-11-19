@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="BaType">
+
+	<typeAlias alias="baType" type="com.lhq.prj.bms.po.BaType" />
+
+	<parameterMap class="baType" id="pm_baType_without_id">
+		<parameter property="lmId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="lmName" javaType="string" jdbcType="VARCHAR" />
+	</parameterMap>
+	<sql id="byBaTypeIdCondition">
+		<![CDATA[
+		   lmId = #lmId:NUMBER#
+	    ]]>
+	</sql>
+
+	<insert id="save" parameterMap="pm_baType_without_id">
+		<![CDATA[
+			INSERT INTO TB_BATYPE (lmName)
+				 VALUES (?)
+		]]>
+		<selectKey resultClass="int">
+			<![CDATA[
+				SELECT @@IDENTITY AS ID
+			]]>
+		</selectKey>
+	</insert>
+
+	<delete id="deleteBaType" parameterClass="Integer" >
+		<![CDATA[
+			delete TB_BATYPE where lmId=#lmId#
+		]]>
+	</delete>
+	<update id="updateBaType" parameterClass="Integer">
+		<![CDATA[
+			UPDATE TB_BATYPE
+		]]>
+		<dynamic prepend="SET">
+			<isNotNull property="lmName" prepend=",">
+				<![CDATA[
+					lmName = #lmName:VARCHAR#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="WHERE">
+			<![CDATA[
+				lmId = #lmId:NUMBER#
+			]]>
+		</dynamic>
+	</update>
+	<select id="findAllBaType" resultClass="baType">
+		<![CDATA[
+			SELECT * FROM TB_BATYPE order by lmName
+		]]>
+	</select>
+	<select id="findBaTypeByCond" parameterClass="baType" resultClass="baType">
+		<![CDATA[
+			SELECT * FROM TB_BATYPE
+		]]>
+		<dynamic prepend="WHERE">
+			<isNotNull property="lmId" prepend="AND">
+				lmId = #lmId:NUMBER#
+			</isNotNull>
+			<isNotNull property="lmName" prepend="AND">
+				lmName = #lmName:VARCHAR#
+			</isNotNull>
+		</dynamic>
+		<![CDATA[
+			order by lmName
+		]]>
+	</select>
+	
+</sqlMap>

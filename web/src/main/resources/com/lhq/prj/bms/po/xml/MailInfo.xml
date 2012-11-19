@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="MailInfo">
+
+	<typeAlias alias="mailInfo" type="com.lhq.prj.bms.po.MailInfo" />
+
+	<parameterMap class="mailInfo" id="pm_mailInfo_without_id">
+		<parameter property="userName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="userPass" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="smtpName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="mailPort" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="mailAddr" javaType="string" jdbcType="VARCHAR" />
+	</parameterMap>
+
+	<insert id="save" parameterMap="pm_mailInfo_without_id">
+		<![CDATA[
+			INSERT INTO tb_mailInfo 
+						(userName,userPass,smtpName,mailPort,mailAddr) 
+				 VALUES (?,?,?,?,?)
+		]]>
+	</insert>
+	<select id="findMailInfo" resultClass="mailInfo">
+		<![CDATA[
+			SELECT * FROM TB_MAILINFO
+		]]>
+	</select>
+
+	<delete id="deleteById" parameterClass="mailInfo" >
+		<![CDATA[
+			delete * from tb_mailInfo
+		]]>
+	</delete>
+	
+</sqlMap>

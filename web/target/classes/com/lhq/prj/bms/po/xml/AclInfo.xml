@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AclInfo">
+
+	<typeAlias alias="aclInfo" type="com.lhq.prj.bms.po.AclInfo" />
+	<typeAlias alias="page" type="com.lhq.prj.bms.core.Page" />
+
+	<parameterMap class="aclInfo" id="pm_aclInfo_without_id">
+		<parameter property="userId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="userName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="aclLevel" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="aclDes" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="dtAvil" javaType="string" jdbcType="DATETIME" />
+		<parameter property="dtSxrq" javaType="string" jdbcType="DATETIME" />
+		<parameter property="mkCode" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="mkName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="strContent" javaType="string" jdbcType="VARCHAR" />
+	</parameterMap>
+	<sql id="byAclInfoIdCondition">
+		<![CDATA[
+		   aclId = #aclId:NUMBER#
+	    ]]>
+	</sql>
+
+	<insert id="save" parameterMap="pm_aclInfo_without_id">
+		<![CDATA[
+			INSERT INTO tb_aclInfo (userId,userName,aclLevel,aclDes,dtAvil,dtSxrq,mkCode,mkName,strContent)
+				 VALUES (?,?,?,?,?,?,?,?,?)
+		]]>
+		<selectKey resultClass="int">
+			<![CDATA[
+				SELECT @@IDENTITY AS ID
+			]]>
+		</selectKey>
+	</insert>
+
+	<delete id="deleteById" parameterClass="Integer" >
+		<![CDATA[
+			delete tb_aclInfo where aclId=#aclId#
+		]]>
+	</delete>
+	<update id="chgAclSx" parameterClass="aclInfo" >
+		<![CDATA[
+			update tb_aclInfo 
+		]]>
+		<dynamic prepend="SET">
+			<isNotNull property="dtSxrq" prepend=",">
+				<![CDATA[
+					dtSxrq = #dtSxrq:DATETIME#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="WHERE">
+			<isNotNull property="aclId" prepend="AND">
+				aclId = #aclId:VARCHAR#
+			</isNotNull>
+		</dynamic>
+	</update>
+	<select id="findByUserName" parameterClass="String" resultClass="aclInfo">
+		<![CDATA[
+			SELECT * FROM tb_aclInfo where userName = #userName#
+		]]>
+	</select>
+	<select id="findAclById" parameterClass="Integer" resultClass="aclInfo">
+		<![CDATA[
+			SELECT * FROM tb_aclInfo where aclId = #aclId# order by mkCode
+		]]>
+	</select>
+	<select id="findAclByAdd" parameterClass="aclInfo" resultClass="aclInfo">
+		<![CDATA[
+			SELECT * FROM tb_aclInfo 
+		]]>
+		<dynamic prepend="WHERE">
+			<isNotNull property="userName" prepend="AND">
+				userName = #userName:VARCHAR#
+			</isNotNull>
+			<isNotNull property="mkCode" prepend="AND">
+				mkCode = #mkCode:VARCHAR#
+			</isNotNull>
+			<isNotNull property="aclLevel" prepend="AND">
+				aclLevel = #aclLevel:NUMBER#
+			</isNotNull>
+		</dynamic>
+	</select>
+	<select id="findByCount" resultClass="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM TB_ACLINFO
+		]]>
+	</select>
+	<select id="findAllAclInfo" parameterClass="page" resultClass="aclInfo">
+		<![CDATA[
+			SELECT * FROM TB_ACLINFO where aclId not in(
+			    select aclId from TB_ACLINFO order by dtSxrq desc limit $start$
+			) 
+			order by dtSxrq desc limit $limit$
+		]]>
+	</select>
+	<update id="updateAclInfo" parameterClass="aclInfo">
+		<![CDATA[
+			UPDATE tb_aclInfo
+		]]>
+		<dynamic prepend="SET">
+			<isNotNull property="aclLevel" prepend=",">
+				<![CDATA[
+					aclLevel = #aclLevel:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="aclDes" prepend=",">
+				<![CDATA[
+					aclDes = #aclDes:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="strContent" prepend=",">
+				<![CDATA[
+					strContent = #strContent:VARCHAR#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="WHERE">
+			<![CDATA[
+				aclId = #aclId:NUMBER#
+			]]>
+		</dynamic>
+	</update>
+	
+</sqlMap>

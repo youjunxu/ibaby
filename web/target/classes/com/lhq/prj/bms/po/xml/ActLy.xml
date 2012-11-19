@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ActLy">
+
+	<typeAlias alias="actLy" type="com.lhq.prj.bms.po.ActLy" />
+	<typeAlias alias="actLyM" type="com.lhq.prj.bms.po.ActLyM" />
+
+	<parameterMap class="actLy" id="pm_actLy_without_id">
+		<parameter property="actId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="actName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="dtCrea" javaType="string" jdbcType="DATETIME" />
+		<parameter property="lyContent" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="userId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="nickName" javaType="string" jdbcType="VARCHAR" />
+	</parameterMap>
+	<parameterMap class="actLyM" id="pm_actLyM">
+		<parameter property="lyId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="actId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="actName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="dtCrea" javaType="string" jdbcType="DATETIME" />
+		<parameter property="lyContent" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="userId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="nickName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="headImg" javaType="string" jdbcType="VARCHAR" />
+	</parameterMap>
+	<sql id="byActLyIdCondition">
+		<![CDATA[
+		   lyId = #lyId:NUMBER#
+	    ]]>
+	</sql>
+	
+	<insert id="save" parameterMap="pm_actLy_without_id">
+		<![CDATA[
+			INSERT INTO tb_actLy 
+						(actId,actName,dtCrea,lyContent,userId,nickName) 
+				 VALUES (?,?,?,?,?,?)
+		]]>
+		<selectKey resultClass="int">
+			<![CDATA[
+				SELECT @@IDENTITY AS ID
+			]]>
+		</selectKey>
+	</insert>
+
+	<delete id="deleteById" parameterClass="Integer" >
+		<![CDATA[
+			delete tb_actLy where lyId=#lyId#
+		]]>
+	</delete>
+	<select id="findAllLyByAct" parameterClass="Integer" resultClass="actLyM">
+		<![CDATA[
+			SELECT a.*,b.headImg FROM TB_actLy as a left join tb_userInfo as b on a.userId=b.userId
+		]]>
+		<dynamic prepend="WHERE">
+			<![CDATA[
+				actId = #actId:NUMBER#
+			]]>
+		</dynamic>
+		<![CDATA[
+			order by dtCrea desc
+		]]>
+	</select>
+	<select id="findAllActLy" resultClass="actLyM">
+		<![CDATA[
+			SELECT a.*,b.headImg FROM TB_actLy as a left join tb_userinfo as b on a.userId=b.userId order by dtCrea desc
+		]]>
+	</select>
+	<select id="findActLyById" parameterClass="Integer" resultClass="actLy">
+		<![CDATA[
+			SELECT * FROM TB_actLy where lyId=#lyId#
+		]]>
+	</select>
+	
+</sqlMap>

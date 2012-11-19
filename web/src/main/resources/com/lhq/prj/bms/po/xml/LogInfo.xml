@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="LogInfo">
+
+	<typeAlias alias="logInfo" type="com.lhq.prj.bms.po.LogInfo" />
+	<typeAlias alias="page" type="com.lhq.prj.bms.core.Page" />
+
+	<parameterMap class="logInfo" id="pm_logInfo_without_id">
+		<parameter property="userId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="userName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="czDate" javaType="string" jdbcType="DATETIME" />
+		<parameter property="operatorDesc" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="cName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="logIp" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="strContent" javaType="string" jdbcType="VARCHAR" />
+	</parameterMap>
+	<sql id="byLogInfoIdCondition">
+		<![CDATA[
+		   logId = #logId:NUMBER#
+	    ]]>
+	</sql>
+
+	<insert id="save" parameterMap="pm_logInfo_without_id">
+		<![CDATA[
+			INSERT INTO TB_LOGINFO 
+						(userId,userName,czDate,operatorDesc,cName,logIp,strContent) 
+				 VALUES (?,?,?,?,?,?,?)
+		]]>
+		<selectKey resultClass="int">
+			<![CDATA[
+				SELECT @@IDENTITY AS ID
+			]]>
+		</selectKey>
+	</insert>
+
+	<delete id="deleteLogInfo" parameterClass="logInfo" >
+		<![CDATA[
+			delete TB_LOGINFO 
+		]]>
+		<dynamic prepend="WHERE">
+			<isNotNull property="logId" prepend="AND">
+				<![CDATA[
+					logId = #logId:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="userId" prepend="AND">
+				<![CDATA[
+					userId = #userId:VARCHAR#
+				]]>
+			</isNotNull>
+		</dynamic>
+	</delete>
+	<select id="findByCount" parameterClass="page" resultClass="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM TB_LOGINFO
+		]]>
+	</select>
+	<select id="findAllLogxx" parameterClass="page" resultClass="logInfo">
+		<![CDATA[
+			SELECT * FROM TB_LOGINFO where logId not in(
+			    select logId from TB_LOGINFO order by czDate desc limit $start$
+			) 
+			order by czDate desc limit $limit$
+		]]>
+	</select>
+
+	<select id="findAllLogInfo" parameterClass="logInfo" resultClass="logInfo">
+		<![CDATA[
+			SELECT * FROM TB_LOGINFO 
+		]]>
+		<dynamic prepend="WHERE">
+			<isNotNull property="userId" prepend="AND">
+				<![CDATA[
+					userId = #userId:VARCHAR#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<![CDATA[
+			order by czDate desc
+		]]>
+	</select>
+	
+</sqlMap>

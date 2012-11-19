@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+	<bean id="aclInfoService" class="com.lhq.prj.bms.service.impl.AclInfoService">
+		<property name="aclInfoDao" ref="aclInfoDao" />
+	</bean>
+	<bean id="actXxService" class="com.lhq.prj.bms.service.impl.ActXxService">
+		<property name="actXxDao" ref="actXxDao" />
+	</bean>
+	<bean id="baTypeService" class="com.lhq.prj.bms.service.impl.BaTypeService">
+		<property name="baTypeDao" ref="baTypeDao" />
+	</bean>
+	<bean id="ejDocumentsService" class="com.lhq.prj.bms.service.impl.EjDocumentsService">
+		<property name="ejDocumentsDao" ref="ejDocumentsDao" />
+	</bean>
+	<bean id="homeJsService" class="com.lhq.prj.bms.service.impl.HomeJsService">
+		<property name="homeJsDao" ref="homeJsDao" />
+	</bean>
+	<bean id="lineIgoService" class="com.lhq.prj.bms.service.impl.LineIgoService">
+		<property name="lineIgoDao" ref="lineIgoDao" />
+	</bean>
+	<bean id="lmBaxyService" class="com.lhq.prj.bms.service.impl.LmBaxyService">
+		<property name="lmBaxyDao" ref="lmBaxyDao" />
+	</bean>
+	<bean id="logInfoService" class="com.lhq.prj.bms.service.impl.LogInfoService">
+		<property name="logInfoDao" ref="logInfoDao" />
+	</bean>
+	<bean id="logMemoService" class="com.lhq.prj.bms.service.impl.LogMemoService">
+		<property name="logMemoDao" ref="logMemoDao" />
+	</bean>
+	<bean id="mailInfoService" class="com.lhq.prj.bms.service.impl.MailInfoService">
+		<property name="mailInfoDao" ref="mailInfoDao" />
+	</bean>
+	<bean id="memberGzService" class="com.lhq.prj.bms.service.impl.MemberGzService">
+		<property name="memberGzDao" ref="memberGzDao" />
+	</bean>
+	<bean id="memberJfgzService" class="com.lhq.prj.bms.service.impl.MemberJfgzService">
+		<property name="memberJfgzDao" ref="memberJfgzDao" />
+	</bean>
+	<bean id="netXxService" class="com.lhq.prj.bms.service.impl.NetXxService">
+		<property name="netXxDao" ref="netXxDao" />
+	</bean>
+	<bean id="photoPzService" class="com.lhq.prj.bms.service.impl.PhotoPzService">
+		<property name="photoPzDao" ref="photoPzDao" />
+	</bean>
+	<bean id="spBrandService" class="com.lhq.prj.bms.service.impl.SpBrandService">
+		<property name="spBrandDao" ref="spBrandDao" />
+	</bean>
+	<bean id="spggService" class="com.lhq.prj.bms.service.impl.SpggService">
+		<property name="spggDao" ref="spggDao" />
+	</bean>
+	<bean id="spTypeService" class="com.lhq.prj.bms.service.impl.SpTypeService">
+		<property name="spTypeDao" ref="spTypeDao" />
+	</bean>
+	<bean id="sysSearchService" class="com.lhq.prj.bms.service.impl.SysSearchService">
+		<property name="sysSearchDao" ref="sysSearchDao" />
+	</bean>
+	<bean id="tbCityService" class="com.lhq.prj.bms.service.impl.TbCityService">
+		<property name="tbCityDao" ref="tbCityDao" />
+	</bean>
+	<bean id="tbInboxService" class="com.lhq.prj.bms.service.impl.TbInboxService">
+		<property name="tbInboxDao" ref="tbInboxDao" />
+	</bean>
+	<bean id="tsjyService" class="com.lhq.prj.bms.service.impl.TsjyService">
+		<property name="tsjyDao" ref="tsjyDao" />
+	</bean>
+	<bean id="userEjService" class="com.lhq.prj.bms.service.impl.UserEjService">
+		<property name="userEjDao" ref="userEjDao" />
+	</bean>
+	<bean id="userInfoService" class="com.lhq.prj.bms.service.impl.UserInfoService">
+		<property name="userInfoDao" ref="userInfoDao" />
+	</bean>
+	<bean id="xtModuleService" class="com.lhq.prj.bms.service.impl.XtModuleService">
+		<property name="xtModuleDao" ref="xtModuleDao" />
+	</bean>
+	<bean id="yqljService" class="com.lhq.prj.bms.service.impl.YqljService">
+		<property name="yqljDao" ref="yqljDao" />
+	</bean>
+</beans>

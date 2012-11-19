@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <include file="struts-default.xml"/>
+    <constant name="struts.devMode" value="true"/>
+    <package name="simple" extends="struts-default">
+        <action name="rand" class="com.lhq.prj.bms.action.RandomPictureAction">
+            <result type="stream">
+                <param name="contentType">image/jpeg</param>
+                <param name="inputName">inputStream</param>
+            </result>
+        </action>
+
+        <action name="updateUser" class="userInfoAction" method="updateUser">
+            <result name="success">suc_upd.jsp</result>
+            <result name="input">error.jsp</result>
+        </action>
+        <action name="changeUserPass" class="userInfoAction" method="changeUserPass">
+            <result>myPerson_suc.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+        <action name="changeUserAPass" class="userInfoAction" method="changeUserAPass">
+            <result>suc_upd.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+        <action name="reSetUserPass" class="userInfoAction" method="reSetUserPass">
+            <result name="success">success.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+        <action name="gvCurUserTopMenu" class="userInfoAction" method="gvCurUserTopMenu">
+            <result>c_topMenu.jsp</result>
+        </action>
+        <action name="gvCurUserTopMenuA" class="userInfoAction" method="gvCurUserTopMenuA">
+            <result>c_topMenuA.jsp</result>
+        </action>
+        <action name="noRememberPass" class="userInfoAction" method="noRememberPass">
+            <result>suc_upd.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+        <action name="forgetPass" class="userInfoAction" method="forgetPass">
+            <result>forgetPass.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+        <action name="setNoLoginAcl" class="xtModuleAction" method="setNoLoginAcl">
+            <result></result>
+        </action>
+        <action name="prevNewUser" class="userInfoAction" method="prevNewUser">
+            <result>regis.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+        <action name="saveUser" class="userInfoAction" method="saveUser">
+            <result name="success">suc_upd2.jsp</result>
+            <result name="input">regis.jsp</result>
+        </action>
+        <action name="deleteUser" class="userEjAction" method="deleteUser">
+            <result>suc_upd.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="deleteUserHeadImg" class="userEjAction" method="deleteUserHeadImg">
+            <result>suc_upd.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="passUserHeadImgSh" class="userEjAction" method="passUserHeadImgSh">
+            <result>suc_upd.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="myPersonXx" class="userEjAction" method="myPersonXx">
+            <result>myPersonInfo.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="myPersonXxA" class="userEjAction" method="myPersonXxA">
+            <result>myInfoEdit.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="reSendRegEmail" class="userInfoAction" method="reSendRegEmail">
+            <result name='success'>suc_upd.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <!-- 贝爱学园 -->
+        <action name="saveBaxy" class="lmBaxyAction" method="saveBaxy">
+            <result name="success">ba_seekList.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updateBaxy" class="lmBaxyAction" method="updateBaxy">
+            <result name="success">myPerson1_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updateBaxyA" class="lmBaxyAction" method="updateBaxyA">
+            <result name="success">sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updateBaDocSh" class="lmBaxyAction" method="updateBaDocSh">
+            <result name="success" type="redirect">sysBA_jygl.action</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="saveBaDocSh" class="lmBaxyAction" method="saveBaDocSh">
+            <result name="success" type="redirect">sysBA_jygl.action</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="findIndexABaxy" class="lmBaxyAction" method="findIndexABaxy">
+            <result name="success">ba_indexList.jsp</result>
+        </action>
+        <action name="passBaxyShDoc" class="lmBaxyAction" method="passBaxyShDoc">
+            <result name="success">sys_suc.jsp</result>
+        </action>
+        <action name="prevOpenBAShDoc" class="lmBaxyAction" method="prevOpenBAShDoc">
+            <result name="success">ba_opendocA.jsp</result>
+            <result name="input">error.jsp</result>
+        </action>
+        <action name="prevOpenBADoc" class="lmBaxyAction" method="prevOpenBADoc">
+            <result name="success">ba_opendoc.jsp</result>
+            <result name="input">error.jsp</result>
+        </action>
+        <action name="prevOpenBACXDoc" class="lmBaxyAction" method="prevOpenBACXDoc">
+            <result name="success">ba_opendocCX.jsp</result>
+            <result name="input">error.jsp</result>
+        </action>
+        <action name="prevEditBADoc" class="lmBaxyAction" method="prevEditBADoc">
+            <result>ba_editdoc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="passBaxyEDoc" class="lmBaxyAction" method="passBaxyEDoc">
+            <result>ba_editdocA.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="prevRemoveBADoc" class="lmBaxyAction" method="prevRemoveBADoc">
+            <result name="success" type="redirect">myPersonContent.action</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="forceRemoveBADoc" class="lmBaxyAction" method="forceRemoveBADoc">
+            <result name="success">sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+
+        <action name="firstBA" class="lmBaxyAction" method="firstBA">
+            <result>index_ba.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="baSeekList" class="lmBaxyAction" method="baSeekList">
+            <result name="success">ba_seekList.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="prevSay" class="lmBaxyAction" method="prevSay">
+            <result>ba_wyfx.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <!-- 商品型号品牌 -->
+        <action name="saveSpType" class="spBrandAction" method="saveSpType">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="prevEditSpType" class="spBrandAction" method="prevEditSpType">
+            <result name='success'>sys_newSpType.jsp</result>
+            <result name='input'>sys_suc.jsp</result>
+        </action>
+        <action name="saveSpBrand" class="spBrandAction" method="saveSpBrand">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="deleteSpTypeById" class="spBrandAction" method="deleteSpTypeById">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="deleteSpBrandById" class="spBrandAction" method="deleteSpBrandById">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updateSpType" class="spBrandAction" method="updateSpType">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updateSpBrandA" class="spBrandAction" method="updateSpBrandA">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updateSpBrandB" class="spBrandAction" method="updateSpBrandB">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="sysSpppOpen" class="spBrandAction" method="sysSpppOpen">
+            <result>sys_splxEdit.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="sysPrevNew" class="spBrandAction" method="sysPrevNew">
+            <result>sys_newBrand.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <!-- 贝爱e家 -->
+        <action name="firstEJ" class="userEjAction" method="firstEJ">
+            <result>index_ej.jsp</result>
+        </action>
+        <action name="toPersonHome" class="userEjAction" method="toPersonHome">
+            <result>personZy.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="toMyHome" class="userEjAction" method="toMyHome">
+            <result name='success'>myPersonZy.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+        <action name="sysmanaTxsh" class="userEjAction" method="sysmanaTxsh">
+            <result name='success'>sys_txsh.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+        <action name="findAllEJByFirst" class="userEjAction" method="findAllEJByFirst">
+            <result>index_left.jsp</result>
+        </action>
+        <action name="myPersonContent" class="ejDocumentsAction" method="myPersonContent">
+            <result>myPersonContent.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+            <result name="INPUT">suc_upd.jsp</result>
+        </action>
+        <action name="oPersonContent" class="ejDocumentsAction" method="oPersonContent">
+            <result>qtPersonContent.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="oPersonJs" class="ejDocumentsAction" method="oPersonJs">
+            <result>qtPersonJs.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updateHeadImg" class="userEjAction" method="updateHeadImg">
+            <result>suc_upd.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updateBaej" class="userEjAction" method="updateBaej">
+            <result>suc_upd.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="myPageLeft" class="userEjAction" method="myPageLeft">
+            <result>myleft.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+        <action name="myJfxx" class="userEjAction" method="myJfxx">
+            <result>myPersonJf.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+        <action name="myPageTopMenu" class="userEjAction" method="myPageTopMenu">
+            <result>mytop.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+
+        <!-- 信箱管理 -->
+        <action name="myInBox" class="tbInboxAction" method="myInBox">
+            <result>myInbox.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="myOutBox" class="tbInboxAction" method="myOutBox">
+            <result>myOutbox.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="prevSendNewMsg" class="tbInboxAction" method="prevSendNewMsg">
+            <result>creaNewMsg.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+        <action name="sendNewMsg" class="tbInboxAction" method="sendNewMsg">
+            <result>newMsg_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="sendHfMsg" class="tbInboxAction" method="sendHfMsg">
+            <result>newMsg_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="deleteMsgByInbox" class="tbInboxAction" method="deleteMsgByInbox">
+            <result>newMsg_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="deleteMsgByOutbox" class="tbInboxAction" method="deleteMsgByOutbox">
+            <result>newMsg_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="prevOpenInboxMsg" class="tbInboxAction" method="prevOpenInboxMsg">
+            <result>myOpenInboxMsg.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="prevOpenOutboxMsg" class="tbInboxAction" method="prevOpenOutboxMsg">
+            <result>myOpenOutboxMsg.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <!-- 家庭记事管理 -->
+        <action name="deleteHomeJsById" class="homeJsAction" method="deleteHomeJsById">
+            <result name='success'>myHomeJs_suc.jsp</result>
+            <result name='input'>myHomeJs_suc.jsp</result>
+        </action>
+        <action name="saveHomeJs" class="homeJsAction" method="saveHomeJs">
+            <result>myHomeJs_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updateHomeJs" class="homeJsAction" method="updateHomeJs">
+            <result>myHomeJs_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updateAclHomeJs" class="homeJsAction" method="updateAclHomeJs">
+            <result>myHomeJs_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="firstMyHomeJs" class="homeJsAction" method="firstMyHomeJs">
+            <result>myHomeJs.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="prevNewHomeJs" class="homeJsAction" method="prevNewHomeJs">
+            <result>myHomeJs_new.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="prevOpenHomeJs" class="homeJsAction" method="prevOpenHomeJs">
+            <result name='success'>myHomeJs_open.jsp</result>
+            <result name='input'>myHomeJs_suc.jsp</result>
+        </action>
+
+        <action name="prevOpenQtJsDoc" class="homeJsAction" method="prevOpenQtJsDoc">
+            <result>qtPersonJs_open.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+        <action name="prevEditHomeJs" class="homeJsAction" method="prevEditHomeJs">
+            <result name='success'>myHomeJs_edit.jsp</result>
+            <result name='input'>myHomeJs_suc.jsp</result>
+        </action>
+        <action name="prevEditAclHomeJs" class="homeJsAction" method="prevEditAclHomeJs">
+            <result name='success'>myHomeJs_editAcl.jsp</result>
+            <result name='input'>myHomeJs_suc.jsp</result>
+        </action>
+        <!-- 相册管理 -->
+        <action name="myPersonPhoto" class="photoPzAction" method="myPersonPhoto">
+            <result>myPhoto.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="oPersonPhoto" class="photoPzAction" method="oPersonPhoto">
+            <result>oPhoto.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="opPersonPhoto" class="photoPzAction" method="opPersonPhoto">
+            <result>opPhoto.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="opaPersonPhoto" class="photoPzAction" method="opaPersonPhoto">
+            <result>opaPhoto.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="photoGl" class="photoPzAction" method="photoGl">
+            <result name="createXc">photogl_xc.jsp</result>
+            <result name="uploadZp">photogl_sc.jsp</result>
+            <result name="openB">photogl_op.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="savePhotoPz" class="photoPzAction" method="savePhotoPz">
+            <result>photo_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="deletePhotoPz" class="photoPzAction" method="deletePhotoPz">
+            <result>photo_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updatePhotoPz" class="photoPzAction" method="updatePhotoPz">
+            <result>photo_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="photoPzManage" class="photoPzAction" method="photoPzManage">
+            <result>photoPzGl.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="savePhotoMemo" class="photoPzAction" method="savePhotoMemo">
+            <result>photo_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updatePhotoMemo" class="photoPzAction" method="updatePhotoMemo">
+            <result>photo_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updatePhotoMemoB" class="photoPzAction" method="updatePhotoMemoB">
+            <result>photo_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="deletePhotoMemoByid" class="photoPzAction" method="deletePhotoMemoByid">
+            <result>photo_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="myXcWaitEdit" class="photoPzAction" method="myXcWaitEdit">
+            <result>myPhotoPzEdit.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="waitUpdatePhotoMemo" class="photoPzAction" method="waitUpdatePhotoMemo">
+            <result name='success'>myPhotoEdit.jsp</result>
+            <result name='input'>photo_suc.jsp</result>
+        </action>
+        <action name="shPhotoPass" class="photoPzAction" method="shPhotoPass">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <!-- 好友管理 -->
+        <action name="addMemberHy" class="memberGzAction" method="addMemberHy">
+            <result>suc_upd.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+        <action name="deleteHy" class="memberGzAction" method="deleteHy">
+            <result>suc_upd.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="turnSelfHy" class="userEjAction" method="turnSelfHy">
+            <result name='success'>myFriends.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+        <action name="seekOtherHy" class="userEjAction" method="seekOtherHy">
+            <result name='success'>oFriends.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+        <action name="findUserForAddHy" class="userEjAction" method="findUserForAddHy">
+            <result>myPersonAddHy.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+        <!-- IGO管理 -->
+        <action name="firstIGO" class="lineIgoAction" method="firstIGO">
+            <result>index_igo.jsp</result>
+        </action>
+        <action name="prevNewIgo" class="lineIgoAction" method="prevNewIgo">
+            <result>sys_newIgo.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="saveIgo" class="lineIgoAction" method="saveIgo">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="deleteIgoById" class="lineIgoAction" method="deleteIgoById">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="deleteIgoImg" class="lineIgoAction" method="deleteIgoImg">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updateIgo" class="lineIgoAction" method="updateIgo">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="prevEditIgo" class="lineIgoAction" method="prevEditIgo">
+            <result>sys_editIgo.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="prevSeekIgo" class="lineIgoAction" method="prevSeekIgo">
+            <result>sys_openIgo.jsp</result>
+        </action>
+        <action name="prevASeekIgo" class="lineIgoAction" method="prevASeekIgo">
+            <result>doc_openIgo.jsp</result>
+        </action>
+        <!-- 贝爱乐园管理 -->
+        <action name="sysActXxEdit" class="actXxAction" method="sysActXxEdit">
+            <result>sys_editActXx.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+        <action name="saveActXx" class="actXxAction" method="saveActXx">
+            <result>sys_suc.jsp</result>
+            <result name='input'>sys_suc.jsp</result>
+        </action>
+        <action name="saveActLy" class="actXxAction" method="saveActLy">
+            <result>suc_upd.jsp</result>
+            <result name='input'>sys_suc.jsp</result>
+        </action>
+        <action name="deleteActLyById" class="actXxAction" method="deleteActLyById">
+            <result>suc_upd.jsp</result>
+            <result name='input'>sys_suc.jsp</result>
+        </action>
+        <action name="updateActXx" class="actXxAction" method="updateActXx">
+            <result>sys_suc.jsp</result>
+            <result name='input'>sys_suc.jsp</result>
+        </action>
+        <action name="deleteActXxById" class="actXxAction" method="deleteActXxById">
+            <result>sys_suc.jsp</result>
+            <result name='input'>sys_suc.jsp</result>
+        </action>
+        <action name="firstLY" class="actXxAction" method="firstLY">
+            <result>index_ly.jsp</result>
+        </action>
+        <action name="prevOpenActXx" class="actXxAction" method="prevOpenActXx">
+            <result>act_openXx.jsp</result>
+        </action>
+        <action name="prevActLyOpen" class="actXxAction" method="prevActLyOpen">
+            <result>act_OpenLy.jsp</result>
+        </action>
+
+
+        <!-- 系统公告管理 -->
+        <action name="findAllMailInfo" class="mailInfoAction" method="findAllMailInfo">
+            <result></result>
+        </action>
+        <action name="sysGgOpen" class="spggAction" method="sysGgOpen">
+            <result>sys_OpenGg.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="prevActGgOpen" class="spggAction" method="prevActGgOpen">
+            <result>act_OpenGg.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="saveSpgg" class="spggAction" method="saveSpgg">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updateSpgg" class="spggAction" method="updateSpgg">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="deleteSpgg" class="spggAction" method="deleteSpgg">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <!-- 系统省市管理 -->
+        <action name="sysCityOpen" class="tbCityAction" method="sysCityOpen">
+            <result>sys_OpenCity.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="saveCity" class="tbCityAction" method="saveCity">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updateCity" class="tbCityAction" method="updateCity">
+            <result>suc_upd.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="deleteCity" class="tbCityAction" method="deleteCity">
+            <result>suc_upd.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+
+        <!-- 权限信息 -->
+        <action name="saveAclInfo" class="aclInfoAction" method="saveAclInfo">
+            <result>suc_upd.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="deleteAclInfo" class="aclInfoAction" method="deleteAclInfo">
+            <result>suc_upd.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updateAclInfo" class="aclInfoAction" method="updateAclInfo">
+            <result>suc_upd.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="chgAclSx" class="aclInfoAction" method="chgAclSx">
+            <result>suc_upd.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="prevNewAclInfo" class="userInfoAction" method="prevNewAclInfo">
+            <result>sys_aclNew.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="sysAclOpen" class="aclInfoAction" method="sysAclOpen">
+            <result>sys_OpenAcl.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+
+        <!-- 投诉建议 -->
+        <action name="saveTsjy" class="tsjyAction" method="saveTsjy">
+            <result>suc_upd.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="saveTsjyHf" class="tsjyAction" method="saveTsjyHf">
+            <result>suc_upd.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="deleteTsjy" class="tsjyAction" method="deleteTsjy">
+            <result>suc_upd.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="prevTsjyIndex" class="tsjyAction" method="prevTsjyIndex">
+            <result>index_tsjy.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="prevTsjyHf" class="tsjyAction" method="prevTsjyHf">
+            <result>tsjy_edit.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+
+        <!-- 系统管理 -->
+        <action name="sysmanaA" class="spggAction" method="sysmanaA">
+            <result>sys_gg.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="sysmanaB" class="userInfoAction" method="sysmanaB">
+            <result>sys_member.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="sysmanaC" class="aclInfoAction" method="sysmanaC">
+            <result>sys_acl.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="sysmanaD" class="logInfoAction" method="sysmanaD">
+            <result>sys_log.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="sysmanaE" class="tbCityAction" method="sysmanaE">
+            <result>sys_city.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="sysmanaF" class="photoPzAction" method="sysmanaF">
+            <result>sys_photo.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="sysmanaG" class="lineIgoAction" method="sysmanaG">
+            <result>sys_igo.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="sysmanaJf" class="memberJfgzAction" method="sysmanaJf">
+            <result>sys_jfgz.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="sysmanaLX" class="spBrandAction" method="sysmanaLX">
+            <result>sys_spType.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="sysmanaPP" class="spBrandAction" method="sysmanaPP">
+            <result>sys_spxh.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="sysmanaBa" class="lmBaxyAction" method="sysmanaBa">
+            <result>sys_baxy.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="sysmanaBb" class="lmBaxyAction" method="sysmanaBb">
+            <result>sys_baxyB.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="sysBA_jygl" class="lmBaxyAction" method="sysBA_jygl">
+            <result>sysBA_jygl.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="sysmanaHd" class="actXxAction" method="sysmanaHd">
+            <result>sys_baly.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <!-- 日志信息 -->
+
+        <!-- 积分规则 -->
+        <action name="saveJfgz" class="memberJfgzAction" method="saveJfgz">
+            <result>sys_suc.jsp</result>
+            <result name='input'>sys_suc.jsp</result>
+        </action>
+        <action name="prevEditJfgz" class="memberJfgzAction" method="prevEditJfgz">
+            <result>sys_jfgzEdit.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updateJfgz" class="memberJfgzAction" method="updateJfgz">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="deleteJfgzById" class="memberJfgzAction" method="deleteJfgzById">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <!-- 网站信息 -->
+        <action name="saveNetXx" class="netXxAction" method="saveNetXx">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="updateNetXx" class="netXxAction" method="updateNetXx">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="prevOpenNetXx" class="netXxAction" method="prevOpenNetXx">
+            <result>seekNetXx.jsp</result>
+        </action>
+        <action name="sysmanaNET" class="netXxAction" method="sysmanaNET">
+            <result>sys_netxx.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+        <action name="sysmanaYqlj" class="yqljAction" method="sysmanaYqlj">
+            <result>sys_yqlj.jsp</result>
+        </action>
+        <action name="saveYqlj" class="yqljAction" method="saveYqlj">
+            <result>sys_suc.jsp</result>
+            <result name='input'>sys_suc.jsp</result>
+        </action>
+        <action name="updateYqlj" class="yqljAction" method="updateYqlj">
+            <result>sys_suc.jsp</result>
+            <result name='input'>sys_suc.jsp</result>
+        </action>
+        <action name="deleteYqljById" class="yqljAction" method="deleteYqljById">
+            <result>sys_suc.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+        <action name="prevOpenYqlj" class="yqljAction" method="prevOpenYqlj">
+            <result>sys_yqljEdit.jsp</result>
+            <result name='input'>sys_suc.jsp</result>
+        </action>
+        <action name="prevFirstYqlj" class="yqljAction" method="prevFirstYqlj">
+            <result>dispYqlj.jsp</result>
+        </action>
+        <!-- 全文搜索 -->
+        <action name="searchSysDoc" class="sysSearchAction" method="searchSysDoc">
+            <result>fullSearch_result.jsp</result>
+        </action>
+
+    </package>
+
+    <package name="json" extends="json-default">
+        <!-- 用户管理 -->
+        <action name="login" class="userInfoAction" method="login">
+            <result name='success'>manager.jsp</result>
+            <result name="input">login.jsp</result>
+        </action>
+        <action name="validateUserReg" class="userInfoAction" method="validateUserReg">
+            <result>validatereg.jsp</result>
+            <result name="input">validatereg.jsp</result>
+        </action>
+        <action name="checkIsExistUser" class="userInfoAction" method="checkIsExistUser">
+            <result type="json">
+            </result>
+        </action>
+        <action name="checkIsExistEmail" class="userInfoAction" method="checkIsExistEmail">
+            <result type="json">
+                <param name="includeProperties">success</param>
+            </result>
+        </action>
+        <action name="logout" class="userInfoAction" method="logout">
+            <result type="redirect">index.jsp</result>
+        </action>
+        <action name="findCityBySs" class="tbCityAction" method="findCityBySs">
+            <result type="json">
+            </result>
+        </action>
+        <!-- 好友管理 -->
+        <action name="checkPrevAddHy" class="memberGzAction" method="checkPrevAddHy">
+            <result type="json">
+            </result>
+        </action>
+        <!-- 贝爱学园 -->
+        <action name="findBrandByType" class="spBrandAction" method="findBrandByType">
+            <result type="json">
+            </result>
+        </action>
+        <action name="changeDocPlResult" class="lmBaxyAction" method="changeDocPlResult">
+            <result type="json">
+            </result>
+        </action>
+        <action name="checkPhotoAcl" class="photoPzAction" method="checkPhotoAcl">
+            <result type="json">
+            </result>
+        </action>
+        <action name="checkHomeJsAcl" class="homeJsAction" method="checkHomeJsAcl">
+            <result type="json">
+            </result>
+        </action>
+    </package>
+
+</struts>

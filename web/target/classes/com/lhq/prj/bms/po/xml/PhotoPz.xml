@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="PhotoPz">
+
+	<typeAlias alias="photoPz" type="com.lhq.prj.bms.po.PhotoPz" />
+
+	<parameterMap class="photoPz" id="pm_photoPz_without_id">
+		<parameter property="userId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="userName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="strTitle" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="dtCrea" javaType="string" jdbcType="DATETIME" />
+		<parameter property="xcStatus" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="xcPassword" javaType="string" jdbcType="VARCHAR" />
+	</parameterMap>
+	<sql id="byPhotoPzIdCondition">
+		<![CDATA[
+		   xcId = #xcId:NUMBER#
+	    ]]>
+	</sql>
+
+	<insert id="save" parameterMap="pm_photoPz_without_id">
+		<![CDATA[
+			INSERT INTO TB_PHOTOPZ 
+						(userId,userName,strTitle,dtCrea,xcStatus,xcPassword)
+				 VALUES (?,?,?,?,?,?)
+		]]>
+		<selectKey resultClass="int">
+			<![CDATA[
+				SELECT @@IDENTITY AS ID
+			]]>
+		</selectKey>
+	</insert>
+
+	<delete id="deleteById" parameterClass="Integer" >
+		<![CDATA[
+			delete TB_PHOTOPZ where xcId=#xcId#
+		]]>
+	</delete>
+	<update id="updatePhotoPz" parameterClass="photoPz">
+		<![CDATA[
+			UPDATE TB_PHOTOPZ
+		]]>
+		<dynamic prepend="SET">
+			<isNotNull property="strTitle" prepend=",">
+				<![CDATA[
+					strTitle = #strTitle:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="xcStatus" prepend=",">
+				<![CDATA[
+					xcStatus = #xcStatus:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="xcPassword" prepend=",">
+				<![CDATA[
+					xcPassword = #xcPassword:VARCHAR#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="WHERE">
+			<![CDATA[
+				xcId = #xcId:NUMBER#
+			]]>
+		</dynamic>
+	</update>
+	<select id="findAllPhotoPz" resultClass="photoPz">
+		<![CDATA[
+			SELECT * FROM TB_PHOTOPZ order by dtCrea desc
+		]]>
+	</select>
+	<select id="findPhotoPzById" parameterClass="integer" resultClass="photoPz">
+		<![CDATA[
+			SELECT * FROM TB_PHOTOPZ where userId=#userId# order by dtCrea desc
+		]]>
+	</select>
+	<select id="findPhotoPzByAcl" parameterClass="photoPz" resultClass="photoPz">
+		<![CDATA[
+			SELECT * FROM TB_PHOTOPZ  
+		]]>
+		<dynamic prepend="WHERE">
+			<isNotNull property="xcId" prepend="AND">
+				<![CDATA[
+					xcId =#xcId:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="xcStatus" prepend="AND">
+				<![CDATA[
+					xcStatus = #xcStatus:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="xcPassword" prepend="AND">
+				<![CDATA[
+					xcPassword = #xcPassword:VARCHAR#
+				]]>
+			</isNotNull>
+		</dynamic>
+	</select>
+	<select id="findPhotoPzByXId" parameterClass="integer" resultClass="photoPz">
+		<![CDATA[
+			SELECT * FROM TB_PHOTOPZ where xcId=#xcId# order by dtCrea desc
+		]]>
+	</select>
+	
+</sqlMap>

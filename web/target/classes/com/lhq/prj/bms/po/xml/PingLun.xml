@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="PingLun">
+
+	<typeAlias alias="pingLun" type="com.lhq.prj.bms.po.PingLun" />
+
+	<parameterMap class="pingLun" id="pm_pingLun_without_id">
+		<parameter property="userId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="userName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="mkCode" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="docId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="plResult" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="plDate" javaType="string" jdbcType="DATETIME" />
+	</parameterMap>
+	<sql id="byPingLunIdCondition">
+		<![CDATA[
+		   plId = #plId:NUMBER#
+	    ]]>
+	</sql>
+
+	<insert id="save" parameterMap="pm_pingLun_without_id">
+		<![CDATA[
+			INSERT INTO tb_pingLun
+						(userId,userName,mkCode,docId,plResult,plDate) 
+				 VALUES (?,?,?,?,?,?)
+		]]>
+		<selectKey resultClass="int">
+			<![CDATA[
+				SELECT @@IDENTITY AS ID
+			]]>
+		</selectKey>
+	</insert>
+	<select id="findPingLun" resultClass="pingLun">
+		<![CDATA[
+			SELECT * FROM tb_pingLun
+		]]>
+	</select>
+
+	<delete id="deleteById" parameterClass="pingLun" >
+		<![CDATA[
+			delete * from tb_pingLun
+		]]>
+		<dynamic prepend="WHERE">
+			<![CDATA[
+				plId = #plId:NUMBER#
+			]]>
+		</dynamic>
+	</delete>
+	
+</sqlMap>

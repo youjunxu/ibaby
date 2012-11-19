@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+	<settings cacheModelsEnabled="true" enhancementEnabled="true" lazyLoadingEnabled="true"
+		maxRequests="32" maxSessions="10" maxTransactions="5" useStatementNamespaces="true" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/AclInfo.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/AclLevel.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/ActLy.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/ActXx.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/BaDocSh.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/BaType.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/EjDocuments.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/GoodFriend.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/HomeJs.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/LineIgo.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/LmBaej.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/LmBaxy.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/LogInfo.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/LogMemo.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/MailInfo.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/MemberGz.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/MemberJfxf.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/MemberJfgz.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/NetXx.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/PhotoMemo.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/PhotoPz.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/PingLun.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/SeekLog.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/SpBrand.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/Spgg.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/SpType.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/SysSearch.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/TbCity.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/TbInbox.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/Tsjy.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/UserEj.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/UserInfo.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/XtModule.xml" />
+	<sqlMap resource="com/lhq/prj/bms/po/xml/Yqlj.xml" />
+    <sqlMap resource="com/ibaby/www/domain/valuetypes/tag.xml" />
+</sqlMapConfig>
