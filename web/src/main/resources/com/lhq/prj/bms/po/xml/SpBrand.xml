@@ -23,8 +23,7 @@
 
 	<insert id="save" parameterMap="pm_spBrand_without_id">
 		<![CDATA[
-			INSERT INTO tb_spBrand 
-						(spTypeId,spTypeName,brandName,brandImg,dispXh) 
+			INSERT INTO tb_spBrand (spTypeId,spTypeName,brandName,brandImg,dispXh)
 				 VALUES (?,?,?,?,?)
 		]]>
 		<selectKey resultClass="int">
@@ -120,11 +119,11 @@
 	</select>
 	<select id="findAllTjSpzz" resultClass="spBrand">
 		<![CDATA[
-			select top 14 * from ( select v.* from (
+			select * from ( select v.* from (
 				select * from tb_lmspzz where dtcrea in (
 					SELECT max(dtCrea) FROM tb_lmspzz where flagTj=1 group by brandCode
 				) and flagTj=1 ) as u, TB_SPBRAND as v where v.brandId=u.brandCode 
-			) as t order by spTypeId 
+			) as t order by spTypeId limit 14
 		]]>
 	</select>
 	<select id="findSpxhByCount" resultClass="int">
@@ -134,20 +133,17 @@
 	</select>
 	<select id="findAllSpxhByPage" parameterClass="page" resultClass="spBrand">
 		<![CDATA[
-			SELECT top $limit$ * FROM tb_spBrand where brandId not in(
-			select top $start$ brandId from tb_spBrand order by brandId 
-			) 
-			order by brandId
+			SELECT * FROM tb_spBrand order by brandId limit $start$, $limit$
 		]]>
 	</select>
 	<select id="findFirstBrandByXh" resultClass="spBrand">
 		<![CDATA[
-			SELECT * FROM tb_spBrand where dispXh>0 and not (brandImg is null or brandImg='') order by dispXh
+			SELECT * FROM tb_spBrand where dispXh > 0 and not (brandImg is null or brandImg = '') order by dispXh
 		]]>
 	</select>
 	<select id="findFirstBrandByTypeXh" parameterClass="Integer" resultClass="spBrand">
 		<![CDATA[
-			SELECT * FROM tb_spBrand where dispXh>0 and spTypeId=#spTypeId# and not (brandImg is null or brandImg='') order by dispXh
+			SELECT * FROM tb_spBrand where dispXh > 0 and spTypeId = #spTypeId# and not (brandImg is null or brandImg='') order by dispXh
 		]]>
 	</select>
 

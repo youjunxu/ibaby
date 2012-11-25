@@ -26,8 +26,7 @@
 
 	<insert id="save" parameterMap="pm_logInfo_without_id">
 		<![CDATA[
-			INSERT INTO TB_LOGINFO 
-						(userId,userName,czDate,operatorDesc,cName,logIp,strContent) 
+			INSERT INTO TB_LOGINFO (userId,userName,czDate,operatorDesc,cName,logIp,strContent)
 				 VALUES (?,?,?,?,?,?,?)
 		]]>
 		<selectKey resultClass="int">
@@ -61,10 +60,7 @@
 	</select>
 	<select id="findAllLogxx" parameterClass="page" resultClass="logInfo">
 		<![CDATA[
-			SELECT * FROM TB_LOGINFO where logId not in(
-			    select logId from TB_LOGINFO order by czDate desc limit $start$
-			) 
-			order by czDate desc limit $limit$
+			SELECT * FROM TB_LOGINFO order by czDate desc limit $start$, $limit$
 		]]>
 	</select>
 

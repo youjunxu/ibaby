@@ -92,6 +92,14 @@
             <artifactId>mail</artifactId>
             <version>1.4.1</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+
         
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -164,13 +172,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.2</version>
-            <scope>runtime</scope>
-        </dependency>
-
 
         <!-- Local Respostory -->
         <dependency>
@@ -215,6 +216,12 @@
                         <scanTarget>src/main/webapp/WEB-INF</scanTarget>
                         <scanTarget>src/main/webapp/WEB-INF/web.xml</scanTarget>
                         <scanTarget>src/main/resources/struts.xml</scanTarget>
+                        <scanTarget>src/main/resources/applicationContext-actions.xml</scanTarget>
+                        <scanTarget>src/main/resources/applicationContext-common.xml</scanTarget>
+                        <scanTarget>src/main/resources/applicationContext-daos.xml</scanTarget>
+                        <scanTarget>src/main/resources/applicationContext-services.xml</scanTarget>
+                        <scanTarget>src/main/resources/SqlMapConfi.xml</scanTarget>
+                        <scanTarget>src/main/resources/com/lhq/prj/bms/po/xml/*.xml</scanTarget>
                     </scanTargets>
                 </configuration>
             </plugin>

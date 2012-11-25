@@ -22,6 +22,7 @@
 	</bean>
 	<bean name="lmBaxyAction" class="com.lhq.prj.bms.action.LmBaxyAction" scope="prototype">
 		<property name="lmBaxyService" ref="lmBaxyService" />
+        <property name="tagService" ref="tagService" />
 	</bean>
 	<bean name="logInfoAction" class="com.lhq.prj.bms.action.LogInfoAction" scope="prototype">
 		<property name="logInfoService" ref="logInfoService" />
@@ -70,5 +71,15 @@
 	</bean>
 	<bean name="yqljAction" class="com.lhq.prj.bms.action.YqljAction" scope="prototype">
 		<property name="yqljService" ref="yqljService" />
+	</bean>
+
+
+    <bean name="tagAction" class="com.ibaby.www.action.TagAction" scope="prototype">
+		<property name="tagService" ref="tagService" />
+	</bean>
+
+    <bean name="articleAction" class="com.ibaby.www.action.ArticleAction" scope="singleton">
+		<property name="articleService" ref="articleService" />
+        <property name="tagService" ref="tagService" />
 	</bean>
 </beans>

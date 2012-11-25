@@ -1,0 +1,43 @@
+.pager {
+
+}
+
+.pager .page_num{
+    width: 13px;
+}
+
+.pager a {
+    display: inline-block;
+    padding: 3px 3px;
+    border: 1px solid #337FE5;
+}
+
+.pager span {
+    margin-right: 1px;
+}
+
+
+.pager span.total {
+    margin-right: 8px;
+}
+
+.pager span.first {
+    margin-right: 8px;
+}
+
+.pager span.prev {
+    margin-right: 8px;
+}
+
+.pager span.next {
+    margin-left: 8px;
+}
+
+.pager span.last {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.pager .current{
+    margin: 0 3px;
+}

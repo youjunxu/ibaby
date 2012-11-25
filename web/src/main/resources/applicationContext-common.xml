@@ -56,6 +56,9 @@
 			<tx:method name="del*" propagation="REQUIRED" />
 			<tx:method name="update*" propagation="REQUIRED" />
             <tx:method name="addUserLog*" propagation="REQUIRED" />
+            <tx:method name="addJfxx*" propagation="REQUIRED" />
+            <tx:method name="addUserJfxx*" propagation="REQUIRED" />
+            <tx:method name="*Log*" propagation="REQUIRED" />
 			<tx:method name="*" read-only="true" />
 		</tx:attributes>
 	</tx:advice>

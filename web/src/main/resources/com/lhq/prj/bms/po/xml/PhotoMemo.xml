@@ -29,8 +29,7 @@
 
 	<insert id="save" parameterMap="pm_photoMemo_without_id">
 		<![CDATA[
-			INSERT INTO TB_PHOTOMEMO 
-						(xcId,xcTitle,userId,userName,strTitle,wjName,dtCrea,phStatus,sfFm,photoWidth,photoHeight)
+			INSERT INTO TB_PHOTOMEMO (xcId,xcTitle,userId,userName,strTitle,wjName,dtCrea,phStatus,sfFm,photoWidth,photoHeight)
 				 VALUES (?,?,?,?,?,?,?,?,?,?,?)
 		]]>
 		<selectKey resultClass="int">
@@ -141,10 +140,8 @@
 	</select>
 	<select id="findPhotoByWaitSh" parameterClass="page" resultClass="photoMemo">
 		<![CDATA[
-			SELECT top $limit$ * FROM TB_PHOTOMEMO where phStatus=0 and photoId not in(
-			select top $start$ photoId from TB_PHOTOMEMO where phStatus=0 order by userId,dtCrea 
-			)
-			order by userId,dtCrea
+			SELECT * FROM TB_PHOTOMEMO where phStatus=0
+			order by userId,dtCrea limit $start$, $limit$
 		]]>
 	</select>
 	<select id="findPhotoMemoByPId" parameterClass="integer" resultClass="photoMemo">
@@ -164,13 +161,13 @@
 	</select>
 	<select id="findXcfmByXcId" parameterClass="integer" resultClass="photoMemo">
 		<![CDATA[
-			SELECT top 1 * FROM TB_PHOTOMEMO where xcId=#xcId# and sfFm=1 order by dtCrea desc
+			SELECT * FROM TB_PHOTOMEMO where xcId=#xcId# and sfFm=1 order by dtCrea desc limit 1
 		]]>
 	</select>
 	<select id="findXcfmPassByXcId" parameterClass="integer" resultClass="photoMemo">
 		<![CDATA[
-			SELECT top 1 * FROM TB_PHOTOMEMO where phStatus=1 and xcId=#xcId# and sfFm=1 
-			 order by dtCrea desc
+			SELECT * FROM TB_PHOTOMEMO where phStatus=1 and xcId=#xcId# and sfFm=1
+			 order by dtCrea desc limit 1
 		]]>
 	</select>
 	

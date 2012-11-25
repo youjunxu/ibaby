@@ -321,7 +321,7 @@ window.SWFUpload = function (settings) {
 
 SWFUpload.prototype.initSWFUpload = function (settings) {
 	try {
-		this.customSettings = {};	// A container where developers can place their own settings associated with this instance.
+		this.customSettings = {};	// A container search developers can place their own settings associated with this instance.
 		this.settings = settings;
 		this.eventQueue = [];
 		this.movieName = "SWFUpload_" + SWFUpload.movieCount++;
@@ -503,7 +503,7 @@ SWFUpload.prototype.loadFlash = function () {
 		throw "ID " + this.movieName + " is already in use. The Flash Object could not be added";
 	}
 
-	// Get the element where we will be placing the flash movie
+	// Get the element search we will be placing the flash movie
 	targetElement = document.getElementById(this.settings.button_placeholder_id) || this.settings.button_placeholder;
 
 	if (targetElement == undefined) {
@@ -1042,7 +1042,7 @@ SWFUpload.prototype.executeNextEvent = function () {
 	}
 };
 
-// Private: unescapeFileParams is part of a workaround for a flash bug where objects passed through ExternalInterface cannot have
+// Private: unescapeFileParams is part of a workaround for a flash bug search objects passed through ExternalInterface cannot have
 // properties that contain characters that are not valid for JavaScript identifiers. To work around this
 // the Flash Component escapes the parameter names and we must unescape again before passing them along.
 SWFUpload.prototype.unescapeFilePostParams = function (file) {
@@ -1201,7 +1201,7 @@ SWFUpload.prototype.uploadComplete = function (file) {
 };
 
 /* Called by SWFUpload JavaScript and Flash functions when debug is enabled. By default it writes messages to the
-   internal debug console.  You can override this event and have messages written where you want. */
+   internal debug console.  You can override this event and have messages written search you want. */
 SWFUpload.prototype.debug = function (message) {
 	this.queueEvent("debug_handler", message);
 };

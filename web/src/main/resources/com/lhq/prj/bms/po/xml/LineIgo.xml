@@ -167,19 +167,13 @@
 	</delete>
 	<select id="findAllIGO" parameterClass="page" resultClass="lineIgo">
 		<![CDATA[
-			SELECT * FROM tb_lineIgo where igoId not in(
-			    SELECT igoId FROM tb_lineIgo order by dtUpdate desc /* limit $start$ */
-			) order by dtUpdate desc limit $limit$
+			SELECT * FROM tb_lineIgo order by dtUpdate desc limit $start$, $limit$
 		]]>
 	</select>
 	<select id="findAllIGOA" parameterClass="page" resultClass="lineIgo">
 		<![CDATA[
-		    SELECT a.* from (
-			    SELECT * FROM tb_lineIgo
-			        where igoId not in (SELECT igoId FROM tb_lineIgo order by dtUpdate desc /* limit $start$ */ )
-			        limit $limit$
-			    ) as a left join TB_SPTYPE as b on a.igoTypeId = b.spTypeId
-			order by dtUpdate desc
+		    select a.* from tb_lineIgo as a left join tb_sptype as b on a.igoTypeId = b.spTypeId
+		    order by a.dtUpdate desc limit $start$, $limit$
 		]]>
 	</select>
 	<select id="findByCount" resultClass="int">

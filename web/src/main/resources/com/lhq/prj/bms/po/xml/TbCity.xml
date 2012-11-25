@@ -21,8 +21,7 @@
 
 	<insert id="save" parameterMap="pm_tbCity_without_id">
 		<![CDATA[
-			INSERT INTO TB_CITY (ssName,cityName)
-				 VALUES (?,?)
+			INSERT INTO TB_CITY (ssName,cityName) VALUES (?,?)
 		]]>
 	</insert>
 
@@ -61,16 +60,12 @@
 
 	<select id="findAllSs" resultClass="string">
 		<![CDATA[
-			SELECT distinct ssName FROM TB_CITY 
-			order by ssName
+			SELECT distinct ssName FROM TB_CITY order by ssName
 		]]>
 	</select>
 	<select id="findAllCity" parameterClass="page" resultClass="tbCity">
 		<![CDATA[
-			SELECT * FROM TB_CITY
-			    where cityId not in (
-			        select cityId from TB_CITY order by ssName,cityName /* limit $start$ */
-			    ) order by ssName,cityName limit $limit$
+			SELECT * FROM TB_CITY order by ssName, cityName limit $start$, $limit$
 		]]>
 	</select>
 	<select id="findCityById" parameterClass="integer" resultClass="tbCity">

@@ -84,4 +84,7 @@
     <bean id="tagDao" class="com.ibaby.www.dao.impl.TagDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
+    <bean id="articleDao" class="com.ibaby.www.dao.impl.ArticleDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
 </beans>

@@ -1,0 +1,93 @@
+
+ul.tag_list{
+    margin-left: 15px;
+    height: 21px;
+}
+ul.tag_list > li.tag{
+    font-size: 12px;
+    display: inline-block;
+    padding: 0;
+    height: 20px;
+    margin: 5px 0 0 0;
+}
+
+
+li.tag > .tag_item{
+    border: 1px outset #969696;
+    width: 50px;
+    line-height: 20px;
+    vertical-align: middle;
+    text-align: center;
+    height: 20px;
+}
+
+li.tag > div{
+    float: left;
+    padding: 0;
+}
+li.tag > .tag_icon_left{
+    background: url("../../images/lab_left.jpg") repeat scroll 0 0 transparent;
+    width: 14px;
+    height: 19px;
+}
+li.tag > .tag_icon{
+    background: url("../../images/lab_middle.jpg") repeat scroll 0 0 transparent;
+    height: 19px;
+    padding: 0px 2px;
+    line-height: 19px;
+    vertical-align: bottom;
+}
+li.tag > .tag_icon_right{
+    background: url("../../images/lab_middle.jpg") repeat scroll 0 0 transparent;
+    width: 3px;
+    height: 19px;
+    border-radius: 3px;
+}
+
+
+#tag_input{
+    width:236px;
+    height:20px;
+}
+
+#tag_catalog{
+    width:236px;
+    height:20px;
+}
+
+
+.edit_tag, .delete_tag, .add_tag{
+    border: 1px outset #696969;
+    border-radius: 3px;
+    display: inline-block;
+    padding: 2px 5px;
+    font-size: 11px;
+}
+
+.tag_form_dialog{
+    text-align: left;
+}
+
+.tag_form_dialog div{
+    border-bottom:#c9c7c8 dotted 1px;
+    margin-top: 10px;
+    padding-bottom: 3px;
+}
+
+.tag_form_dialog .actions{
+    text-align: center;
+}
+
+.tag_form_dialog .star{
+    padding: 2px 5px;
+    color: #ff3300;
+}
+
+.chzn-container-multi .chzn-choices .search-field input{
+    height:10px;
+    font-size: 12px;
+}
+
+.chzn-container .chzn-results {
+  max-height: 100px;
+}

@@ -57,7 +57,7 @@
 
 	<select id="findBaDocSh" resultClass="baDocSh">
 		<![CDATA[
-			SELECT top 1 * FROM tb_baDocSh 
+			SELECT * FROM tb_baDocSh limit 1
 		]]>
 	</select>
 	
