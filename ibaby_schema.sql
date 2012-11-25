@@ -42,40 +42,46 @@ CREATE TABLE `tb_tags` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` text,
-  `kind` varchar(255) DEFAULT 'default',
+  `catalog_id` int(8) unsigned DEFAULT 0,
   `parent_id` int(11) DEFAULT '0',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_tags_on_name_and_kind` (`name`,`kind`)
+  UNIQUE KEY `index_tags_on_name_and_catalog` (`name`,`catalog_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `tb_batype`;
+CREATE TABLE `tb_batype` (
+  `lmid` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `lmname` varchar(100) NOT NULL,
+  PRIMARY KEY (`lmid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
 
-
-
-DROP TABLE IF EXISTS `TB_ACLINFO`;
-CREATE TABLE `TB_ACLINFO` (
-  `ACLID` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `USERID` int(11) NOT NULL,
-  `USERNAME` varchar(50) NOT NULL,
-  `ACLLEVEL` int(11) NOT NULL,
-  `ACLDES` varchar(200) NOT NULL,
-  `DTAVIL` datetime DEFAULT NULL,
-  `DTSXRQ` datetime DEFAULT NULL,
-  `MKCODE` varchar(50) DEFAULT NULL,
-  `MKNAME` varchar(100) DEFAULT NULL,
+DROP TABLE IF EXISTS `tb_aclinfo`;
+CREATE TABLE `tb_aclinfo` (
+  `aclid` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `userid` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `acllevel` int(11) NOT NULL,
+  `acldes` varchar(200) NOT NULL,
+  `dtavil` datetime DEFAULT NULL,
+  `dtsxrq` datetime DEFAULT NULL,
+  `mkcode` varchar(50) DEFAULT NULL,
+  `mkname` varchar(100) DEFAULT NULL,
   `STRCONTENT` text,
-  PRIMARY KEY (`ACLID`)
+  PRIMARY KEY (`aclid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `TB_ACLLEVEL`;
-CREATE TABLE `TB_ACLLEVEL` (
-  `ACLLEVEL` int(11) NOT NULL,
-  `ACLDES` varchar(200) NOT NULL,
-  PRIMARY KEY (`ACLLEVEL`)
+DROP TABLE IF EXISTS `tb_acllevel`;
+CREATE TABLE `tb_acllevel` (
+  `acllevel` int(11) NOT NULL,
+  `acldes` varchar(200) NOT NULL,
+  PRIMARY KEY (`acllevel`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -124,16 +130,6 @@ CREATE TABLE `TB_BADOCSH` (
   `USERID` int(11) NOT NULL,
   `USERNAME` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
-DROP TABLE IF EXISTS `TB_BATYPE`;
-CREATE TABLE `TB_BATYPE` (
-  `LMID` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `LMNAME` varchar(100) NOT NULL,
-  PRIMARY KEY (`LMID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 
 DROP TABLE IF EXISTS `TB_CITY`;
