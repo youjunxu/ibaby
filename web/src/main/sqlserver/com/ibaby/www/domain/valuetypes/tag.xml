@@ -18,13 +18,15 @@
 
     <select id="getCatalogById" parameterClass="int" resultClass="catalog">
         <![CDATA[
-            select * from tb_batype where lmid = #value#
+            SELECT * FROM tb_batype WHERE lmid = #value#
         ]]>
     </select>
 
     <select id="findCatalogs" parameterClass="qp" resultClass="catalog">
         <![CDATA[
-            select * from tb_batype $conditions$ order by lmid desc limit $start$, $limit$
+            SELECT top $limit$ * FROM tb_batype $conditions$ AND
+                lmid NOT IN (SELECT top $start$ lmid FROM tb_batype $conditions$ ORDER BY lmid DESC)
+                ORDER BY lmid DESC
         ]]>
     </select>
 
@@ -32,8 +34,8 @@
     <!-- About Tags -->
 	<insert id="save" parameterClass="java.util.Map">
 		<![CDATA[
-			insert into tb_tags (name, description, catalog_id, parent_id, created_at, updated_at)
-            values ('$name$', '$description$', $catalog_id$, 0, now(), now())
+			INSERT INTO tb_tags (name, description, catalog_id, parent_id, created_at, updated_at)
+            VALUES ('$name$', '$description$', $catalog_id$, 0, getDate(), getDate())
 		]]>
 		<selectKey resultClass="int">
 			<![CDATA[
@@ -44,13 +46,13 @@
 
 	<delete id="delete" parameterClass="Integer">
 		<![CDATA[
-			delete from tb_tags where id=#id#
+			DELETE FROM tb_tags WHERE id=#id#
 		]]>
 	</delete>
 
 	<update id="update" parameterClass="java.util.Map">
 		<![CDATA[
-			update tb_tags
+			UPDATE tb_tags
 		]]>
 		<dynamic prepend="set">
 			<isNotNull property="name" prepend=",">
@@ -79,34 +81,36 @@
 
     <select id="find" parameterClass="Integer" resultMap="resultTag">
 		<![CDATA[
-			select * from tb_tags where id=#id#
+			SELECT * FROM tb_tags WHERE id = #id#
 		]]>
 	</select>
 
 
     <select id="count" resultClass="int">
 		<![CDATA[
-			select count(*) from tb_tags;
+			SELECT count(*) FROM tb_tags;
 		]]>
 	</select>
 
 
     <select id="where" parameterClass="qp" resultMap="resultTag">
 		<![CDATA[
-		  select * from tb_tags $conditions$ order by catalog_id desc limit $start$, $limit$
+            SELECT top $limit$ * FROM tb_tags $conditions$ AND
+            id NOT IN (SELECT top $start$ id FROM tb_tags $conditions$ ORDER BY catalog_id DESC)
+            ORDER BY catalog_id DESC
 		]]>
 	</select>
 
 	<select id="all" resultMap="resultTag">
 		<![CDATA[
-		  select * from tb_tags order by id desc
+		  SELECT * FROM tb_tags ORDER BY id DESC
 		]]>
 	</select>
 
     <insert id="tagging" parameterClass="java.util.Map">
         <![CDATA[
-			insert into tb_taggings (tag_id, taggable_id, taggable_type, created_at, updated_at)
-            values ($tag_id$, $taggable_id$, '$taggable_type$', now(), now())
+			INSERT INTO tb_taggings (tag_id, taggable_id, taggable_type, created_at, updated_at)
+            VALUES ($tag_id$, $taggable_id$, '$taggable_type$', getDate(), getDate())
 		]]>
 		<selectKey resultClass="int">
 			<![CDATA[

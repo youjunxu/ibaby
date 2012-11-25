@@ -31,21 +31,30 @@
 
     <select id="count_with_tag" parameterClass="java.util.Map" resultClass="int">
         <![CDATA[
-            SELECT count(*) from $table_name$ INNER JOIN tb_taggings ON $table_name$.baid = tb_taggings.taggable_id
-            WHERE tb_taggings.tag_id = $tag_id$ and tb_taggings.taggable_type = '$taggable_type$'
+            SELECT count(*) FROM $table_name$ INNER JOIN tb_taggings ON $table_name$.baid = tb_taggings.taggable_id
+            WHERE tb_taggings.tag_id = $tag_id$ AND tb_taggings.taggable_type = '$taggable_type$'
         ]]>
     </select>
 
     <select id="where_with_tag" parameterClass="java.util.Map" resultMap="resultArticle">
         <![CDATA[
-            SELECT $table_name$.* from $table_name$ INNER JOIN tb_taggings ON $table_name$.baid = tb_taggings.taggable_id
-            WHERE tb_taggings.tag_id = $tag_id$ and tb_taggings.taggable_type = '$taggable_type$' LIMIT $start$, $limit$
+            SELECT top $limit$ $table_name$.* FROM $table_name$
+            INNER JOIN tb_taggings ON $table_name$.baid = tb_taggings.taggable_id
+            WHERE tb_taggings.tag_id = $tag_id$ AND tb_taggings.taggable_type = '$taggable_type$'
+            AND $table_name$.baid not in (
+                SELECT top $start$ $table_name$.baid FROM $table_name$
+                INNER JOIN tb_taggings ON $table_name$.baid = tb_taggings.taggable_id
+                WHERE tb_taggings.tag_id = $tag_id$ AND tb_taggings.taggable_type = '$taggable_type$'
+                ORDER BY dtcrea DESC
+            ) ORDER BY dtcrea DESC
         ]]>
     </select>
 
     <select id="where" parameterClass="qp" resultMap="resultArticle">
         <![CDATA[
-            SELECT * FROM tb_lmbaxy $conditions$ LIMIT $start$, $limit$
+            SELECT top $limit$ * FROM tb_lmbaxy $conditions$ AND
+            baid NOT IN (SELECT top $start$ baid FROM tb_lmbaxy $conditions$ ORDER BY dtcrea DESC)
+            ORDER BY dtcrea DESC
         ]]>
     </select>
 
