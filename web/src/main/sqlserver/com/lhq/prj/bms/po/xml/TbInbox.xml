@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TbInbox">
+
+	<typeAlias alias="tbInbox" type="com.lhq.prj.bms.po.TbInbox" />
+
+	<parameterMap class="tbInbox" id="pm_tbInbox_without_id">
+		<parameter property="sendUserId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="sendUserName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="recUserId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="recUserName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="dtSend" javaType="string" jdbcType="DATETIME" />
+		<parameter property="xxTitle" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="xxBody" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="ydBj" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="xsOut" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="xsIn" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="hfXxId" javaType="integer" jdbcType="NUMBER" />
+	</parameterMap>
+	<sql id="bytbInBoxIdCondition">
+		<![CDATA[
+		   xxId = #xxId:NUMBER#
+	    ]]>
+	</sql>
+
+	<insert id="save" parameterMap="pm_tbInbox_without_id">
+		<![CDATA[
+			INSERT INTO tb_inbox 
+						(sendUserId,sendUserName,recUserId,recUserName,dtSend,xxTitle,xxBody,ydBj,xsOut,xsIn,hfXxId) 
+				 VALUES (?,?,?,?,?,?,?,?,?,?,?)
+		]]>
+		<selectKey resultClass="int">
+			<![CDATA[
+				SELECT @@IDENTITY AS ID
+			]]>
+		</selectKey>
+	</insert>
+	<update id="updateInBoxSeek" parameterClass="Integer">
+		<![CDATA[
+			UPDATE tb_inbox set ydBj=1 where xxId=#xxId#
+		]]>
+	</update>
+	<delete id="deleteById" parameterClass="Integer" >
+		<![CDATA[
+			delete tb_inbox where xxId=#xxId#
+		]]>
+	</delete>
+	<update id="deleteByInBox" parameterClass="Integer" >
+		<![CDATA[
+			update tb_inbox set xsIn=0 where xxId=#xxId#
+		]]>
+	</update>
+	<update id="deleteByOutBox" parameterClass="Integer" >
+		<![CDATA[
+			update tb_inbox set xsOut=0 where xxId=#xxId#
+		]]>
+	</update>
+	<select id="findInboxById" parameterClass="Integer" resultClass="tbInbox">
+		<![CDATA[
+			SELECT * FROM tb_inbox where xxId=#xxId# 
+		]]>
+	</select>
+	<select id="findNewInboxCountByUser" parameterClass="Integer" resultClass="Integer">
+		<![CDATA[
+			SELECT count(*) FROM tb_inbox where recUserId=#recUserId# and xsIn=1 and ydBj=0
+		]]>
+	</select>
+	<select id="findInboxByUser" parameterClass="Integer" resultClass="tbInbox">
+		<![CDATA[
+			SELECT * FROM tb_inbox where recUserId=#recUserId# and xsIn=1 order by dtSend desc
+		]]>
+	</select>
+	<select id="findOutboxByUser" parameterClass="Integer" resultClass="tbInbox">
+		<![CDATA[
+			SELECT * FROM tb_inbox where sendUserId=#sendUserId# and xsOut=1 order by dtSend desc
+		]]>
+	</select>
+	
+</sqlMap>

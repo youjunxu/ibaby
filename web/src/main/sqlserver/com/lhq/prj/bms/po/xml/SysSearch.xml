@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="SysSearch">
+
+	<typeAlias alias="sysSearch" type="com.lhq.prj.bms.po.SysSearch" />
+
+	<parameterMap class="sysSearch" id="pm_sysSearch_without_id">
+		<parameter property="strBaCond" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="strLyCond" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="docId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="strDocType" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="strTitle" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="dtCrea" javaType="string" jdbcType="DATETIME" />
+		<parameter property="userId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="nickName" javaType="string" jdbcType="VARCHAR" />
+	</parameterMap>
+
+	
+	<select id="findDocInfoByCond" parameterClass="sysSearch" resultClass="sysSearch">
+		<![CDATA[
+			SELECT * FROM (
+			SELECT a.baId as docId,'BA' as strDocType,a.strTitle,a.dtCrea,a.userId,b.nickName,a.shrq  
+			FROM TB_LMBAXY as a left join TB_USERINFO as b on a.userId=b.userId 
+			where (a.strTitle like '%$strBaCond$%' or a.strContent like '%$strBaCond$%' 
+			or a.strMemo like '%$strBaCond$%') and a.shbj=1   
+			 union all 
+			SELECT a.actId as docId,'LY' as strDocType,a.actName as strTitle,a.dtCrea,a.userId,b.nickName,a.dtCrea as shrq  
+			FROM TB_ACTXX as a left join TB_USERINFO as b on a.userId=b.userId 
+			where a.actName like '%$strBaCond$%' or a.actContent like '%$strBaCond$%' 
+			or a.jpjs like '%$strBaCond$%' 
+			) as t 
+			order by shrq desc
+		]]>
+	</select>
+	<select id="findDocInfoByCondA" parameterClass="sysSearch" resultClass="sysSearch">
+		<![CDATA[
+			SELECT * FROM (
+			SELECT a.baId as docId,'BA' as strDocType,a.strTitle,a.dtCrea,a.userId,b.nickName,a.shrq  
+			FROM TB_LMBAXY as a left join TB_USERINFO as b on a.userId=b.userId 
+			where a.shbj=1 and ($strBaCond$)  
+			 union all 
+			SELECT a.actId as docId,'LY' as strDocType,a.actName as strTitle,a.dtCrea,a.userId,b.nickName,a.dtCrea as shrq  
+			FROM TB_ACTXX as a left join TB_USERINFO as b on a.userId=b.userId 
+			where ($strLyCond$) 
+			) as t 
+			order by shrq desc
+		]]>
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ActXx">
+
+	<typeAlias alias="actXx" type="com.lhq.prj.bms.po.ActXx" />
+
+	<parameterMap class="actXx" id="pm_actXx_without_id">
+		<parameter property="actName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="dtCrea" javaType="string" jdbcType="DATETIME" />
+		<parameter property="actContent" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="dtStart" javaType="string" jdbcType="DATETIME" />
+		<parameter property="dtEnd" javaType="string" jdbcType="DATETIME" />
+		<parameter property="actImg" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="actStatus" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="userId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="userName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="jpJs" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="photoWidth" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="photoHeight" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="hdJs" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="actLink" javaType="string" jdbcType="VARCHAR" />
+	</parameterMap>
+	<sql id="byActXxIdCondition">
+		<![CDATA[
+		   actId = #actId:NUMBER#
+	    ]]>
+	</sql>
+
+	<insert id="save" parameterMap="pm_actXx_without_id">
+		<![CDATA[
+			INSERT INTO tb_actxx 
+						(actName,dtCrea,actContent,dtStart,dtEnd,actImg,actStatus,userId,userName,jpJs,photoWidth,photoHeight,hdJs,actLink) 
+				 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		]]>
+		<selectKey resultClass="int">
+			<![CDATA[
+				SELECT @@IDENTITY AS ID
+			]]>
+		</selectKey>
+	</insert>
+	<update id="updateActXx" parameterClass="ActXx">
+		<![CDATA[
+			UPDATE tb_ActXx
+		]]>
+		<dynamic prepend="SET">
+			<isNotNull property="actName" prepend=",">
+				<![CDATA[
+					actName = #actName:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="actLink" prepend=",">
+				<![CDATA[
+					actLink = #actLink:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="actContent" prepend=",">
+				<![CDATA[
+					actContent = #actContent:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="dtStart" prepend=",">
+				<![CDATA[
+					dtStart = #dtStart:DATETIME#
+				]]>
+			</isNotNull>
+			<isNotNull property="dtEnd" prepend=",">
+				<![CDATA[
+					dtEnd = #dtEnd:DATETIME#
+				]]>
+			</isNotNull>
+			<isNotNull property="actImg" prepend=",">
+				<![CDATA[
+					actImg = #actImg:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="actStatus" prepend=",">
+				<![CDATA[
+					actStatus = #actStatus:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="jpJs" prepend=",">
+				<![CDATA[
+					jpJs = #jpJs:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="photoWidth" prepend=",">
+				<![CDATA[
+					photoWidth = #photoWidth:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="photoHeight" prepend=",">
+				<![CDATA[
+					photoHeight = #photoHeight:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="hdJs" prepend=",">
+				<![CDATA[
+					hdJs = #hdJs:VARCHAR#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="WHERE">
+			<![CDATA[
+				actId = #actId:NUMBER#
+			]]>
+		</dynamic>
+	</update>
+
+	<delete id="deleteById" parameterClass="Integer" >
+		<![CDATA[
+			delete tb_actxx where actId=#actId#
+		]]>
+	</delete>
+	<select id="findByCount" resultClass="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM TB_ACTXX
+		]]>
+	</select>
+	<select id="findAllActXx" parameterClass="page" resultClass="actxx">
+		<![CDATA[
+			SELECT top $limit$ * FROM TB_ACTXX where actId not in(
+			select top $start$ actId from TB_ACTXX order by dtCrea desc
+			) 
+			order by dtCrea desc
+		]]>
+	</select>
+	
+	<select id="findJxzActXxCount" resultClass="int">
+		<![CDATA[
+			SELECT count(*) FROM TB_ACTXX 
+ where (year(getDate())>year(dtStart) or (year(getDate())=year(dtStart) and month(getDate())>month(dtStart)) 
+ or (year(getDate())=year(dtStart) and month(getDate())=month(dtStart) and day(getDate())>=day(dtStart)))
+ and 
+(year(getDate())<year(dtEnd) or (year(getDate())=year(dtEnd) and month(getDate())<month(dtEnd)) 
+ or (year(getDate())=year(dtEnd) and month(getDate())=month(dtEnd) and day(getDate())<=day(dtEnd))) 
+			and actStatus=1
+		]]>
+	</select>
+	<select id="findAllActXxA" parameterClass="page" resultClass="actxx">
+		<![CDATA[
+			SELECT top $limit$ * FROM TB_ACTXX 
+where (year(getDate())>year(dtStart) or (year(getDate())=year(dtStart) and month(getDate())>month(dtStart)) 
+ or (year(getDate())=year(dtStart) and month(getDate())=month(dtStart) and day(getDate())>=day(dtStart)))
+ and 
+(year(getDate())<year(dtEnd) or (year(getDate())=year(dtEnd) and month(getDate())<month(dtEnd)) 
+ or (year(getDate())=year(dtEnd) and month(getDate())=month(dtEnd) and day(getDate())<=day(dtEnd)))
+			and actStatus=1 
+			and actId not in(
+			select top $start$ actId from TB_ACTXX 
+where (year(getDate())>year(dtStart) or (year(getDate())=year(dtStart) and month(getDate())>month(dtStart)) 
+ or (year(getDate())=year(dtStart) and month(getDate())=month(dtStart) and day(getDate())>=day(dtStart)))
+ and 
+(year(getDate())<year(dtEnd) or (year(getDate())=year(dtEnd) and month(getDate())<month(dtEnd)) 
+ or (year(getDate())=year(dtEnd) and month(getDate())=month(dtEnd) and day(getDate())<=day(dtEnd)))
+			and actStatus=1 
+			order by dtCrea desc
+			) 
+			order by dtCrea desc
+		]]>
+	</select>
+	<select id="findEndActXxCount" resultClass="int">
+		<![CDATA[
+			SELECT count(*) FROM TB_ACTXX 
+where not ((year(getDate())>year(dtStart) or (year(getDate())=year(dtStart) and month(getDate())>month(dtStart)) 
+ or (year(getDate())=year(dtStart) and month(getDate())=month(dtStart) and day(getDate())>=day(dtStart)))
+ and 
+(year(getDate())<year(dtEnd) or (year(getDate())=year(dtEnd) and month(getDate())<month(dtEnd)) 
+ or (year(getDate())=year(dtEnd) and month(getDate())=month(dtEnd) and day(getDate())<=day(dtEnd)))) 
+			 and actStatus=1 
+		]]>
+	</select>
+	<select id="findAllActXxB" parameterClass="page" resultClass="actxx">
+		<![CDATA[
+			SELECT top $limit$ * FROM TB_ACTXX 
+where not ((year(getDate())>year(dtStart) or (year(getDate())=year(dtStart) and month(getDate())>month(dtStart)) 
+ or (year(getDate())=year(dtStart) and month(getDate())=month(dtStart) and day(getDate())>=day(dtStart)))
+ and 
+(year(getDate())<year(dtEnd) or (year(getDate())=year(dtEnd) and month(getDate())<month(dtEnd)) 
+ or (year(getDate())=year(dtEnd) and month(getDate())=month(dtEnd) and day(getDate())<=day(dtEnd)))) 
+			and actStatus=1 
+			and actId not in(
+			select top $start$ actId from TB_ACTXX 
+where not ((year(getDate())>year(dtStart) or (year(getDate())=year(dtStart) and month(getDate())>month(dtStart)) 
+ or (year(getDate())=year(dtStart) and month(getDate())=month(dtStart) and day(getDate())>=day(dtStart)))
+ and 
+(year(getDate())<year(dtEnd) or (year(getDate())=year(dtEnd) and month(getDate())<month(dtEnd)) 
+ or (year(getDate())=year(dtEnd) and month(getDate())=month(dtEnd) and day(getDate())<=day(dtEnd)))) 
+			and actStatus=1 
+			order by dtCrea desc
+			) 
+			order by dtCrea desc
+		]]>
+	</select>
+	<select id="findActXxById" parameterClass="Integer" resultClass="actxx">
+		<![CDATA[
+			SELECT * FROM TB_ACTXX where actId=#actId#
+		]]>
+	</select>
+	
+</sqlMap>

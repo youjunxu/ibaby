@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Yqlj">
+
+	<typeAlias alias="yqlj" type="com.lhq.prj.bms.po.Yqlj" />
+	<typeAlias alias="page" type="com.lhq.prj.bms.core.Page" />
+
+	<parameterMap class="yqlj" id="pm_yqlj_without_id">
+		<parameter property="ljName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="ljAddr" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="dtCrea" javaType="string" jdbcType="DATETIME" />
+		<parameter property="userId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="nickName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="linkImg" javaType="string" jdbcType="VARCHAR" />
+	</parameterMap>
+	<sql id="byYqljIdCondition">
+		<![CDATA[
+		   ljId = #ljId:NUMBER#
+	    ]]>
+	</sql>
+	
+	<insert id="save" parameterMap="pm_yqlj_without_id">
+		<![CDATA[
+			INSERT INTO tb_yqlj 
+						(ljName,ljAddr,dtCrea,userId,nickName,linkImg) 
+				 VALUES (?,?,?,?,?,?)
+		]]>
+		<selectKey resultClass="int">
+			<![CDATA[
+				SELECT @@IDENTITY AS ID
+			]]>
+		</selectKey>
+	</insert>
+	<update id="updateYqlj" parameterClass="Yqlj">
+		<![CDATA[
+			UPDATE tb_yqlj
+		]]>
+		<dynamic prepend="SET">
+			<isNotNull property="ljName" prepend=",">
+				<![CDATA[
+					ljName = #ljName:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="ljAddr" prepend=",">
+				<![CDATA[
+					ljAddr = #ljAddr:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="dtCrea" prepend=",">
+				<![CDATA[
+					dtCrea = #dtCrea:DATETIME#
+				]]>
+			</isNotNull>
+			<isNotNull property="userId" prepend=",">
+				<![CDATA[
+					userId = #userId:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="nickName" prepend=",">
+				<![CDATA[
+					nickName = #nickName:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="linkImg" prepend=",">
+				<![CDATA[
+					linkImg = #linkImg:VARCHAR#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="WHERE">
+			<![CDATA[
+				ljId = #ljId:NUMBER#
+			]]>
+		</dynamic>
+	</update>
+
+	<delete id="deleteById" parameterClass="Integer" >
+		<![CDATA[
+			delete tb_yqlj where ljId=#ljId#
+		]]>
+	</delete>
+	<select id="findAllYqlj" resultClass="Yqlj">
+		<![CDATA[
+			SELECT * FROM TB_YQLJ order by dtCrea desc
+		]]>
+	</select>
+	<select id="findYqljById" parameterClass="Integer" resultClass="Yqlj">
+		<![CDATA[
+			SELECT * FROM TB_YQLJ where ljId=#ljId#
+		]]>
+	</select>
+</sqlMap>

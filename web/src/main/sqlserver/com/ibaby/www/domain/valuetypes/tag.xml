@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Tag">
+
+	<typeAlias alias="tag" type="com.ibaby.www.domain.valuetypes.Tag" />
+    <typeAlias alias="qp" type="com.ibaby.www.dao.QueryParams" />
+    <typeAlias alias="catalog" type="com.lhq.prj.bms.po.BaType" />
+
+    <resultMap id="resultTag" class="com.ibaby.www.domain.valuetypes.Tag">
+        <result property="parentId" column="parent_id"/>
+        <result property="name" column="name"/>
+        <result property="catalog" column="catalog_id" select="Tag.getCatalogById"/>
+        <result property="description" column="description"/>
+        <result property="id" column="id"/>
+    </resultMap>
+
+    <select id="getCatalogById" parameterClass="int" resultClass="catalog">
+        <![CDATA[
+            select * from tb_batype where lmid = #value#
+        ]]>
+    </select>
+
+    <select id="findCatalogs" parameterClass="qp" resultClass="catalog">
+        <![CDATA[
+            select * from tb_batype $conditions$ order by lmid desc limit $start$, $limit$
+        ]]>
+    </select>
+
+
+    <!-- About Tags -->
+	<insert id="save" parameterClass="java.util.Map">
+		<![CDATA[
+			insert into tb_tags (name, description, catalog_id, parent_id, created_at, updated_at)
+            values ('$name$', '$description$', $catalog_id$, 0, now(), now())
+		]]>
+		<selectKey resultClass="int">
+			<![CDATA[
+				SELECT @@IDENTITY AS ID
+			]]>
+		</selectKey>
+	</insert>
+
+	<delete id="delete" parameterClass="Integer">
+		<![CDATA[
+			delete from tb_tags where id=#id#
+		]]>
+	</delete>
+
+	<update id="update" parameterClass="java.util.Map">
+		<![CDATA[
+			update tb_tags
+		]]>
+		<dynamic prepend="set">
+			<isNotNull property="name" prepend=",">
+				<![CDATA[
+					name = #name:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="description" prepend=",">
+				<![CDATA[
+					description = #description:VARCHAR#
+				]]>
+			</isNotNull>
+            <isNotNull property="catalog_id" prepend=",">
+				<![CDATA[
+					catalog_id = #catalog_id:NUMBER#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="WHERE">
+			<![CDATA[
+				id = #id:NUMBER#
+			]]>
+		</dynamic>
+	</update>
+
+
+    <select id="find" parameterClass="Integer" resultMap="resultTag">
+		<![CDATA[
+			select * from tb_tags where id=#id#
+		]]>
+	</select>
+
+
+    <select id="count" resultClass="int">
+		<![CDATA[
+			select count(*) from tb_tags;
+		]]>
+	</select>
+
+
+    <select id="where" parameterClass="qp" resultMap="resultTag">
+		<![CDATA[
+		  select * from tb_tags $conditions$ order by catalog_id desc limit $start$, $limit$
+		]]>
+	</select>
+
+	<select id="all" resultMap="resultTag">
+		<![CDATA[
+		  select * from tb_tags order by id desc
+		]]>
+	</select>
+
+    <insert id="tagging" parameterClass="java.util.Map">
+        <![CDATA[
+			insert into tb_taggings (tag_id, taggable_id, taggable_type, created_at, updated_at)
+            values ($tag_id$, $taggable_id$, '$taggable_type$', now(), now())
+		]]>
+		<selectKey resultClass="int">
+			<![CDATA[
+				SELECT @@IDENTITY AS ID
+			]]>
+		</selectKey>
+	</insert>
+	
+</sqlMap>

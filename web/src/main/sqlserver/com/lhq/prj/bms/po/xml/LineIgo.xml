@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="LineIgo">
+
+	<typeAlias alias="lineIgo" type="com.lhq.prj.bms.po.LineIgo" />
+	<typeAlias alias="lineIgoM" type="com.lhq.prj.bms.po.LineIgoM" />
+	<typeAlias alias="page" type="com.lhq.prj.bms.core.Page" />
+
+	<parameterMap class="lineIgo" id="pm_lineIgo_without_id">
+		<parameter property="igoTypeId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="igoTypeName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="brandId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="brandName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="igoName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="igoOriginal" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="igoSection" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="igoGuide" javaType="double" jdbcType="MONEY" />
+		<parameter property="igoShmcA" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="igoShmcB" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="igoShLink" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="igoXy" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="userId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="userName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="dtUpdate" javaType="string" jdbcType="DATETIME" />
+		<parameter property="spImg" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="strZbmc" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="strZbdw" javaType="string" jdbcType="VARCHAR" />
+	</parameterMap>
+	<parameterMap class="lineIgoM" id="pm_lineIgoM" >
+		<parameter property="igoTypeId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="igoTypeName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="brandId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="brandName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="smallVal" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="bigVal" javaType="integer" jdbcType="NUMBER" />
+	</parameterMap>
+
+	<sql id="byLineIgoIdCondition">
+		<![CDATA[
+		   igoId = #igoId:NUMBER#
+	    ]]>
+	</sql>
+
+	<insert id="save" parameterMap="pm_lineIgo_without_id">
+		<![CDATA[
+			INSERT INTO tb_lineIgo 
+						(igoTypeId,igoTypeName,brandId,brandName,igoName,igoOriginal,igoSection,igoGuide,
+						igoShmcA,igoShmcB,igoShLink,igoXy,userId,userName,dtUpdate,spImg,strZbmc,strZbdw) 
+				 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		]]>
+		<selectKey resultClass="int">
+			<![CDATA[
+				SELECT @@IDENTITY AS ID
+			]]>
+		</selectKey>
+	</insert>
+	<update id="updateIgo" parameterClass="lineIgo">
+		<![CDATA[
+			UPDATE TB_LINEIGO
+		]]>
+		<dynamic prepend="SET">
+			<isNotNull property="igoTypeId" prepend=",">
+				<![CDATA[
+					igoTypeId = #igoTypeId:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="igoTypeName" prepend=",">
+				<![CDATA[
+					igoTypeName = #igoTypeName:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="brandId" prepend=",">
+				<![CDATA[
+					brandId = #brandId:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="brandName" prepend=",">
+				<![CDATA[
+					brandName = #brandName:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="igoName" prepend=",">
+				<![CDATA[
+					igoName = #igoName:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="igoOriginal" prepend=",">
+				<![CDATA[
+					igoOriginal = #igoOriginal:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="igoSection" prepend=",">
+				<![CDATA[
+					igoSection = #igoSection:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="igoGuide" prepend=",">
+				<![CDATA[
+					igoGuide = #igoGuide:MONEY#
+				]]>
+			</isNotNull>
+			<isNotNull property="igoShmcA" prepend=",">
+				<![CDATA[
+					igoShmcA = #igoShmcA:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="igoShmcB" prepend=",">
+				<![CDATA[
+					igoShmcB = #igoShmcB:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="igoShLink" prepend=",">
+				<![CDATA[
+					igoShLink = #igoShLink:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="igoXy" prepend=",">
+				<![CDATA[
+					igoXy = #igoXy:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="userId" prepend=",">
+				<![CDATA[
+					userId = #userId:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="userName" prepend=",">
+				<![CDATA[
+					userName = #userName:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="dtUpdate" prepend=",">
+				<![CDATA[
+					dtUpdate = #dtUpdate:DATETIME#
+				]]>
+			</isNotNull>
+			<isNotNull property="spImg" prepend=",">
+				<![CDATA[
+					spImg = #spImg:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="strZbmc" prepend=",">
+				<![CDATA[
+					strZbmc = #strZbmc:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="strZbdw" prepend=",">
+				<![CDATA[
+					strZbdw = #strZbdw:VARCHAR#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="WHERE">
+			<![CDATA[
+				igoId = #igoId:NUMBER#
+			]]>
+		</dynamic>
+	</update>
+	<delete id="deleteById" parameterClass="integer" >
+		<![CDATA[
+			delete tb_lineIgo where igoId=#igoId#
+		]]>
+	</delete>
+	<select id="findAllIGO" parameterClass="page" resultClass="lineIgo">
+		<![CDATA[
+			SELECT top $limit$ * FROM tb_lineIgo where igoId not in(
+			SELECT top $start$ igoId FROM tb_lineIgo order by dtUpdate desc
+			)
+			 order by dtUpdate desc
+		]]>
+	</select>
+	<select id="findAllIGOA" parameterClass="page" resultClass="lineIgo">
+		<![CDATA[
+		    SELECT a.* from (
+			SELECT top $limit$ * FROM tb_lineIgo  
+			where igoId not in(
+			SELECT top $start$ igoId FROM tb_lineIgo order by dtUpdate desc
+			)
+			) as a left join TB_SPTYPE as b on a.igoTypeId=b.spTypeId 
+			 order by dtUpdate desc
+		]]>
+	</select>
+	<select id="findByCount" resultClass="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM TB_LINEIGO
+		]]>
+	</select>
+	<select id="findIgoById" parameterClass="int" resultClass="lineIgo">
+		<![CDATA[
+			SELECT * FROM TB_LINEIGO where igoId=#igoId#
+		]]>
+	</select>
+	<select id="findIgoByCond" parameterClass="lineIgoM" resultClass="lineIgo">
+		<![CDATA[
+			SELECT a.*,b.zbname FROM TB_LINEIGO as a left join TB_SPTYPE as b on a.igoTypeId=b.SpTypeId 
+		]]>
+		<dynamic prepend="WHERE">
+			<isNotNull property="smallVal" prepend="AND">
+				<![CDATA[
+					a.igoGuide >=#smallVal:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="bigVal" prepend="AND">
+				<![CDATA[
+					a.igoGuide <#bigVal:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="igoTypeId" prepend="AND">
+				<![CDATA[
+					a.igoTypeId = #igoTypeId:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="brandId" prepend="AND">
+				<![CDATA[
+					a.brandId = #brandId:NUMBER#
+				]]>
+			</isNotNull>
+		</dynamic>
+	</select>
+
+</sqlMap>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="NetXx">
+
+	<typeAlias alias="netXx" type="com.lhq.prj.bms.po.NetXx" />
+
+	<parameterMap class="netXx" id="pm_netXx_without_id">
+		<parameter property="aboutUs" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="xgSm" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="dtCrea" javaType="string" jdbcType="DATETIME" />
+		<parameter property="userId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="nickName" javaType="string" jdbcType="VARCHAR" />
+	</parameterMap>
+
+	<insert id="save" parameterMap="pm_netXx_without_id">
+		<![CDATA[
+			INSERT INTO TB_NETXX 
+						(aboutUs,xgSm,dtCrea,userId,nickName) 
+				 VALUES (?,?,?,?,?)
+		]]>
+	</insert>
+
+	<select id="findNetXx" resultClass="netXx">
+		<![CDATA[
+			SELECT top 1 * FROM TB_NETXX
+		]]>
+	</select>
+	<update id="updateNetXx" parameterClass="netXx">
+		<![CDATA[
+			UPDATE TB_NETXX
+		]]>
+		<dynamic prepend="SET">
+			<isNotNull property="aboutUs" prepend=",">
+				<![CDATA[
+					aboutUs = #aboutUs:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="xgSm" prepend=",">
+				<![CDATA[
+					xgSm = #xgSm:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="dtCrea" prepend=",">
+				<![CDATA[
+					dtCrea = #dtCrea:DATETIME#
+				]]>
+			</isNotNull>
+			<isNotNull property="userId" prepend=",">
+				<![CDATA[
+					userId = #userId:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="nickName" prepend=",">
+				<![CDATA[
+					nickName = #nickName:VARCHAR#
+				]]>
+			</isNotNull>
+		</dynamic>
+	</update>
+	
+</sqlMap>

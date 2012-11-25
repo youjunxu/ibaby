@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TbCity">
+
+	<typeAlias alias="tbCity" type="com.lhq.prj.bms.po.TbCity" />
+	<typeAlias alias="page" type="com.lhq.prj.bms.core.Page" />
+
+	<parameterMap class="tbCity" id="pm_tbCity_without_id">
+		<parameter property="ssName" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="cityName" javaType="string" jdbcType="VARCHAR" />
+	</parameterMap>
+	<sql id="byTbCityIdCondition">
+		<![CDATA[
+		   cityId = #cityId:NUMBER#
+	    ]]>
+	</sql>
+
+	<insert id="save" parameterMap="pm_tbCity_without_id">
+		<![CDATA[
+			INSERT INTO TB_CITY 
+						(ssName,cityName) 
+				 VALUES (?,?)
+		]]>
+	</insert>
+
+	<delete id="deleteByCity" parameterClass="integer" >
+		<![CDATA[
+			delete TB_CITY where cityId=#cityId:NUMBER#
+		]]>
+	</delete>
+	<update id="updateCity" parameterClass="tbCity">
+		<![CDATA[
+			UPDATE tb_city
+		]]>
+		<dynamic prepend="SET">
+			<isNotNull property="ssName" prepend=",">
+				<![CDATA[
+					ssName = #ssName:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="cityName" prepend=",">
+				<![CDATA[
+					cityName = #cityName:VARCHAR#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="WHERE">
+			<![CDATA[
+				cityId = #cityId:NUMBER#
+			]]>
+		</dynamic>
+	</update>
+	<select id="findByCount" parameterClass="page" resultClass="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM TB_CITY
+		]]>
+	</select>
+
+	<select id="findAllSs" resultClass="string">
+		<![CDATA[
+			SELECT distinct ssName FROM TB_CITY 
+			order by ssName
+		]]>
+	</select>
+	<select id="findAllCity" parameterClass="page" resultClass="tbCity">
+		<![CDATA[
+			SELECT top $limit$ * FROM TB_CITY where cityId not in (
+			select top $start$ cityId from TB_CITY order by ssName,cityName
+			) 
+			order by ssName,cityName
+		]]>
+	</select>
+	<select id="findCityById" parameterClass="integer" resultClass="tbCity">
+		<![CDATA[
+			SELECT * FROM TB_CITY where cityId=#cityId:NUMBER#
+		]]>
+	</select>
+	<select id="findCityBySs" parameterClass="String" resultClass="string">
+		<![CDATA[
+			SELECT cityName FROM TB_CITY where ssName=#ssName:VARCHAR# order by cityName
+		]]>
+	</select>
+	
+</sqlMap>

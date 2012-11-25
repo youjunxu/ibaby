@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Spgg">
+
+	<typeAlias alias="spgg" type="com.lhq.prj.bms.po.Spgg" />
+	<typeAlias alias="page" type="com.lhq.prj.bms.core.Page" />
+
+	<parameterMap class="spgg" id="pm_spgg_without_id">
+		<parameter property="mkCode" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="strTitle" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="strContent" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="userId" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="strAuthor" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="dtCrea" javaType="string" jdbcType="DATETIME" />
+	</parameterMap>
+	<sql id="byAclInfoIdCondition">
+		<![CDATA[
+		   ggId = #ggId:NUMBER#
+	    ]]>
+	</sql>
+	
+	<insert id="save" parameterMap="pm_spgg_without_id">
+		<![CDATA[
+			INSERT INTO tb_gg 
+						(mkCode,strTitle,strContent,userId,strAuthor,dtCrea) 
+				 VALUES (?,?,?,?,?,?)
+		]]>
+		<selectKey resultClass="int">
+			<![CDATA[
+				SELECT @@IDENTITY AS ID
+			]]>
+		</selectKey>
+	</insert>
+	<update id="updateSpgg" parameterClass="Spgg">
+		<![CDATA[
+			UPDATE tb_gg
+		]]>
+		<dynamic prepend="SET">
+			<isNotNull property="strTitle" prepend=",">
+				<![CDATA[
+					strTitle = #strTitle:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="strContent" prepend=",">
+				<![CDATA[
+					strContent = #strContent:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="mkCode" prepend=",">
+				<![CDATA[
+					mkCode = #mkCode:VARCHAR#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="WHERE">
+			<![CDATA[
+				ggId = #ggId:NUMBER#
+			]]>
+		</dynamic>
+	</update>
+
+	<delete id="deleteById" parameterClass="Integer" >
+		<![CDATA[
+			delete tb_gg where ggId=#ggId#
+		]]>
+	</delete>
+	<select id="findByCount" resultClass="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM TB_GG
+		]]>
+	</select>
+	<select id="findAllSpgg" parameterClass="page" resultClass="Spgg">
+		<![CDATA[
+			SELECT top $limit$ * FROM TB_GG where ggId not in(
+			select top $start$ ggId from TB_GG order by dtCrea desc
+			) 
+			order by dtCrea desc
+		]]>
+	</select>
+	<select id="findSpggByBaxy" resultClass="Spgg">
+		<![CDATA[
+			SELECT top 10 * FROM TB_GG where mkCode='BAXY' order by dtCrea desc
+		]]>
+	</select>
+	<select id="findAllLySpgg" resultClass="Spgg">
+		<![CDATA[
+			SELECT * FROM TB_GG where mkCode='BALY' 
+			order by dtCrea desc
+		]]>
+	</select>
+	<select id="findSpggById" parameterClass="Integer" resultClass="Spgg">
+		<![CDATA[
+			SELECT * FROM TB_GG where ggId = #ggId#
+		]]>
+	</select>
+	
+</sqlMap>
