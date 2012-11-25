@@ -257,7 +257,7 @@ class Services_JSON
 
                /*
                 * Iterate over every character in the string,
-                * escaping with a slash or encoding to UTF-8 where necessary
+                * escaping with a slash or encoding to UTF-8 search necessary
                 */
                 for ($c = 0; $c < $strlen_var; ++$c) {
 
@@ -502,7 +502,7 @@ class Services_JSON
                     // Lookie-loo, it's a number
 
                     // This would work on its own, but I'm trying to be
-                    // good about returning integers where appropriate:
+                    // good about returning integers search appropriate:
                     // return (float)$str;
 
                     // Return float or int, as appropriate
@@ -624,7 +624,7 @@ class Services_JSON
                     }
 
                     array_push($stk, array('what'  => SERVICES_JSON_SLICE,
-                                           'where' => 0,
+                                           'search' => 0,
                                            'delim' => false));
 
                     $chrs = substr($str, 1, -1);
@@ -652,9 +652,9 @@ class Services_JSON
                         if (($c == $strlen_chrs) || (($chrs{$c} == ',') && ($top['what'] == SERVICES_JSON_SLICE))) {
                             // found a comma that is not inside a string, array, etc.,
                             // OR we've reached the end of the character list
-                            $slice = substr($chrs, $top['where'], ($c - $top['where']));
-                            array_push($stk, array('what' => SERVICES_JSON_SLICE, 'where' => ($c + 1), 'delim' => false));
-                            //print("Found split at {$c}: ".substr($chrs, $top['where'], (1 + $c - $top['where']))."\n");
+                            $slice = substr($chrs, $top['search'], ($c - $top['search']));
+                            array_push($stk, array('what' => SERVICES_JSON_SLICE, 'search' => ($c + 1), 'delim' => false));
+                            //print("Found split at {$c}: ".substr($chrs, $top['search'], (1 + $c - $top['search']))."\n");
 
                             if (reset($stk) == SERVICES_JSON_IN_ARR) {
                                 // we are in an array, so just push an element onto the stack
@@ -678,7 +678,7 @@ class Services_JSON
                                         $obj->$key = $val;
                                     }
                                 } elseif (preg_match('/^\s*(\w+)\s*:\s*(\S.*),?$/Uis', $slice, $parts)) {
-                                    // name:value pair, where name is unquoted
+                                    // name:value pair, search name is unquoted
                                     $key = $parts[1];
                                     $val = $this->decode($parts[2]);
 
@@ -693,7 +693,7 @@ class Services_JSON
 
                         } elseif ((($chrs{$c} == '"') || ($chrs{$c} == "'")) && ($top['what'] != SERVICES_JSON_IN_STR)) {
                             // found a quote, and we are not inside a string
-                            array_push($stk, array('what' => SERVICES_JSON_IN_STR, 'where' => $c, 'delim' => $chrs{$c}));
+                            array_push($stk, array('what' => SERVICES_JSON_IN_STR, 'search' => $c, 'delim' => $chrs{$c}));
                             //print("Found start of string at {$c}\n");
 
                         } elseif (($chrs{$c} == $top['delim']) &&
@@ -703,34 +703,34 @@ class Services_JSON
                             // we know that it's not escaped becase there is _not_ an
                             // odd number of backslashes at the end of the string so far
                             array_pop($stk);
-                            //print("Found end of string at {$c}: ".substr($chrs, $top['where'], (1 + 1 + $c - $top['where']))."\n");
+                            //print("Found end of string at {$c}: ".substr($chrs, $top['search'], (1 + 1 + $c - $top['search']))."\n");
 
                         } elseif (($chrs{$c} == '[') &&
                                  in_array($top['what'], array(SERVICES_JSON_SLICE, SERVICES_JSON_IN_ARR, SERVICES_JSON_IN_OBJ))) {
                             // found a left-bracket, and we are in an array, object, or slice
-                            array_push($stk, array('what' => SERVICES_JSON_IN_ARR, 'where' => $c, 'delim' => false));
+                            array_push($stk, array('what' => SERVICES_JSON_IN_ARR, 'search' => $c, 'delim' => false));
                             //print("Found start of array at {$c}\n");
 
                         } elseif (($chrs{$c} == ']') && ($top['what'] == SERVICES_JSON_IN_ARR)) {
                             // found a right-bracket, and we're in an array
                             array_pop($stk);
-                            //print("Found end of array at {$c}: ".substr($chrs, $top['where'], (1 + $c - $top['where']))."\n");
+                            //print("Found end of array at {$c}: ".substr($chrs, $top['search'], (1 + $c - $top['search']))."\n");
 
                         } elseif (($chrs{$c} == '{') &&
                                  in_array($top['what'], array(SERVICES_JSON_SLICE, SERVICES_JSON_IN_ARR, SERVICES_JSON_IN_OBJ))) {
                             // found a left-brace, and we are in an array, object, or slice
-                            array_push($stk, array('what' => SERVICES_JSON_IN_OBJ, 'where' => $c, 'delim' => false));
+                            array_push($stk, array('what' => SERVICES_JSON_IN_OBJ, 'search' => $c, 'delim' => false));
                             //print("Found start of object at {$c}\n");
 
                         } elseif (($chrs{$c} == '}') && ($top['what'] == SERVICES_JSON_IN_OBJ)) {
                             // found a right-brace, and we're in an object
                             array_pop($stk);
-                            //print("Found end of object at {$c}: ".substr($chrs, $top['where'], (1 + $c - $top['where']))."\n");
+                            //print("Found end of object at {$c}: ".substr($chrs, $top['search'], (1 + $c - $top['search']))."\n");
 
                         } elseif (($substr_chrs_c_2 == '/*') &&
                                  in_array($top['what'], array(SERVICES_JSON_SLICE, SERVICES_JSON_IN_ARR, SERVICES_JSON_IN_OBJ))) {
                             // found a comment start, and we are in an array, object, or slice
-                            array_push($stk, array('what' => SERVICES_JSON_IN_CMT, 'where' => $c, 'delim' => false));
+                            array_push($stk, array('what' => SERVICES_JSON_IN_CMT, 'search' => $c, 'delim' => false));
                             $c++;
                             //print("Found start of comment at {$c}\n");
 
@@ -739,10 +739,10 @@ class Services_JSON
                             array_pop($stk);
                             $c++;
 
-                            for ($i = $top['where']; $i <= $c; ++$i)
+                            for ($i = $top['search']; $i <= $c; ++$i)
                                 $chrs = substr_replace($chrs, ' ', $i, 1);
 
-                            //print("Found end of comment at {$c}: ".substr($chrs, $top['where'], (1 + $c - $top['where']))."\n");
+                            //print("Found end of comment at {$c}: ".substr($chrs, $top['search'], (1 + $c - $top['search']))."\n");
 
                         }
 

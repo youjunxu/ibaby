@@ -33,15 +33,15 @@ function doSeekMore(strBj)
 {
 	if (strBj=='1')
 	{
-		location.href='<%=basePath%>/baSeekList.action?grpCode=1';
+		location.href='${request.contextPath}/firstBA.action';
 	}else
 	{
-		location.href='<%=basePath%>/baSeekList.action?lmCode='+strBj;
+		location.href='${request.contextPath}/baSeekList.action?lmCode=' + strBj;
 	}
 }
 function doOpenBaDoc(strId)
 {
-	location.href='<%=basePath%>/prevOpenBADoc.action?baId='+strId;
+	location.href='${request.contextPath}/prevOpenBADoc.action?baId=' + strId;
 }
 </script>
 <table style='width:400px;' cellspacing='0' cellpadding='0' border='0' height=512>

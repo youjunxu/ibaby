@@ -53,7 +53,7 @@
 
 	<delete id="deleteById" parameterClass="Integer" >
 		<![CDATA[
-			delete TB_LMBAXY where baId=#baId#
+			delete from TB_LMBAXY where baId=#baId#
 		]]>
 	</delete>
 	<update id="updateBaReaders" parameterClass="Integer">
@@ -248,53 +248,27 @@
 
 	<select id="findBaxyByFirstA" resultClass="lmBaxy">
 		<![CDATA[
-			select * from (
-				(SELECT * FROM TB_LMBAXY where shbj=1 and lmName='食谱' order by shrq desc limit 5)
-				union all
-				(SELECT * FROM TB_LMBAXY where shbj=1 and lmName='饮品' order by shrq desc limit 5)
-				union all
-				(SELECT * FROM TB_LMBAXY where shbj=1 and lmName='零食' order by shrq desc limit 5)
-			) as t 
+		    SELECT * FROM tb_lmbaxy where shbj=1 and lmName='认知多一点' ORDER BY shrq DESC LIMIT 0, 5;
 		]]>
 	</select>
 	<select id="findBaxyByFirstB" resultClass="lmBaxy">
 		<![CDATA[
-			select * from (
-				(SELECT * FROM TB_LMBAXY where shbj=1 and lmName='保健' order by shrq desc limit 5)
-				union all
-				(SELECT * FROM TB_LMBAXY where shbj=1 and lmName='体育' order by shrq desc limit 5)
-			) as t 
+		    SELECT * FROM tb_lmbaxy where shbj=1 and lmName='健康加一点' ORDER BY shrq DESC LIMIT 0, 5;
 		]]>
 	</select>
 	<select id="findBaxyByFirstC" resultClass="lmBaxy">
 		<![CDATA[
-			select * from (
-				(SELECT * FROM TB_LMBAXY where shbj=1 and lmName='认知' order by shrq desc limit 5)
-				union all
-				(SELECT * FROM TB_LMBAXY where shbj=1 and lmName='手工' order by shrq desc limit 5)
-				union all
-				(SELECT * FROM TB_LMBAXY where shbj=1 and lmName='游戏' order by shrq desc limit 5)
-			) as t 
+            SELECT * FROM tb_lmbaxy where shbj=1 and lmName='动手勤一点' ORDER BY shrq DESC LIMIT 0, 5;
 		]]>
 	</select>
 	<select id="findBaxyByFirstD" resultClass="lmBaxy">
 		<![CDATA[
-			select * from (
-				(SELECT * FROM TB_LMBAXY where shbj=1 and lmName='玩具' order by shrq desc limit 5)
-				union all
-				(SELECT * FROM TB_LMBAXY where shbj=1 and lmName='读本' order by shrq desc limit 5)
-				union all
-				(SELECT * FROM TB_LMBAXY where shbj=1 and lmName='视听' order by shrq desc limit 5)
-			) as t 
+            SELECT * FROM tb_lmbaxy where shbj=1 and lmName='天天学一点' ORDER BY shrq DESC LIMIT 0, 5;
 		]]>
 	</select>
 	<select id="findBaxyByFirstE" resultClass="lmBaxy">
 		<![CDATA[
-			select * from (
-				(SELECT * FROM TB_LMBAXY where shbj=1 and lmName='扮靓' order by shrq desc limit 5)
-				union all
-				(SELECT * FROM TB_LMBAXY where shbj=1 and lmName='居家' order by shrq desc limit 5)
-			) as t 
+			SELECT * FROM tb_lmbaxy where shbj=1 and lmName='扮靓美一点' ORDER BY shrq DESC LIMIT 0, 5;
 		]]>
 	</select>
 	<select id="findBaxyByFirstF" resultClass="lmBaxy">

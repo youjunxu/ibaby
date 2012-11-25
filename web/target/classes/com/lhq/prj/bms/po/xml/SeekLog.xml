@@ -24,8 +24,7 @@
 
 	<insert id="save" parameterMap="pm_seekLog_without_id">
 		<![CDATA[
-			INSERT INTO tb_seekLog 
-						(skUserId,skUserName,mkCode,docId,dtSeek,skIp) 
+			INSERT INTO tb_seekLog (skUserId,skUserName,mkCode,docId,dtSeek,skIp)
 				 VALUES (?,?,?,?,?,?)
 		]]>
 		<selectKey resultClass="int">
@@ -49,7 +48,7 @@
 				skUserId = #skUserId:NUMBER#
 			</isNotNull>
 			<isNotNull property="dtSeek" prepend="AND">
-				convert(varchar(10),dtSeek,120)=#dtSeek:VARCHAR#
+				<!--TODO convert(varchar(10),dtSeek,120)=#dtSeek:VARCHAR# -->
 			</isNotNull>
 			<isNotNull property="docId" prepend="AND">
 				docId = #docId:NUMBER#

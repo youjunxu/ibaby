@@ -41,10 +41,9 @@
 
 	<insert id="save" parameterMap="pm_userInfo_without_id">
 		<![CDATA[
-			INSERT INTO tb_userInfo 
-						(userName,userPass,nickName,dtZcrq,dtYzrq,sex,headImg,userStatus,userLastPwd,
-						userJfzs,userXfjf,userSyjf,strContent,lxTel,lxSj,lxEmail,lxQq,lxMsn,regCode,strCity,ssName,intTxsh) 
-				 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+			INSERT INTO tb_userInfo (userName,userPass,nickName,dtZcrq,dtYzrq,sex,headImg,userStatus,userLastPwd,
+                userJfzs,userXfjf,userSyjf,strContent,lxTel,lxSj,lxEmail,lxQq,lxMsn,regCode,strCity,ssName,intTxsh)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 		]]>
 		<selectKey resultClass="int">
 			<![CDATA[
@@ -237,10 +236,7 @@
 
 	<select id="findAllUsers" parameterClass="page" resultClass="userInfo">
 		<![CDATA[
-			SELECT top $limit$ * FROM TB_USERINFO where userId not in (
-			select top $start$ userId from TB_USERINFO order by dtZcrq desc
-			) 
-			order by dtZcrq desc
+			SELECT * FROM TB_USERINFO where userId order by dtZcrq desc limit $start$, $limit$
 		]]>
 	</select>
 	<select id="findByUseId" parameterClass="integer" resultClass="userInfo">
@@ -293,7 +289,7 @@
 	</select>
 	<select id="findByNickName" parameterClass="string" resultClass="userInfo">
 		<![CDATA[
-			SELECT * FROM tb_userInfo where nickName like '$nickName$%' order by dtZcrq desc
+			SELECT * FROM tb_userInfo where nickName like '%$nickName$%' order by dtZcrq desc
 		]]>
 	</select>
 	

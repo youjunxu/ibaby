@@ -687,6 +687,40 @@
             <result>fullSearch_result.jsp</result>
         </action>
 
+
+        <action name="manageTags" class="tagAction" method="manageTags">
+            <result>admin/tags.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+
+        <action name="newTag" class="tagAction" method="newTag">
+            <result>admin/tag_form.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+
+        <action name="editTag" class="tagAction" method="editTag">
+            <result>admin/tag_form.jsp</result>
+            <result name='input'>suc_upd.jsp</result>
+        </action>
+
+        <action name="listByTag" class="articleAction" method="listByTag">
+            <result name="success">/article/list.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+
+        <action name="listByModule" class="articleAction" method="listByModule">
+            <result name="success">/article/list.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+
+        <action name="baSeekList" class="articleAction" method="listByModule">
+            <result name="success">/article/list.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+
+        <action name="defaultTopMenu" class="userInfoAction" method="gvCurUserTopMenu">
+            <result>/includes/_top_menu.jsp</result>
+        </action>
     </package>
 
     <package name="json" extends="json-default">
@@ -700,9 +734,9 @@
             <result name="input">validatereg.jsp</result>
         </action>
         <action name="checkIsExistUser" class="userInfoAction" method="checkIsExistUser">
-            <result type="json">
-            </result>
+            <result type="json" />
         </action>
+
         <action name="checkIsExistEmail" class="userInfoAction" method="checkIsExistEmail">
             <result type="json">
                 <param name="includeProperties">success</param>
@@ -712,31 +746,79 @@
             <result type="redirect">index.jsp</result>
         </action>
         <action name="findCityBySs" class="tbCityAction" method="findCityBySs">
-            <result type="json">
-            </result>
+            <result type="json" />
         </action>
         <!-- 好友管理 -->
         <action name="checkPrevAddHy" class="memberGzAction" method="checkPrevAddHy">
-            <result type="json">
-            </result>
+            <result type="json" />
         </action>
         <!-- 贝爱学园 -->
         <action name="findBrandByType" class="spBrandAction" method="findBrandByType">
-            <result type="json">
-            </result>
+            <result type="json" />
         </action>
         <action name="changeDocPlResult" class="lmBaxyAction" method="changeDocPlResult">
-            <result type="json">
-            </result>
+            <result type="json" />
         </action>
         <action name="checkPhotoAcl" class="photoPzAction" method="checkPhotoAcl">
-            <result type="json">
-            </result>
+            <result type="json" />
         </action>
         <action name="checkHomeJsAcl" class="homeJsAction" method="checkHomeJsAcl">
+            <result type="json" />
+        </action>
+
+
+
+        <action name="findTags" class="tagAction" method="findTags">
             <result type="json">
+                <param name="excludeNullProperties">true</param>
+                <param name="root">tags</param>
             </result>
         </action>
+
+        <action name="deleteTag" class="tagAction" method="deleteTag">
+            <result type="json">
+                <param name="root">result</param>
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <action name="updateTag" class="tagAction" method="updateTag">
+            <result type="json">
+                <param name="root">result</param>
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+        <action name="saveTag" class="tagAction" method="saveTag">
+            <result type="json">
+                <param name="root">result</param>
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+
+
+        <action name="findCatalogs" class="tagAction" method="findCatalogs">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+                <param name="root">result</param>
+            </result>
+        </action>
+
+        <action name="listArticleByTag" class="tagAction" method="listByTag">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+                <param name="root">result</param>
+            </result>
+        </action>
+
+        <action name="listArticleByModule" class="tagAction" method="listByModule">
+            <result type="json">
+                <param name="excludeNullProperties">true</param>
+                <param name="root">result</param>
+            </result>
+        </action>
+
+
     </package>
 
 </struts>

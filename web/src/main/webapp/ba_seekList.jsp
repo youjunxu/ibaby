@@ -6,6 +6,7 @@
 <%@ page import="com.lhq.prj.bms.core.MyUtils" %>
 <%@ page import="com.lhq.prj.bms.po.UserInfo" %>
 <%@ page import="com.lhq.prj.bms.po.LmBaxy" %>
+<%@ page import="com.ibaby.www.domain.valuetypes.Tag" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.*" %>
 <%
@@ -19,6 +20,8 @@
     String strCurMk = (String) request.getAttribute("baList_lmName");
     List ls = (List) request.getAttribute("baList_list");
     List lstmk = (List) request.getAttribute("baList_mkxx");
+
+    List tags = (List) request.getAttribute("tag_list");
 
     Integer intSize;
     Integer intA;
@@ -112,6 +115,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>贝爱学园</title>
     <link href="<%=basePath%>/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="<%=basePath%>/assets/stylesheets/tags.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="js/validate.js"></script>
     <style type="text/css">
         <!--
@@ -226,6 +230,7 @@
     </tr>
     <tr>
         <td style='height:40px;'>
+
             <table cellspacing='0' cellpadding="0" border='0' style='width:98%;'>
                 <tr>
                     <td width=38 align='left'></td>
@@ -240,39 +245,14 @@
     </tr>
     <tr>
         <td>
+
+
             <table cellspacing='0' cellpadding="0" border='0' style='width:100%; height:500px; font-size: 12px;'>
                 <tr>
                     <td width=20% valign="top" align='left'>
-                        <table cellspacing='0' cellpadding="0" border='0'>
-                            <%
-                                if (intSize >= lineStart) {
-                                    intLmp = lineStart - 1;
-                                    intA = lineEnd;
-                                    if (intA > intSize) intA = intSize;
-                                    for (intB = intLmp; intB < intA; intB = intB + 1) {
-                                        LmBaxy lm = (LmBaxy) ls.get(intB);
-                                        strLmp = lm.getStrTitle();
-                                        if (strLmp.length() > 8) {
-                                            strLmp = strLmp.substring(0, 8);
-                                        }
-                            %>
-                            <tr>
-                                <td height=25 width=50>&nbsp;</td>
-                                <td align='left'><img src='<%=basePath%>/images/icon_dot.gif'/>&nbsp;<a
-                                        href="javascript:doOpenDoc('<%=lm.getBaId()%>')"><font color=green><%=strLmp%>
-                                </font></a></td>
-                            </tr>
-                            <%
-                                    }
-                                }
-                            %>
-                            <tr>
-                                <td colspan=2>&nbsp;</td>
-                            </tr>
-                        </table>
+                    <s:include value='includes/_tags.jsp' />
                     </td>
-                    <td width=5% style='background:url(<%=basePath%>/images/icon_dash.gif) repeat-y;'/>
-                    </td>
+                    <td width=5% style='background:url(<%=basePath%>/images/icon_dash.gif) repeat-y;'/></td>
                     <td valign="top" align='left'>
                         <table cellspacing='0' cellpadding="0" border='0' width='95%'>
                             <%
@@ -288,8 +268,7 @@
                                         strFbsj = simpleDateFormat.format(date);
                             %>
                             <tr>
-                                <td align='left'><font face='黑体' size=4><%=strLmp%>
-                                </font></td>
+                                <td align='left'><font face='黑体' size=4><%=strLmp%></font></td>
                             </tr>
                             <tr>
                                 <td style='height:18px;'>&nbsp;</td>

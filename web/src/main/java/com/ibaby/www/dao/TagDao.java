@@ -1,9 +1,12 @@
 package com.ibaby.www.dao;
 
+import com.ibaby.www.domain.valuetypes.Article;
 import com.ibaby.www.domain.valuetypes.Tag;
-import com.lhq.prj.bms.po.AclInfo;
+import com.lhq.prj.bms.po.BaType;
 
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,10 +17,26 @@ import java.util.List;
  */
 public interface TagDao {
 
+    List<Tag> where(QueryParams queryParams);
 
-    void save(Tag tag);
+    List<Tag> all();
 
-    Tag findTagById(Integer id);
+    Integer count();
 
-    List findAllTags();
+    int save(Map<String, Object> tag);
+
+    int delete(int id);
+
+    int update(Map<String, Object> tag);
+
+    Tag find(int id);
+
+    List<BaType> findCatalogs(QueryParams queryParams);
+
+    List<Article> findArticles(ConcurrentMap<String, Object> params);
+
+    int articleCount(ConcurrentMap<String, Object> params);
+
+    void tagging(int taggableId, String taggableType, List<Integer> tags);
+
 }

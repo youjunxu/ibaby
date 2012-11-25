@@ -18,15 +18,14 @@
 
 	<insert id="save" parameterMap="pm_netXx_without_id">
 		<![CDATA[
-			INSERT INTO TB_NETXX 
-						(aboutUs,xgSm,dtCrea,userId,nickName) 
+			INSERT INTO TB_NETXX (aboutUs,xgSm,dtCrea,userId,nickName)
 				 VALUES (?,?,?,?,?)
 		]]>
 	</insert>
 
 	<select id="findNetXx" resultClass="netXx">
 		<![CDATA[
-			SELECT top 1 * FROM TB_NETXX
+			SELECT * FROM TB_NETXX limit 1
 		]]>
 	</select>
 	<update id="updateNetXx" parameterClass="netXx">

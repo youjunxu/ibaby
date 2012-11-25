@@ -12,7 +12,14 @@
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">
-      <configuration />
+      <configuration>
+        <fileset id="fileset1" name="My Fileset" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/applicationContext-common.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/applicationContext-actions.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/applicationContext-daos.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/applicationContext-services.xml</file>
+        </fileset>
+      </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="false">

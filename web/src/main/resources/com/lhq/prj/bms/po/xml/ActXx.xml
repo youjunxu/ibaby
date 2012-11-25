@@ -32,8 +32,7 @@
 
 	<insert id="save" parameterMap="pm_actXx_without_id">
 		<![CDATA[
-			INSERT INTO tb_actxx 
-						(actName,dtCrea,actContent,dtStart,dtEnd,actImg,actStatus,userId,userName,jpJs,photoWidth,photoHeight,hdJs,actLink) 
+			INSERT INTO tb_actxx (actName,dtCrea,actContent,dtStart,dtEnd,actImg,actStatus,userId,userName,jpJs,photoWidth,photoHeight,hdJs,actLink)
 				 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 		]]>
 		<selectKey resultClass="int">
@@ -122,10 +121,7 @@
 	</select>
 	<select id="findAllActXx" parameterClass="page" resultClass="actxx">
 		<![CDATA[
-			SELECT * FROM TB_ACTXX where actId not in(
-			    select actId from TB_ACTXX order by dtCrea desc limit $start$
-			) 
-			order by dtCrea desc limit $limit$
+			SELECT * FROM TB_ACTXX order by dtCrea desc limit $start$, $limit$
 		]]>
 	</select>
 	
@@ -194,26 +190,8 @@ where not ((year(now())>year(dtStart) or (year(now())=year(dtStart) and month(no
                     or ( year(now()) = year(dtEnd) and month(now()) < month(dtEnd) )
                     or ( year(now()) = year(dtEnd) and month(now()) = month(dtEnd) and day(now()) <= day(dtEnd) )
                 )
-            )
-			and actStatus=1 
-			and actId not in(
-			    select actId from TB_ACTXX
-                    where not (
-                        (
-                            year(now()) > year(dtStart)
-                            or ( year(now()) = year(dtStart) and month(now()) > month(dtStart) )
-                            or ( year(now()) = year(dtStart) and month(now()) = month(dtStart) and day(now()) >= day(dtStart) )
-                    ) and (
-                        year(now()) < year(dtEnd)
-                        or ( year(now()) = year(dtEnd) and month(now()) < month(dtEnd) )
-                        or ( year(now()) = year(dtEnd) and month(now()) = month(dtEnd) and day(now()) <= day(dtEnd) )
-                    )
-                )
-			    and actStatus=1
-			    order by dtCrea desc
-			    /* limit $start$  */
-			) 
-			order by dtCrea desc limit $limit$
+            ) and actStatus = 1
+			order by dtCrea desc limit $start$, $limit$
 		]]>
 	</select>
 	<select id="findActXxById" parameterClass="Integer" resultClass="actxx">

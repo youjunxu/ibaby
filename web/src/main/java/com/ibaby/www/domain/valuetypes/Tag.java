@@ -1,5 +1,7 @@
 package com.ibaby.www.domain.valuetypes;
 
+import com.lhq.prj.bms.po.BaType;
+
 /**
  * Created by IntelliJ IDEA.
  * User: James
@@ -11,7 +13,7 @@ public class Tag {
 
     private Integer id;
     private String name;
-	private String kind = "default";
+	private BaType catalog;
     private String description;
     private Integer parentId;
 
@@ -31,12 +33,12 @@ public class Tag {
         this.name = name;
     }
 
-    public String getKind() {
-        return kind;
+    public BaType getCatalog() {
+        return catalog;
     }
 
-    public void setKind(String kind) {
-        this.kind = kind;
+    public void setCatalog(BaType catalog) {
+        this.catalog = catalog;
     }
 
     public String getDescription() {
@@ -53,5 +55,9 @@ public class Tag {
 
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
+    }
+
+    public String toString(){
+        return name;
     }
 }

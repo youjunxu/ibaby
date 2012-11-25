@@ -4,28 +4,17 @@ package com.ibaby.www.dao;
  * Created by IntelliJ IDEA.
  * User: James
  * Date: 12-11-19
- * Time: PM4:56
+ * Time: PM7:20
  * To change this template use File | Settings | File Templates.
  */
-public class QueryParams {
+public interface QueryParams {
 
-    private int start;
+    Integer getLimit();
 
-    private int limit;
+    Integer getStart();
 
-    public int getLimit() {
-        return limit;
-    }
+    String getOrderBy();
 
-    public void setLimit(int limit) {
-        this.limit = limit;
-    }
+    String getConditions();
 
-    public int getStart() {
-        return start;
-    }
-
-    public void setStart(int start) {
-        this.start = start;
-    }
 }

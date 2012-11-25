@@ -93,10 +93,7 @@
 	</select>
 	<select id="findAllAclInfo" parameterClass="page" resultClass="aclInfo">
 		<![CDATA[
-			SELECT * FROM TB_ACLINFO where aclId not in(
-			    select aclId from TB_ACLINFO order by dtSxrq desc limit $start$
-			) 
-			order by dtSxrq desc limit $limit$
+			SELECT * FROM TB_ACLINFO order by dtSxrq desc limit $start$, $limit$
 		]]>
 	</select>
 	<update id="updateAclInfo" parameterClass="aclInfo">

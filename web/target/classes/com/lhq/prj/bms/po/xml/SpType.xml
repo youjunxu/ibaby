@@ -22,8 +22,7 @@
 	
 	<insert id="save" parameterMap="pm_spType_without_id">
 		<![CDATA[
-			INSERT INTO tb_spType 
-						(spTypeName,zbName,zbDw) 
+			INSERT INTO tb_spType (spTypeName,zbName,zbDw)
 				 VALUES (?,?,?)
 		]]>
 		<selectKey resultClass="int">
@@ -77,10 +76,7 @@
 	</select>
 	<select id="findAllSpTypeByPage" parameterClass="page" resultClass="spType">
 		<![CDATA[
-			SELECT top $limit$ * FROM tb_spType where spTypeId not in(
-			select top $start$ spTypeId from tb_spType order by spTypeId 
-			) 
-			order by spTypeId
+			SELECT * FROM tb_spType order by spTypeId limit $start$, $limit$
 		]]>
 	</select>
 	<select id="findAllTypeById" parameterClass="Integer" resultClass="spType">

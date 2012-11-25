@@ -80,4 +80,12 @@
 	<bean id="yqljService" class="com.lhq.prj.bms.service.impl.YqljService">
 		<property name="yqljDao" ref="yqljDao" />
 	</bean>
+
+    <bean id="tagService" class="com.ibaby.www.domain.service.TagService">
+		<property name="tagDao" ref="tagDao" />
+	</bean>
+
+    <bean id="articleService" class="com.ibaby.www.domain.service.ArticleService">
+		<property name="articleDao" ref="articleDao" />
+	</bean>
 </beans>

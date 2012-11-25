@@ -26,6 +26,10 @@ Integer flagUser=(Integer)request.getSession().getAttribute("flagUser");
       		<td height=25 width=50>&nbsp;</td>
       		<td><img src='<%=basePath%>/images/icon_dot.gif' />&nbsp;<a href='<%=basePath%>/sysmanaG.action'><font color=green>线上IGO</font></a></td>
  		</tr>
+        <tr>
+      		<td height=25 width=50>&nbsp;</td>
+      		<td><img src='<%=basePath%>/images/icon_dot.gif' />&nbsp;<a href='<%=basePath%>/manageTags.action'><font color=green>标签管理</font></a></td>
+ 		</tr>
  		<%
  		}
  		if (strUserAcl.indexOf("999")>=0)
