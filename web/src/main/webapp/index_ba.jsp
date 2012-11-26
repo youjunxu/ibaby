@@ -218,6 +218,12 @@ function doWyfx()
     }
     %>
 }
+
+function doMore1(strBj)
+{
+	location.href='<%=basePath%>/baSeekList.action?lmCode='+strBj;
+}
+
 function doMore(strBj)
 {
 	location.href='<%=basePath%>/baSeekList.action?grpCode='+strBj;

@@ -80,9 +80,10 @@ public class BaseAction extends ActionSupport {
         }
         String pager = pager(pageCount, pageSize, pageCurrent);
 
-        getRequest().setAttribute("pageSize", pageSize);
-        getRequest().setAttribute("pageCount", pageCount);
-        getRequest().setAttribute("pager", pager);
+        HttpServletRequest request = getRequest();
+        request.setAttribute("pageSize", pageSize);
+        request.setAttribute("pageCount", pageCount);
+        request.setAttribute("pager", pager);
 
         int start = (pageCurrent - 1) * pageSize;
         return start;

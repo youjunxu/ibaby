@@ -7,6 +7,7 @@ import com.ibaby.www.domain.valuetypes.Article;
 import com.ibaby.www.domain.valuetypes.Tag;
 import com.ibaby.www.util.ModuleConfig;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,8 +60,10 @@ public class TagAction extends BaseAction {
 
         int start = doPager(pageCount, pageSize);
 
-        getRequest().setAttribute("tagCount", tagCount);
-        getRequest().setAttribute("tagList", tagService.where(new QueryParamsBuilder().setStart(start).setLimit(pageSize).build()));
+        HttpServletRequest request = getRequest();
+
+        request.setAttribute("tagCount", tagCount);
+        request.setAttribute("tagList", tagService.where(new QueryParamsBuilder().setStart(start).setLimit(pageSize).build()));
         return SUCCESS;
     }
 
@@ -69,6 +72,9 @@ public class TagAction extends BaseAction {
         if (!checkUserPermission()) {
             return actionResult;
         }
+        HttpServletRequest request = getRequest();
+        request.setAttribute("action", "saveTag.action");
+        request.setAttribute("tag", new Tag());
         return SUCCESS;
     }
 
@@ -93,7 +99,9 @@ public class TagAction extends BaseAction {
             return actionResult;
         }
         Integer id = parseInt(getRequest().getParameter("id"), -1);
-        getRequest().setAttribute("tag", tagService.find(id));
+        HttpServletRequest request = getRequest();
+        request.setAttribute("action", "updateTag.action?id=" + id);
+        request.setAttribute("tag", tagService.find(id));
         return SUCCESS;
     }
 

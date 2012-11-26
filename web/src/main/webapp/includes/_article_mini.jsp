@@ -6,8 +6,8 @@
     <div class="title">
         ${article.title}
     </div>
-    <div class="content">
-        ${article.content}
+    <div class="summary">
+        ${article.summary}
     </div>
     <div class="tags">
         <div class="leading">标签：</div>

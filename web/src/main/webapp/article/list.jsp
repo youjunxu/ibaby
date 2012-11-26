@@ -28,9 +28,7 @@
                 <tr>
                     <td width=38 align='left'></td>
                     <td width=202 align='left' style="color:#A9714E; font-size:20px;">${requestScope.moduleName}</td>
-                    <td valign="bottom">
-                        <img src="${request.contextPath}/images/top_bottom.gif" width="693"/>
-                    </td>
+                    <td valign="bottom"><img src="${request.contextPath}/images/top_bottom.gif" width="693"/></td>
                 </tr>
             </table>
         </td>

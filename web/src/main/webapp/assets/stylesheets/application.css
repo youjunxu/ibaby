@@ -91,7 +91,7 @@
     margin-bottom: 18px;
 }
 
-.article_list .article > .content{
+.article_list .article > .summary{
     word-break:always;
 }
 

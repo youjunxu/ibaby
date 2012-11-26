@@ -27,7 +27,7 @@ public class ModuleConfig {
 
     public static void load(TagService tagService) {
         if (s_name2id == null) {
-            synchronized (ModuleConfig.class) {
+            synchronized (s_id2name) {
                 if (s_name2id == null) {
                     s_name2id = new ConcurrentHashMap<String, Integer>();
                     List<BaType> modules = tagService.findCatalogs("");

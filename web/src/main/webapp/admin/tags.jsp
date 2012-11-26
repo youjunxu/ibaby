@@ -46,8 +46,7 @@
 <table border="0" cellspacing="0" cellpadding="0" class='wrap2'>
     <tr style='height:30px;'>
         <td style='background:url(${request.contextPath}/images/top_bottom.gif) no-repeat;'>
-            <s:include value='../includes/_user_nav.jsp'>
-            </s:include>
+            <s:include value='../includes/_user_nav.jsp' />
         </td>
     </tr>
     <tr>

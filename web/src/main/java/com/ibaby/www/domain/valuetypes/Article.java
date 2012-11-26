@@ -24,6 +24,7 @@ public class Article implements Serializable{
     private String username;
     private List<String> deprecateTags;
     private List<Tag> tags;
+    private String summary;
     private String content;
 
     public Integer getId() {
@@ -92,16 +93,11 @@ public class Article implements Serializable{
         this.content = content;
     }
 
-    //TODO
-    public String toString(){
-        StringBuilder sb = new StringBuilder('{');
-        sb.append("id: ").append(id).append(',')
-            .append("username: ").append(username).append(',')
-            .append("title: ").append(title).append(',')
-            .append("content: ").append(content).append(',')
-            .append("tags: [").append(StringUtils.collectionToDelimitedString(tags, ", ")).append("],")
-            .append("author: ").append(author);
-        sb.append('}');
-        return sb.toString();
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }

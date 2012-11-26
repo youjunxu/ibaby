@@ -27,6 +27,7 @@ public class QueryParamsBuilder {
         target.put("limit", 65536);
         target.put("start", 0);
     }
+
     private StringBuilder conditions = new StringBuilder();
 
     public QueryParamsBuilder setStart(String startString){
@@ -77,6 +78,9 @@ public class QueryParamsBuilder {
     }
 
     public QueryParams build(){
+        if (conditions.length() == 0){
+            conditions.append(" where 1 = 1 ");
+        }
         target.put(CONDITIONS, conditions.toString());
         return (QueryParams)Proxy.newProxyInstance(QueryParams.class.getClassLoader(),
             new Class<?>[]{QueryParams.class}, new InvocationHandler() {

@@ -6,6 +6,7 @@ import com.ibaby.www.domain.valuetypes.Article;
 import com.ibaby.www.domain.valuetypes.Tag;
 import com.ibaby.www.util.ModuleConfig;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,10 +65,11 @@ public class ArticleAction extends BaseAction {
         String moduleName = ModuleConfig.moduleName(moduleId);
         List<Tag> tags = tagService.findTagsByGroup(moduleId);
 
-        getRequest().setAttribute("articles", articles);
-        getRequest().setAttribute("moduleId", moduleId);
-        getRequest().setAttribute("moduleName", moduleName);
-        getRequest().setAttribute("tagList", tags);
+        HttpServletRequest request = getRequest();
+        request.setAttribute("articles", articles);
+        request.setAttribute("moduleId", moduleId);
+        request.setAttribute("moduleName", moduleName);
+        request.setAttribute("tagList", tags);
 
         result.put("articles", articles);
     }
