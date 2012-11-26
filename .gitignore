@@ -1,0 +1,26 @@
+# fixed file #
+!.gitignore
+*.exe
+*.class
+*.o
+*.obj
+*.dbg
+
+# temp file
+~*
+*.log
+*.tmp
+.DS_Store
+
+
+.*
+
+*.iml
+*.ipr
+*.iws
+
+/web/target/
+/web/src/main/resources
+/web/src/main/sqlserver/applicationContext-common.xml
+/web/src/main/webapp/db_test_new.jsp
+
