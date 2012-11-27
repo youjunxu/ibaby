@@ -107,6 +107,12 @@
 		]]>
 	</select>
 
+    <delete id="removeTags" parameterClass="java.util.Map">
+        <![CDATA[
+            DELETE FROM tb_taggings WHERE taggable_id = $taggable_id$ and taggable_type = '$taggable_type$'
+		]]>
+	</delete>
+
     <insert id="tagging" parameterClass="java.util.Map">
         <![CDATA[
 			INSERT INTO tb_taggings (tag_id, taggable_id, taggable_type, created_at, updated_at)

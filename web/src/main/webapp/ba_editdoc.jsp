@@ -34,6 +34,14 @@ Integer intLmp;
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>我要分享</title>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="vender/assets/stylesheets/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<link href="vender/assets/stylesheets/chosen.css" rel="stylesheet" type="text/css"/>
+<link href="assets/stylesheets/tags.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="vender/assets/javascripts/jquery.js"></script>
+<script type="text/javascript" src="vender/assets/javascripts/jquery-ui.js"></script>
+<script type="text/javascript" src="vender/assets/javascripts/chosen.jquery.js"></script>
+<script type="text/javascript" src="vender/assets/javascripts/ajax-chosen.js"></script>
+<script type="text/javascript" src="assets/javascripts/application.js"></script>
 <script type="text/javascript" src="<%=basePath%>/js/global.js"></script>
 <script charset="utf-8" src="kindeditor/kindeditor-min.js"></script>
 <script charset="utf-8" src="kindeditor/lang/zh_CN.js"></script>
@@ -203,7 +211,7 @@ function doChgLm()
 	<tr>
 	<td align='right'>板块<font color=red>*</font>：</td>
     <td width=37% align='left'>&nbsp;
-    	<select name='lmCode' onchange='doChgLm()' >
+    	<select name='lmCode' onchange='doChgLm()' id="module_input">
     	<option value=''></option>
     	<%
     	for (intLmp=0;intLmp<lstBalx.size();intLmp++)
@@ -237,10 +245,8 @@ function doChgLm()
     	</select>
     </td>
 	<td align='right' width=8%>标签：</td>
-    <td align='left'>&nbsp;
-    <INPUT class=form value="<%=lm.getStrLable()%>"
-			style="WIDTH: 200px" type="text" maxLength=32
-				name="strLable" minlength="6">
+    <td align='left'>
+        <select data-placeholder="Choose tags" name="tags" id="tag_input" multiple="multiple" class="chzn-select"></select>
     </td>
 	</tr>
 	<tr style='height:22px;'>

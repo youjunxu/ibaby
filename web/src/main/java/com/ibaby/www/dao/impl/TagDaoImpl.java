@@ -92,10 +92,14 @@ public class TagDaoImpl extends SqlMapClientDaoSupport implements TagDao {
     }
 
     public void tagging(int taggableId, String taggableType, List<Integer> tags){
+        //Remove all the tags for the current resource first
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("taggable_id", taggableId);
+        map.put("taggable_type", taggableType);
+        getSqlMapClientTemplate().delete("Tag.removeTags", map);
+
+        //Then add tags for current resouces
         for(Integer tag : tags){
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("taggable_id", taggableId);
-            map.put("taggable_type", taggableType);
             map.put("tag_id", tag);
             getSqlMapClientTemplate().insert("Tag.tagging", map);
         }

@@ -398,19 +398,7 @@ public class LmBaxyAction extends BaseAction {
         i = lmBaxyService.saveBaxy(x);
         x.setBaId(i);
 
-        int articleId = i;
-        List<Integer> tags = new ArrayList<Integer>();
-        String[] tagsParams = getRequest().getParameterValues("tags");
-        LOGGER.debug("request => {}", tagsParams);
-        for(String tagParam : tagsParams){
-            Integer tagId = ApplicationHelper.parseInt(tagParam);
-            if(tagId != null){
-                tags.add(tagId);
-            }else{
-                LOGGER.warn("Can't add tag => {}", tagParam);
-            }
-        }
-        tagService.tagging(articleId, "Article", tags);
+        tagArticle(i);
 
         getRequest().setAttribute("baList_lmName", lmName);
         getRequest().setAttribute("baList_lmCode", lmCode);
@@ -464,6 +452,22 @@ public class LmBaxyAction extends BaseAction {
 
         success = true;
         return SUCCESS;
+    }
+
+    private void tagArticle(Integer i) {
+        int articleId = i;
+        List<Integer> tags = new ArrayList<Integer>();
+        String[] tagsParams = getRequest().getParameterValues("tags");
+        LOGGER.debug("request => {}", tagsParams);
+        for(String tagParam : tagsParams){
+            Integer tagId = ApplicationHelper.parseInt(tagParam);
+            if(tagId != null){
+                tags.add(tagId);
+            }else{
+                LOGGER.warn("Can't add tag => {}", tagParam);
+            }
+        }
+        tagService.tagging(articleId, "Article", tags);
     }
 
     public String updateBaxy() throws Exception {
@@ -543,6 +547,8 @@ public class LmBaxyAction extends BaseAction {
         this.dstJsp = "myPersonContent.action";
 
         success = lmBaxyService.updateBaxy(x);
+        //TODO
+        tagArticle(x.getBaId());
 
         //–¥»’÷æ
         LogInfo lg = new LogInfo();
