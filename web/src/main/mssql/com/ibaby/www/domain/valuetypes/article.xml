@@ -45,16 +45,16 @@
                 SELECT top $start$ $table_name$.baid FROM $table_name$
                 INNER JOIN tb_taggings ON $table_name$.baid = tb_taggings.taggable_id
                 WHERE tb_taggings.tag_id = $tag_id$ AND tb_taggings.taggable_type = '$taggable_type$'
-                ORDER BY dtcrea DESC
-            ) ORDER BY dtcrea DESC
+                ORDER BY shrq DESC
+            ) ORDER BY shrq DESC
         ]]>
     </select>
 
     <select id="where" parameterClass="qp" resultMap="resultArticle">
         <![CDATA[
             SELECT top $limit$ * FROM tb_lmbaxy $conditions$ AND
-            baid NOT IN (SELECT top $start$ baid FROM tb_lmbaxy $conditions$ ORDER BY dtcrea DESC)
-            ORDER BY dtcrea DESC
+            baid NOT IN (SELECT top $start$ baid FROM tb_lmbaxy $conditions$ ORDER BY shrq DESC)
+            ORDER BY shrq DESC
         ]]>
     </select>
 
@@ -63,7 +63,6 @@
             SELECT count(*) FROM tb_lmbaxy $conditions$
         ]]>
     </select>
-
 
 
 </sqlMap>

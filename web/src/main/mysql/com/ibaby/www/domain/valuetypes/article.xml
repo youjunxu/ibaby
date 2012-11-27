@@ -40,13 +40,14 @@
     <select id="where_with_tag" parameterClass="java.util.Map" resultMap="resultArticle">
         <![CDATA[
             SELECT $table_name$.* from $table_name$ INNER JOIN tb_taggings ON $table_name$.baid = tb_taggings.taggable_id
-            WHERE tb_taggings.tag_id = $tag_id$ and tb_taggings.taggable_type = '$taggable_type$' LIMIT $start$, $limit$
+            WHERE tb_taggings.tag_id = $tag_id$ and tb_taggings.taggable_type = '$taggable_type$' ORDER BY shrq DESC
+            LIMIT $start$, $limit$
         ]]>
     </select>
 
     <select id="where" parameterClass="qp" resultMap="resultArticle">
         <![CDATA[
-            SELECT * FROM tb_lmbaxy $conditions$ LIMIT $start$, $limit$
+            SELECT * FROM tb_lmbaxy $conditions$ ORDER BY shrq DESC LIMIT $start$, $limit$
         ]]>
     </select>
 
