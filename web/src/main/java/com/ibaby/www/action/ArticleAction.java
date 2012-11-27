@@ -5,6 +5,7 @@ import com.ibaby.www.domain.service.TagService;
 import com.ibaby.www.domain.valuetypes.Article;
 import com.ibaby.www.domain.valuetypes.Tag;
 import com.ibaby.www.util.ModuleConfig;
+import com.lhq.prj.bms.po.Spgg;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -44,6 +45,35 @@ public class ArticleAction extends BaseAction {
         list(articles);
         return SUCCESS;
     }
+
+    public String index(){
+        Map<String, Integer> modules = ModuleConfig.modules(1);
+
+        HttpServletRequest request = getRequest();
+        request.setAttribute("modules", modules);
+
+        marquee(request);
+
+        for(Map.Entry<String, Integer> entry : modules.entrySet()){
+            List<Article> articles = articleService.findWithModule(entry.getValue(), 0, 5);
+            request.setAttribute(entry.getKey(), articles);
+        }
+        return SUCCESS;
+    }
+
+    private void marquee(HttpServletRequest request) {
+        List<Spgg> spggs = articleService.findSpgg();
+        StringBuilder marquee = new StringBuilder();
+
+        for(Spgg spgg : spggs){
+            marquee.append("<span>").append("<a href=\"")
+                .append(request.getContextPath()).append("/prevActGgOpen.action?ggId=")
+                .append(spgg.getGgId()).append("\">").append(spgg.getStrTitle())
+                .append("</a>").append("</span>");
+        }
+        request.setAttribute("marquee", marquee.toString());
+    }
+
 
     private List<Article> findArticles(int type, int id, int total) {
         String limit = getRequest().getParameter("limit");

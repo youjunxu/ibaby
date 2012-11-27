@@ -93,20 +93,6 @@ public class TagService implements InitializingBean{
         return where(new QueryParamsBuilder().where("catalog_id in (" + id + ")").build());
     }
 
-    public List<Article> findArticles(int tagId, int start, int limit){
-        ConcurrentMap<String, Object> map = new ConcurrentHashMap<String, Object>();
-        map.put("tag_id", tagId);
-        map.put("start", start);
-        map.put("limit", limit);
-        return tagDao.findArticles(map);
-    }
-
-    public List<Article> findArticles(int tagId){
-        ConcurrentMap<String, Object> map = new ConcurrentHashMap<String, Object>();
-        map.put("tag_id", tagId);
-        return tagDao.findArticles(map);
-    }
-
     public int articleCount(int tagId){
         ConcurrentMap<String, Object> map = new ConcurrentHashMap<String, Object>();
         map.put("tag_id", tagId);
@@ -119,6 +105,20 @@ public class TagService implements InitializingBean{
 
     public void afterPropertiesSet(){
         ModuleConfig.load(this);
+    }
+
+    public List<Article> findArticles(int tagId, int start, int limit){
+        ConcurrentMap<String, Object> map = new ConcurrentHashMap<String, Object>();
+        map.put("tag_id", tagId);
+        map.put("start", start);
+        map.put("limit", limit);
+        return tagDao.findArticles(map);
+    }
+
+    public List<Article> findArticles(int tagId){
+        ConcurrentMap<String, Object> map = new ConcurrentHashMap<String, Object>();
+        map.put("tag_id", tagId);
+        return tagDao.findArticles(map);
     }
 
 }

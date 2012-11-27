@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page import="com.lhq.prj.bms.po.UserInfo" %>
 <%@ page import="java.util.Map" %>
@@ -33,9 +34,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <link href="../css/style.css" rel="stylesheet" type="text/css"/>
-    <s:include value='../includes/_head.jsp'>
-        <s:param name="title">系统管理</s:param>
-    </s:include>
+    <c:import url='../includes/_head.jsp'>
+        <c:param name="title" value="标签管理" />
+    </c:import>
 </head>
 
 <body>
@@ -46,7 +47,7 @@
 <table border="0" cellspacing="0" cellpadding="0" class='wrap2'>
     <tr style='height:30px;'>
         <td style='background:url(${request.contextPath}/images/top_bottom.gif) no-repeat;'>
-            <s:include value='../includes/_user_nav.jsp' />
+            <c:import url='../includes/_user_nav.jsp' />
         </td>
     </tr>
     <tr>
@@ -64,7 +65,7 @@
             <table class="main_content">
                 <tr>
                     <td class="main_left">
-                        <jsp:include page="../sys_left.jsp"/>
+                        <c:import url="../sys_left.jsp"/>
                     </td>
                     <td class="mid_gap"></td>
                     <td class="main_right">
@@ -78,8 +79,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <s:if test="#request.tagCount > 0">
-                                <s:iterator value="#request.tagList" var="tag">
+                            <c:if test="${requestScope.tagCount > 0}">
+                                <c:forEach items="${requestScope.tagList}" var="tag">
                                 <tr title="${tag.id}">
                                     <td>${tag.name}</td>
                                     <td>${tag.description}</td>
@@ -91,11 +92,11 @@
                                            data-method="delete" rel="nofollow" class="delete_tag">删除</a>
                                     </td>
                                 </tr>
-                                </s:iterator>
-                            </s:if>
-                            <s:else>
+                                </c:forEach>
+                            </c:if>
+                            <c:if test="${requestScope.tagCount <= 0}">
                                 <tr><td colspan="4">暂无数据记录。</td></tr>
-                            </s:else>
+                            </c:if>
                             </tbody>
                             <tfoot>
                             <tr>
@@ -119,7 +120,7 @@
 
 <div id="tag_dialog"></div>
 
-<s:include value='../footer.jsp'></s:include>
+<c:import url='../footer.jsp' />
 
 </body>
 </html>

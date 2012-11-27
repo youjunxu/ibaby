@@ -15,6 +15,7 @@
         <result property="title" column="STRTITLE"/>
         <result property="summary" column="STRCONTENT"/>
         <result property="content" column="STRMEMO"/>
+        <result property="readCount" column="READERS" />
     </resultMap>
 
     <select id="user" parameterClass="int" resultClass="user">

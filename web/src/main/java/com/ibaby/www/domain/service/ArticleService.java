@@ -4,6 +4,7 @@ import com.ibaby.www.dao.ArticleDao;
 import com.ibaby.www.dao.QueryParams;
 import com.ibaby.www.dao.QueryParamsBuilder;
 import com.ibaby.www.domain.valuetypes.Article;
+import com.lhq.prj.bms.po.Spgg;
 
 import java.util.List;
 
@@ -29,6 +30,10 @@ public class ArticleService {
         return articleDao.count(queryParams);
     }
 
+    public List<Spgg> findSpgg(){
+        return articleDao.findSpgg();
+    }
+
     public ArticleDao getArticleDao() {
         return articleDao;
     }
@@ -36,4 +41,7 @@ public class ArticleService {
     public void setArticleDao(ArticleDao articleDao) {
         this.articleDao = articleDao;
     }
+
+
+
 }

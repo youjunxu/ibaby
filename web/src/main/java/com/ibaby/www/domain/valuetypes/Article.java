@@ -26,6 +26,7 @@ public class Article implements Serializable{
     private List<Tag> tags;
     private String summary;
     private String content;
+    private Integer readCount;
 
     public Integer getId() {
         return id;
@@ -99,5 +100,13 @@ public class Article implements Serializable{
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public Integer getReadCount() {
+        return readCount;
+    }
+
+    public void setReadCount(Integer readCount) {
+        this.readCount = readCount;
     }
 }

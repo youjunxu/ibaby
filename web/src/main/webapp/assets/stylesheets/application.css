@@ -3,6 +3,54 @@
     clear: both;
 }
 
+.main{
+    background:url(../../images/top_bottom.gif) left top no-repeat;
+    width: 950px;
+    border: #6a838a 1px solid;
+    padding:0;
+    margin: 0 auto;
+    overflow:hidden;
+    clear:both;
+    text-align: left;
+}
+
+.main > .group0, .main > .group1, .main > .group2{
+    float:left;
+    width: 400px;
+    margin: 10px 0 0 25px;
+}
+.main > .group0{
+    margin-left: 30px;
+}
+.main > .group2{
+    margin-left: 50px;
+    padding-left: 30px;
+    border-left: 1px dotted #9c9c9c;
+}
+
+
+.marquee_area{
+    clear: both;
+}
+
+.marquee_area > marquee{
+    width: 750px;
+    line-height: 30px;
+    height: 30px;
+    vertical-align: bottom;
+}
+
+.marquee_area > marquee > span{
+    margin-left: 50px;
+}
+
+
+.marquee_area > marquee > span > a{
+    color: #ff3300;
+    font-size: 12px;
+    font-weight: bolder;
+}
+
 .mid_gap{
     background:url(../../images/icon_dash.gif) repeat-y;
     width: 60px;
@@ -15,7 +63,9 @@
 }
 
 .main_content{
-    width:100%; height:500px; font-size: 12px;
+    width:100%;
+    height:500px;
+    font-size: 12px;
 }
 
 
@@ -53,11 +103,6 @@
 .main_right > table .table_footer .pager{
     float: right;
 }
-
-.clear{
-    clear: both;
-}
-
 
 .user_nav {
     width: 100%;
@@ -115,4 +160,91 @@
     margin-top: 8px;
 }
 
+div.module_articles{
+    padding-top: 10px;
+}
+
+div.module_articles > .module_name{
+    font-size: 18px;
+    color: #108F84;
+    margin-bottom: 2px;
+}
+div.module_articles > .more{
+    text-align: right;
+    margin: 20px 0px;
+}
+
+ul.article_titles{
+
+}
+
+ul.article_titles > li{
+    list-style: none;
+    background-image: url(../../images/index_icon_21.gif);
+    background-position: center left;
+    background-repeat: no-repeat;
+    padding: 0 0 0 12px;
+    line-height: 26px;
+    height: 30px;
+    overflow: hidden;
+    border-bottom: 1px dotted #C9C7C8;
+    width: 93%;
+}
+
+ul.article_titles > li > span.readCount{
+    float: right;
+    padding-right: 3px;
+    color: #cfcfcf;
+}
+
+
+
+.foreign_board{
+    background:url(../../images/ba_yyt.jpg) left top no-repeat;
+    font-size:14px;
+    font-weight:bold;
+    text-align: left;
+    width: 465px;
+    height: 230px;
+    margin-left: 13px;
+    margin-top: 10px;
+    float: left;
+}
+.foreign_board .title{
+    clear: both;
+    font-size: 24px;
+    padding: 13px 10px;
+    color: #ffffff;
+}
+.foreign_board .logo{
+    float: left;
+    margin: 6px 0 0 23px;
+}
+.foreign_board .list{
+    float: left;
+    padding: 0 10px 0 20px;
+    width: 280px;
+    height: 124px;
+    overflow: hidden;
+    color: #7B7C7C;
+    font-size: 12px;
+}
+
+.foreign_board .list .item{
+    background:url(../../images/index_icon_22.gif) left top no-repeat;
+    padding-left: 16px;
+    margin: 10px 0;
+}
+
+
+.foreign_board .more{
+    text-align: right;
+    padding-right: 30px;
+    margin-top: 0;
+}
+
+.foreign_board .more a{
+    color: #7B7C7C;
+    font-size: 12px;
+}
 

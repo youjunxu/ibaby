@@ -135,10 +135,6 @@
             <result name="input">suc_upd.jsp</result>
         </action>
 
-        <action name="firstBA" class="lmBaxyAction" method="firstBA">
-            <result>index_ba.jsp</result>
-            <result name="input">suc_upd.jsp</result>
-        </action>
         <action name="baSeekList" class="lmBaxyAction" method="baSeekList">
             <result name="success">ba_seekList.jsp</result>
             <result name="input">suc_upd.jsp</result>
@@ -715,6 +711,16 @@
 
         <action name="baSeekList" class="articleAction" method="listByModule">
             <result name="success">/article/list.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+
+        <action name="articles" class="articleAction" method="index">
+            <result name="success">/article/index.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+
+        <action name="firstBA" class="articleAction" method="index">
+            <result name="success">/article/index.jsp</result>
             <result name="input">suc_upd.jsp</result>
         </action>
 

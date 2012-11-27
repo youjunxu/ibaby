@@ -4,6 +4,7 @@ import com.ibaby.www.dao.ArticleDao;
 import com.ibaby.www.dao.QueryParams;
 import com.ibaby.www.domain.valuetypes.Article;
 import com.ibaby.www.domain.valuetypes.Tag;
+import com.lhq.prj.bms.po.Spgg;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import java.util.List;
@@ -24,5 +25,11 @@ public class ArticleDaoImpl extends SqlMapClientDaoSupport implements ArticleDao
     public int count(QueryParams queryParams){
         return (Integer)getSqlMapClientTemplate().queryForObject("Article.count", queryParams);
     }
+
+    //TODO what is this?
+    public List<Spgg> findSpgg(){
+        return (List)getSqlMapClientTemplate().queryForList("Spgg.findSpggByBaxy");
+    }
+
 
 }

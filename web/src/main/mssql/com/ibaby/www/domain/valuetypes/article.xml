@@ -14,6 +14,7 @@
         <result property="deprecateTags" column="STRLABLE" />
         <result property="title" column="STRTITLE"/>
         <result property="content" column="STRCONTENT"/>
+        <result property="readCount" column="READERS" />
     </resultMap>
 
     <select id="user" parameterClass="int" resultClass="user">

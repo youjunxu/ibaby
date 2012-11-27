@@ -1,7 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="com.lhq.prj.bms.po.UserInfo" %>
-<%@ taglib prefix="s" uri="/struts-tags" %>
 <%
     String strCurCode = (String) request.getAttribute("strCurMkCode");
     UserInfo _user = (UserInfo) request.getSession().getAttribute("user");

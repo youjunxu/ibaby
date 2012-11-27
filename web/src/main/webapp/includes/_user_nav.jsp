@@ -4,6 +4,7 @@
 <%@ page import="com.ibaby.www.util.ApplicationHelper" %>
 <%@ page import="java.util.Map" %>
 <%
+    //TODO We should remove all the java code in page.
     String userNav = "";
     Object mid = request.getAttribute("moduleId");
     if (mid == null) {

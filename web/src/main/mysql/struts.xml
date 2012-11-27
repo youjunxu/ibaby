@@ -718,6 +718,17 @@
             <result name="input">suc_upd.jsp</result>
         </action>
 
+
+        <action name="articles" class="articleAction" method="index">
+            <result name="success">/article/index.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+
+        <action name="firstBA" class="articleAction" method="index">
+            <result name="success">/article/index.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+
         <action name="defaultTopMenu" class="userInfoAction" method="gvCurUserTopMenu">
             <result>/includes/_top_menu.jsp</result>
         </action>

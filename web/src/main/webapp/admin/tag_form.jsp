@@ -1,6 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <div class="tag_form_dialog">
     <form accept-charset="UTF-8" action="${requestScope.action}" name="tag_form" id="tag_form" method="post" data-remote="true">
 
@@ -16,19 +16,21 @@
         <div class="field">
             <label for="tag_catalog">类别：</label>
             <select data-placeholder="Choose catalog" id="tag_catalog" name="tag[catalog]" class="chzn-select">
-                <s:if test="#request.tag.catalog != null">
+                <c:if test="${requestScope.tag.catalog != null}">
                     <option value="${requestScope.tag.catalog.lmId}">${requestScope.tag.catalog.lmName}</option>
-                </s:if>
+                </c:if>
             </select>
         </div>
 
         <div class="actions">
-            <s:if test="null == #request.tag.name">
-                <input name="commit" type="submit" value="创建标签"/>
-            </s:if>
-            <s:else>
-                <input name="commit" type="submit" value="更新标签"/>
-            </s:else>
+            <c:choose>
+                <c:when test="${null == requestScope.tag.name}">
+                    <input name="commit" type="submit" value="创建标签"/>
+                </c:when>
+                <c:otherwise>
+                     <input name="commit" type="submit" value="更新标签"/>
+                </c:otherwise>
+            </c:choose>
         </div>
 
     </form>

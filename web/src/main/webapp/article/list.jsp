@@ -1,14 +1,15 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <s:include value='../includes/_head.jsp'>
-        <s:param name="title">贝爱学园</s:param>
-    </s:include>
+    <c:import url='../includes/_head.jsp'>
+        <c:param name="title" value="贝爱学园" />
+    </c:import>
 </head>
 <body>
 <s:action name="defaultTopMenu" executeResult="true">
@@ -19,7 +20,7 @@
 <table border="0" cellspacing="0" cellpadding="0" class='wrap2'>
     <tr style='height:30px;'>
         <td style='background:url(${request.contextPath}/images/top_bottom.gif) no-repeat;'/>
-            <s:include value='../includes/_user_nav.jsp' />
+            <c:import url='../includes/_user_nav.jsp' />
         </td>
     </tr>
     <tr>
@@ -38,14 +39,16 @@
             <table cellspacing='0' cellpadding="0" border='0' style='width:100%; height:500px; font-size: 12px;'>
                 <tr>
                     <td width=20% valign="top" align='left'>
-                        <s:include value='../includes/_tags.jsp' />
+                        <c:import url='../includes/_tags.jsp' />
                     </td>
                     <td width=5% style='background:url(${request.contextPath}/images/icon_dash.gif) repeat-y;'/></td>
                     <td valign="top" align='left'>
                         <div class="article_list">
-                        <s:iterator value="#request.articles" var="article">
-                            <s:include value='../includes/_article_mini.jsp' />
-                        </s:iterator>
+                            <c:forEach var="article" items="${requestScope.articles}" varStatus="status">
+                                <c:import url="../includes/_article_mini.jsp">
+                                    <c:param name="index" value="${status.index}" />
+                                </c:import>
+                            </c:forEach>
                         </div>
                         <div style="text-align: center">${requestScope.pager}</div>
                     </td>
@@ -60,7 +63,7 @@
 
 
 
-<s:include value='../footer.jsp'></s:include>
+<c:import url='../footer.jsp' />
 
 </body>
 </html>

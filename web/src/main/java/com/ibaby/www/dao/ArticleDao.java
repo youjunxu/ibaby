@@ -1,6 +1,7 @@
 package com.ibaby.www.dao;
 
 import com.ibaby.www.domain.valuetypes.Article;
+import com.lhq.prj.bms.po.Spgg;
 
 import java.util.List;
 
@@ -16,5 +17,7 @@ public interface ArticleDao {
     List<Article> where(QueryParams queryParams);
 
     int count(QueryParams queryParams);
+
+    List<Spgg> findSpgg();
 
 }

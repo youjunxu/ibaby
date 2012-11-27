@@ -24,7 +24,6 @@ public class ModuleConfig {
     private static Map<String, Integer> s_name2id = null;
     private static Map<Integer, String> s_id2name = new ConcurrentHashMap<Integer, String>();
 
-
     public static void load(TagService tagService) {
         if (s_name2id == null) {
             synchronized (s_id2name) {
@@ -50,5 +49,16 @@ public class ModuleConfig {
             return s_id2name.get(6);
         }
         return name;
+    }
+
+    public static Map<String, Integer> modules(int type){
+        switch (type){
+            case 1: //Leyuan
+                return s_name2id;
+            case 2: //Xueyuan
+                return s_name2id;
+            default:
+                return s_name2id;
+        }
     }
 }
