@@ -1,28 +1,7 @@
-### Setup Gitignore file
-Go to current directory, create file .gitignore, with content as following:
+### Setup the Environment for SQL Server
+Go to directory web/src/main/mssql
+copy applicationContext-common.xml from mysql directory, and then modify the dataSource bean with sqlserver configure.
 
-    # fixed file #
-    .gitignore
-    *.exe
-    *.class
-    *.o
-    *.obj
-    *.dbg
-
-    # temp file
-    ~*
-    *.log
-    *.tmp
-    .DS_Store
-
-    .*
-
-    *.iml
-    *.ipr
-    *.iws
-
-    /web/target/
-    /web/src/main/resources
 
 
 ### Setup the resources directory
@@ -30,8 +9,8 @@ Go to current directory, create file .gitignore, with content as following:
 Go to directory web/src/main
 
 #####Unix/Linux
-In Unix/Linux we can use ln -s ./sqlserver ./resouces as sqlserver development.
+In Unix/Linux we can use ln -s ./mssql ./resouces as sqlserver development.
 
 #####Windows
-In Windows platform, you can just copy sqlserver directory to resouces.
-NOTICE:you can't just rename sqlserver to resouces.
+In Windows platform, you can just copy *mmsql* directory to resouces.
+**NOTICE:you can't just rename mssql to resouces.**
