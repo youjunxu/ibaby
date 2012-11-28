@@ -51,6 +51,14 @@ public class ModuleConfig {
         return name;
     }
 
+    public static Integer moduleId(String name) {
+        Integer id = s_name2id.get(name);
+        if(name == null){
+            return  6;
+        }
+        return id;
+    }
+
     public static Map<String, Integer> modules(int type){
         switch (type){
             case 1: //Leyuan

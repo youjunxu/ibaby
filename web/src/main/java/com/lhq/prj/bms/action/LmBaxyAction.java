@@ -454,6 +454,7 @@ public class LmBaxyAction extends BaseAction {
         return SUCCESS;
     }
 
+    //TODO
     private void tagArticle(Integer i) {
         int articleId = i;
         List<Integer> tags = new ArrayList<Integer>();

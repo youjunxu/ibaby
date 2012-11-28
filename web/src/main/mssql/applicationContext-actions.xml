@@ -10,6 +10,7 @@
 	</bean>
 	<bean name="actXxAction" class="com.lhq.prj.bms.action.ActXxAction" scope="prototype">
 		<property name="actXxService" ref="actXxService" />
+        <property name="tagService" ref="tagService" />
 	</bean>
 	<bean name="ejDocumentsAction" class="com.lhq.prj.bms.action.EjDocumentsAction" scope="prototype">
 		<property name="ejDocumentsService" ref="ejDocumentsService" />

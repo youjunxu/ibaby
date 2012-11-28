@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ page import="java.util.List"%>
 <%@ page import="com.lhq.prj.bms.core.MyUtils"%>
 <%@ page import="com.lhq.prj.bms.po.UserInfo"%>
@@ -63,6 +64,7 @@ if (null != agent && -1 != agent.indexOf("Firefox")) {
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>贝家爱家</title>
 <link href="<%=basePath%>/css/style.css" rel="stylesheet" type="text/css">
+<link href="assets/stylesheets/tags.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="js/validate.js"></script>
 <script type="text/javascript" src="js/global.js"></script>
 <script LANGUAGE='Javascript'>
@@ -125,61 +127,13 @@ function toTurnPage()
 	<tr><td valign='top' style='width:275px;height:419px;background:url(<%=basePath%>/images/lylefttop.jpg) no-repeat;'>
 		<table border="0" cellspacing="0" cellpadding="0" width=250 align='center'>
 		<tr style='height:62px;'><td>&nbsp;</td></tr>
-		<tr style='height:345px;'><td valign='top'>
-			<div style='overflow-y:auto;height:340px;margin-top:2px;'>
-			<table border='0' style='border:1px solid #FFFFFF;' cellspacing="0" cellpadding="0" width=95% align='center'>
-		<%
-		if (lstGg.size()>0)
-		{
-			intTmp=lstGg.size();
-			for (intLmp=0;intLmp<intTmp;intLmp++)
-			{
-				Spgg sp=(Spgg)lstGg.get(intLmp);
-				if (intLmp==2)
-				{
-					%>
-				<tr style='height:70px;'>
-				<td style='text-align:left;word-break:break-word;table-layout:fixed;' valign='top'>
-					<table border="0" cellspacing="1" cellpadding="2" width=95% height=70 align='center' style='font-size:12px; '>
-					<tr height=46 >
-					<%
-				}else
-				{
-					if (intLmp==3)
-					{
-						%>
-					<tr style='height:70px;'>
-					<td style='text-align:left;word-break:break-word;table-layout:fixed;' valign='top'>
-						<table border="0" cellspacing="1" cellpadding="2" width=95% height=70 align='center' style='font-size:12px; '>
-						<tr height=46 >
-						<%
-					}else
-					{
-						%>
-					<tr style='height:65px;'>
-					<td style='text-align:left;word-break:break-word;table-layout:fixed;' valign='top'>
-						<table border="0" cellspacing="1" cellpadding="2" width=95% height=65 align='center' style='font-size:12px; '>
-						<tr height=40 >
-						<%
-					}
-				}
-				%>
-				<td valign='top' style='text-align:left;word-break:break-word;table-layout:fixed;'>
-				<font face='黑体' ><b><%=sp.getStrTitle()%></b></font>
-				</td></tr>
-				<tr >
-				<td align='right'>
-				<a href="javascript:doOpenNew('<%=sp.getGgId()%>')"><font color='CB9C34'>更多>></font></a>
-				&nbsp;&nbsp;</td></tr>
-				</table>
-			</td></tr>
-			<%
-			}
-		}
-		%>
-			</table>
+		<tr style='height:345px;'>
+            <td valign='top'>
+            <div style="text-align: left;">
+                <c:import url="includes/_tags.jsp" />
 			</div>
-		</td></tr>
+            </td>
+        </tr>
 		</table>
 	</td><td rowspan=3 style='width:652px;background:url(<%=basePath%>/images/lyright.jpg) no-repeat;' valign='top'>
 	<!-- 右侧活动信息 -->

@@ -1,7 +1,13 @@
 package com.lhq.prj.bms.action;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
+
+import com.ibaby.www.domain.service.TagService;
+import com.ibaby.www.domain.valuetypes.Tag;
+import com.ibaby.www.util.ApplicationHelper;
+import com.ibaby.www.util.ModuleConfig;
 import com.lhq.prj.bms.core.BaseAction;
 import com.lhq.prj.bms.core.Page;
 import com.lhq.prj.bms.core.MyUtils;
@@ -10,8 +16,11 @@ import com.lhq.prj.bms.po.UserInfo;
 import com.lhq.prj.bms.po.LogInfo;
 import com.lhq.prj.bms.po.ActXx;
 import com.lhq.prj.bms.po.ActLy;
-import com.lhq.prj.bms.po.ActLyM;
 import com.lhq.prj.bms.service.IActXxService;
+import com.lhq.prj.bms.service.ILmBaxyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * ActXxAction.java Create on 2012-5-4
  * @author andchen
@@ -19,8 +28,13 @@ import com.lhq.prj.bms.service.IActXxService;
  */
 @SuppressWarnings("serial")
 public class ActXxAction extends BaseAction {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ActXxAction.class);
+
 	public static final String SUCCESS_MANAGER = "success_manager";
 	private IActXxService actXxService;
+    private TagService tagService;
+
 	private ActXx actXx;
 	private boolean success;
 	private String dstJsp;
@@ -44,6 +58,11 @@ public class ActXxAction extends BaseAction {
 	private Integer photoHeight;
 	private String hdJs;
 	private static final String hdImgPath="graph/game";
+
+
+    public void setTagService(TagService tagService){
+        this.tagService = tagService;
+    }
 
 	public Integer getLyId()
 	{
@@ -219,6 +238,25 @@ public class ActXxAction extends BaseAction {
 	public void setActXxService(IActXxService l) {
 		this.actXxService = l;
 	}
+
+    //TODO this is should to remove to BaseAction.
+    private void tagActivity(Integer i) {
+        int articleId = i;
+        List<Integer> tags = new ArrayList<Integer>();
+        String[] tagsParams = getRequest().getParameterValues("tags");
+        LOGGER.debug("request => {}", tagsParams);
+        for(String tagParam : tagsParams){
+            Integer tagId = ApplicationHelper.parseInt(tagParam);
+            if(tagId != null){
+                tags.add(tagId);
+            }else{
+                LOGGER.warn("Can't add tag => {}", tagParam);
+            }
+        }
+        tagService.tagging(articleId, "Activity", tags);
+    }
+
+
 	public String saveActXx() throws Exception
 	{
 		UserInfo _user=(UserInfo)getSession().getAttribute("user");
@@ -264,6 +302,9 @@ public class ActXxAction extends BaseAction {
 		}
 		ac.setActImg(strNewName);
 		Integer i=actXxService.saveActXx(ac);
+
+        //TODO
+        tagActivity(i);
 		this.tip="成功提交";
 		this.dstJsp="sysmanaHd.action";
 
@@ -280,6 +321,7 @@ public class ActXxAction extends BaseAction {
 		success=true;
 		return SUCCESS;
 	}
+
 	public String saveActLy()
 	{
 		UserInfo _user=(UserInfo)getSession().getAttribute("user");
@@ -356,6 +398,8 @@ public class ActXxAction extends BaseAction {
 		success=true;
 		return SUCCESS;
 	}
+
+
 	public String updateActXx() throws Exception 
 	{
 		UserInfo _user=(UserInfo)getSession().getAttribute("user");
@@ -417,6 +461,9 @@ public class ActXxAction extends BaseAction {
 		}
 		
 		success=actXxService.updateActXx(ac);
+
+        //TODO
+        tagActivity(ac.getActId());
 		
 		this.tip="成功提交";
 		this.dstJsp="sysmanaHd.action";
@@ -649,6 +696,10 @@ public class ActXxAction extends BaseAction {
 		strLmp=objLmp[0];
 		Integer intPageZs=Integer.valueOf(strLmp);
 		getRequest().setAttribute("sysPageZs_disp", intPageZs);
+
+        //TODO we will remove the lmCode and just use module_id.
+        List<Tag> tags = tagService.findTagsByGroup(ModuleConfig.moduleId("译言堂"));
+        getRequest().setAttribute("tagList", tags);
 
 		success=true;
 		return SUCCESS;
