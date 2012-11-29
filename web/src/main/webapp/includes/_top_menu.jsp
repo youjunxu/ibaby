@@ -61,8 +61,8 @@
                                 <%
                                     if (_user == null) {
                                 %>
-                                <span class="span_search"><a href="#" onclick='doLogin()'>登录</a></span>
-                                <span class="span_search"><a href="#" onclick='doRegUser()'>注册</a></span>
+                                <span class="span_search"><a href="${request.contextPath}/login.jsp">登录</a></span>
+                                <span class="span_search"><a href="${request.contextPath}/prevNewUser.action">注册</a></span>
                                 <%
                                 } else {
                                 %>
@@ -136,8 +136,8 @@
                     <td>
                         <ul>
                             <li class='menu_01'><a href="${request.contextPath}/manager.jsp">首页</a></li>
-                            <li class='menu'><a href="${request.contextPath}/firstBA.action">贝爱学园</a></li>
-                            <li class='menu'><a href="${request.contextPath}/firstLY.action">贝爱乐园</a></li>
+                            <li class='menu'><a href="${request.contextPath}/articles.action">贝爱学园</a></li>
+                            <li class='menu'><a href="${request.contextPath}/activities.action">贝爱乐园</a></li>
                             <li class='menu'><a href="${request.contextPath}/firstEJ.action">贝爱一家</a></li>
                             <li class='menu'><a href="${request.contextPath}/firstIGO.action">线上IGO</a></li>
                             <%

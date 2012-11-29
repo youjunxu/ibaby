@@ -130,6 +130,7 @@ function toTurnPage()
 		<tr style='height:345px;'>
             <td valign='top'>
             <div style="text-align: left;">
+
                 <c:import url="includes/_tags.jsp" />
 			</div>
             </td>

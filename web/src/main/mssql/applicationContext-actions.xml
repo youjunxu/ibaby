@@ -83,4 +83,8 @@
 		<property name="articleService" ref="articleService" />
         <property name="tagService" ref="tagService" />
 	</bean>
+    <bean name="activityAction" class="com.ibaby.www.action.ActivityAction" scope="singleton">
+		<property name="tagService" ref="tagService" />
+        <property name="activityService" ref="activityService" />
+	</bean>
 </beans>

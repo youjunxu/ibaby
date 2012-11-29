@@ -88,4 +88,10 @@
     <bean id="articleService" class="com.ibaby.www.domain.service.ArticleService">
 		<property name="articleDao" ref="articleDao" />
 	</bean>
+
+    <bean id="activityService" class="com.ibaby.www.domain.service.ActivityService">
+		<property name="activityDao" ref="activityDao" />
+	</bean>
+
+
 </beans>

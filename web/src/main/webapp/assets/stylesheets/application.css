@@ -14,14 +14,49 @@
     text-align: left;
 }
 
+.main-left{
+   float: right;
+   width: 275px;
+}
+
+.tag_cloud{
+    background:url(../../images/lylefttop.jpg) top left no-repeat;
+    height: 300px;
+    padding: 64px 0;
+}
+
+
+.main-left > .tag_cloud > .tag_list{
+    background: #fcfcfc;
+    width: 222px;
+    height: 320px;
+    padding: 10px 10px 0 10px;
+    margin: 0 auto;
+}
+
+.main-left > .ads{
+    background:url(../../images/lyleftdown.jpg) top left no-repeat;
+    width: 275px;
+    height: 430px;
+}
+
+.main-content{
+    float: right;
+    background:url(../../images/lyright.jpg) top left no-repeat;
+    width:652px;
+    height:839px;
+}
+
 .main > .group0, .main > .group1, .main > .group2{
     float:left;
     width: 400px;
     margin: 10px 0 0 25px;
 }
+
 .main > .group0{
     margin-left: 30px;
 }
+
 .main > .group2{
     margin-left: 50px;
     padding-left: 30px;
@@ -247,4 +282,53 @@ ul.article_titles > li > span.readCount{
     color: #7B7C7C;
     font-size: 12px;
 }
+
+
+
+.activity_head{
+    margin: 40px 0 0 130px;
+
+}
+.activity_head > .link{
+    float: left;
+    padding: 0 10px;
+}
+.activity_head > .link > .arrow{
+    text-align: center;
+}
+.activities{
+    padding: 36px 30px 0 36px;
+}
+
+.activities > .activity{
+    padding-left: 15px;
+    margin-top: 20px;
+}
+
+.activities > .activity > .activity_image{
+    float:left;
+    width: 160px;
+    height: 120px;
+}
+.activities > .activity > .activity_main{
+    float:left;
+    width: 390px;
+}
+
+.activities > .activity > .activity_main > div{
+    line-height: 150%;
+}
+.activities > .activity > .activity_main > .activity_name{
+    color: #DE7300;
+    font-weight: bolder;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.activities > .activity > .activity_main > .more{
+    text-align: right;
+}
+
+
+
 

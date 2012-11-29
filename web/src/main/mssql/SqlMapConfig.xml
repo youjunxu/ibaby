@@ -41,6 +41,8 @@
 	<sqlMap resource="com/lhq/prj/bms/po/xml/XtModule.xml" />
 	<sqlMap resource="com/lhq/prj/bms/po/xml/Yqlj.xml" />
 
+    <sqlMap resource="com/ibaby/www/domain/valuetypes/user.xml" />
     <sqlMap resource="com/ibaby/www/domain/valuetypes/tag.xml" />
     <sqlMap resource="com/ibaby/www/domain/valuetypes/article.xml" />
+    <sqlMap resource="com/ibaby/www/domain/valuetypes/activity.xml" />
 </sqlMapConfig>

@@ -1,5 +1,7 @@
 package com.ibaby.www.dao;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.InvocationHandler;
@@ -20,6 +22,8 @@ import static com.ibaby.www.util.ApplicationHelper.*;
  * To change this template use File | Settings | File Templates.
  */
 public class QueryParamsBuilder {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(QueryParams.class);
 
     private static final String CONDITIONS = "conditions";
     private final ConcurrentMap<String, Object> target = new ConcurrentHashMap<String, Object>();
@@ -72,9 +76,18 @@ public class QueryParamsBuilder {
 
     public QueryParamsBuilder addParam(String name, Object value){
         if(value != null){
+            LOGGER.debug("put name => {}, value => {} to queryParams.", name, value);
             target.put(name, value);
         }
         return this;
+    }
+
+    public int getStart(){
+        return (Integer)target.get("start");
+    }
+
+    public int getLimit(){
+        return (Integer)target.get("limit");
     }
 
     public QueryParams build(){
@@ -82,6 +95,7 @@ public class QueryParamsBuilder {
             conditions.append(" where 1 = 1 ");
         }
         target.put(CONDITIONS, conditions.toString());
+        LOGGER.debug("DUMP QUERYPARAMS => {}", target);
         return (QueryParams)Proxy.newProxyInstance(QueryParams.class.getClassLoader(),
             new Class<?>[]{QueryParams.class}, new InvocationHandler() {
             public Object invoke(Object o, Method method, Object[] objects) throws Throwable {

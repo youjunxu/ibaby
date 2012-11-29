@@ -1,5 +1,6 @@
 package com.ibaby.www.action;
 
+import com.ibaby.www.dao.QueryParamsBuilder;
 import com.ibaby.www.domain.service.ArticleService;
 import com.ibaby.www.domain.service.TagService;
 import com.ibaby.www.domain.valuetypes.Article;
@@ -23,7 +24,6 @@ import static com.ibaby.www.util.ApplicationHelper.parseInt;
  */
 public class ArticleAction extends BaseAction {
 
-    private TagService tagService;
     private ArticleService articleService;
 
     private Map<String, Object> result = new HashMap<String, Object>();
@@ -76,16 +76,13 @@ public class ArticleAction extends BaseAction {
 
 
     private List<Article> findArticles(int type, int id, int total) {
-        String limit = getRequest().getParameter("limit");
-        Integer pageSize = parseInt(limit, 10);
-
-        Integer pageCount = (int) Math.ceil(total * 1.0 / pageSize);
-        int start = doPager(pageCount, pageSize);
+        //TODO
+        QueryParamsBuilder builder = paginate(total);
 
         if (type == 0) {//FIND BY TAG.
-            return tagService.findArticles(id, start, pageSize);
+            return tagService.findArticles(id, builder.getStart(), builder.getLimit());
         } else {//FIND BY MODULE.
-            return articleService.findWithModule(id, start, pageSize);
+            return articleService.findWithModule(id, builder.getStart(), builder.getLimit());
         }
     }
 
@@ -111,14 +108,6 @@ public class ArticleAction extends BaseAction {
         return moduleId;
     }
 
-
-    public TagService getTagService() {
-        return tagService;
-    }
-
-    public void setTagService(TagService tagService) {
-        this.tagService = tagService;
-    }
 
     public ArticleService getArticleService() {
         return articleService;

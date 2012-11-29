@@ -5,11 +5,10 @@
 <sqlMap namespace="Article">
 
     <typeAlias alias="article" type="com.ibaby.www.domain.valuetypes.Article" />
-    <typeAlias alias="user" type="com.lhq.prj.bms.po.UserInfo" />
 
     <resultMap id="resultArticle" class="com.ibaby.www.domain.valuetypes.Article">
         <result property="id" column="BAID" />
-        <result property="user" column="USERID" select="Article.user" />
+        <result property="user" column="USERID" select="User.find" />
         <result property="tags" column="BAID" select="Article.tags"/>
         <result property="deprecateTags" column="STRLABLE" />
         <result property="title" column="STRTITLE"/>
@@ -17,11 +16,6 @@
         <result property="readCount" column="READERS" />
     </resultMap>
 
-    <select id="user" parameterClass="int" resultClass="user">
-        <![CDATA[
-            SELECT * FROM tb_userinfo WHERE userid = #value#;
-        ]]>
-    </select>
 
     <select id="tags" parameterClass="int" resultClass="tag">
         <![CDATA[

@@ -3,13 +3,13 @@
 }
 
 .pager .page_num{
-    width: 13px;
+    width: 30px;
 }
 
 .pager a {
     display: inline-block;
     padding: 3px 3px;
-    border: 1px solid #337FE5;
+    border: 1px solid #CADCE8;
 }
 
 .pager span {

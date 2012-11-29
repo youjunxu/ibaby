@@ -718,6 +718,11 @@
             <result name="input">suc_upd.jsp</result>
         </action>
 
+        <action name="activities" class="activityAction" method="index">
+            <result name="success">/activity/index.jsp</result>
+            <result name="input">suc_upd.jsp</result>
+        </action>
+
 
         <action name="articles" class="articleAction" method="index">
             <result name="success">/article/index.jsp</result>

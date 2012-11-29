@@ -148,22 +148,7 @@
                     or ( year(now()) = year(dtEnd) and month(now()) < month(dtEnd) )
                     or ( year(now()) = year(dtEnd) and month(now()) = month(dtEnd) and day(now()) <= day(dtEnd)) )
 			    and actStatus=1
-			    and actId not in(
-			        select actId from TB_ACTXX
-                        where (
-                            year(now()) > year(dtStart)
-                            or ( year(now()) = year(dtStart) and month(now()) > month(dtStart) )
-                            or ( year(now()) = year(dtStart) and month(now()) = month(dtStart) and day(now()) >= day(dtStart)) )
-                            and (
-                                year(now()) < year(dtEnd)
-                                or ( year(now()) = year(dtEnd) and month(now()) < month(dtEnd) )
-                                or ( year(now()) = year(dtEnd) and month(now()) = month(dtEnd) and day(now()) <= day(dtEnd) )
-                            )
-			                and actStatus=1
-			            order by dtCrea desc
-			            /* limit $start$ */
-			    )
-			    order by dtCrea desc limit $limit$
+			    order by dtCrea desc limit $start$, $limit$
 		]]>
 	</select>
 	<select id="findEndActXxCount" resultClass="int">

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Activity">
+
+	<typeAlias alias="activity" type="com.ibaby.www.domain.valuetypes.Activity" />
+
+	<parameterMap class="activity" id="paramActivity">
+		<parameter property="name" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="createdAt" javaType="string" jdbcType="DATETIME" />
+		<parameter property="content" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="startDate" javaType="string" jdbcType="DATETIME" />
+		<parameter property="endDate" javaType="string" jdbcType="DATETIME" />
+		<parameter property="imageUrl" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="status" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="user" javaType="user" jdbcType="NUMBER" />
+		<parameter property="reward" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="imageWidth" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="imageHeight" javaType="integer" jdbcType="NUMBER" />
+		<parameter property="description" javaType="string" jdbcType="VARCHAR" />
+		<parameter property="link" javaType="string" jdbcType="VARCHAR" />
+	</parameterMap>
+
+    <resultMap id="resultActivity" class="com.ibaby.www.domain.valuetypes.Activity">
+        <result property="id" column="ACTID" />
+        <result property="name" column="actName" />
+		<result property="createdAt" column="dtCrea" />
+		<result property="content" column="actContent"  />
+		<result property="startDate" column="dtStart" />
+		<result property="endDate" column="dtEnd" />
+		<result property="imageUrl" column="actImg" />
+		<result property="status" column="actStatus" />
+		<result property="reward" column="jpJs" />
+		<result property="imageWidth" column="photoWidth" />
+		<result property="imageHeight" column="photoHeight" />
+		<result property="description" column="hdJs" />
+		<result property="link" column="actLink" />
+        <result property="user" column="USERID" select="User.find" />
+        <result property="tags" column="ACTID" select="Activity.tags"/>
+    </resultMap>
+
+
+    <select id="tags" parameterClass="int" resultClass="tag">
+        <![CDATA[
+            SELECT tb_tags.* FROM tb_tags INNER JOIN tb_taggings ON tb_tags.id = tb_taggings.tag_id
+            WHERE tb_taggings.taggable_id = #value# and tb_taggings.taggable_type = 'Activity';
+        ]]>
+    </select>
+
+
+	<insert id="save" parameterMap="paramActivity">
+		<![CDATA[
+			INSERT INTO tb_actxx (actName,dtCrea,actContent,dtStart,dtEnd,actImg,actStatus,userId,userName,jpJs,photoWidth,photoHeight,hdJs,actLink)
+				 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		]]>
+		<selectKey resultClass="int">
+			<![CDATA[
+				SELECT @@IDENTITY AS ID
+			]]>
+		</selectKey>
+	</insert>
+
+	<update id="update" parameterClass="activity">
+		<![CDATA[
+			UPDATE tb_ActXx
+		]]>
+		<dynamic prepend="SET">
+			<isNotNull property="name" prepend=",">
+				<![CDATA[
+					actName = #name:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="link" prepend=",">
+				<![CDATA[
+					actLink = #link:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="content" prepend=",">
+				<![CDATA[
+					actContent = #content:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="start" prepend=",">
+				<![CDATA[
+					dtStart = #start:DATETIME#
+				]]>
+			</isNotNull>
+			<isNotNull property="end" prepend=",">
+				<![CDATA[
+					dtEnd = #end:DATETIME#
+				]]>
+			</isNotNull>
+			<isNotNull property="image" prepend=",">
+				<![CDATA[
+					actImg = #image:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="status" prepend=",">
+				<![CDATA[
+					actStatus = #status:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="reward" prepend=",">
+				<![CDATA[
+					jpJs = #reward:VARCHAR#
+				]]>
+			</isNotNull>
+			<isNotNull property="imageWidth" prepend=",">
+				<![CDATA[
+					photoWidth = #imageWidth:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="imageHeight" prepend=",">
+				<![CDATA[
+					photoHeight = #imageHeight:NUMBER#
+				]]>
+			</isNotNull>
+			<isNotNull property="description" prepend=",">
+				<![CDATA[
+					hdJs = #description:VARCHAR#
+				]]>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="WHERE">
+			<![CDATA[
+				actId = #id:NUMBER#
+			]]>
+		</dynamic>
+	</update>
+
+	<delete id="delete" parameterClass="Integer" >
+		<![CDATA[
+			DELETE FROM tb_actxx WHERE actId=#id#
+		]]>
+	</delete>
+
+    <select id="find" parameterClass="Integer" resultMap="resultActivity">
+		<![CDATA[
+			SELECT * FROM TB_ACTXX where actId=#id#
+		]]>
+	</select>
+
+	<select id="count" resultClass="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM tb_actxx
+		]]>
+	</select>
+
+
+	<select id="all" parameterClass="qp" resultMap="resultActivity">
+		<![CDATA[
+			SELECT * FROM tb_actxx ORDER BY dtCrea DESC LIMIT $start$, $limit$
+		]]>
+	</select>
+
+	<select id="availableActivityCount" resultClass="int">
+		<![CDATA[
+			SELECT count(*) FROM tb_actxx WHERE (now() BETWEEN dtStart AND dtEnd) AND actStatus = 1
+		]]>
+	</select>
+	<select id="availableActivities" parameterClass="qp" resultMap="resultActivity">
+		<![CDATA[
+            SELECT * FROM tb_actxx WHERE (now() BETWEEN dtStart AND dtEnd) AND actStatus = 1
+            ORDER BY dtCrea DESC LIMIT $start$, $limit$
+		]]>
+	</select>
+	<select id="completeActivityCount" resultClass="int">
+		<![CDATA[
+            SELECT count(*) FROM tb_actxx WHERE NOT (now() BETWEEN dtStart AND dtEnd) AND actStatus = 1
+		]]>
+	</select>
+	<select id="completeActivities" parameterClass="qp" resultMap="resultActivity">
+		<![CDATA[
+            SELECT * FROM tb_actxx WHERE NOT (now() BETWEEN dtStart AND dtEnd) AND actStatus = 1
+            ORDER BY dtCrea DESC LIMIT $start$, $limit$
+		]]>
+	</select>
+</sqlMap>

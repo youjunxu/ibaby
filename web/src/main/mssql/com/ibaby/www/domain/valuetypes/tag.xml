@@ -5,8 +5,6 @@
 <sqlMap namespace="Tag">
 
 	<typeAlias alias="tag" type="com.ibaby.www.domain.valuetypes.Tag" />
-    <typeAlias alias="qp" type="com.ibaby.www.dao.QueryParams" />
-    <typeAlias alias="catalog" type="com.lhq.prj.bms.po.BaType" />
 
     <resultMap id="resultTag" class="com.ibaby.www.domain.valuetypes.Tag">
         <result property="parentId" column="parent_id"/>

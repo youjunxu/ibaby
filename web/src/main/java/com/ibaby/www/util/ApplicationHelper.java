@@ -1,9 +1,14 @@
 package com.ibaby.www.util;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -17,6 +22,7 @@ import java.util.Map;
 public abstract class ApplicationHelper {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ApplicationHelper.class);
+    private final static DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     private ApplicationHelper() {
     }
@@ -27,6 +33,16 @@ public abstract class ApplicationHelper {
         } else {
             return obj.toString();
         }
+    }
+
+
+    public static Date parseDate(String dateString) {
+        try {
+            return DATE_FORMAT.parse(dateString);
+        } catch (ParseException e) {
+            LOGGER.warn("Can't parse {} to date", dateString);
+        }
+        return new Date();
     }
 
     public static Integer parseInt(String str) {

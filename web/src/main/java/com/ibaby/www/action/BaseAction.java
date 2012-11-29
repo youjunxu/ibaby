@@ -1,7 +1,7 @@
 package com.ibaby.www.action;
 
-import com.ibaby.www.dao.QueryParams;
 import com.ibaby.www.dao.QueryParamsBuilder;
+import com.ibaby.www.domain.service.TagService;
 import com.ibaby.www.util.ApplicationHelper;
 import com.lhq.prj.bms.po.UserInfo;
 import com.opensymphony.xwork2.ActionSupport;
@@ -14,8 +14,11 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
-import static com.ibaby.www.util.ApplicationHelper.*;
+import static com.ibaby.www.util.ApplicationHelper.pager;
+import static com.ibaby.www.util.ApplicationHelper.parseInt;
 
 /**
  * Created by IntelliJ IDEA.
@@ -24,13 +27,16 @@ import static com.ibaby.www.util.ApplicationHelper.*;
  * Time: PM3:09
  * To change this template use File | Settings | File Templates.
  */
-public class BaseAction extends ActionSupport {
+public abstract class BaseAction extends ActionSupport {
 
     protected final static Logger LOGGER = LoggerFactory.getLogger(BaseAction.class);
 
+    protected String tip;
     protected String flushMessage;
     protected String dstJsp;
     protected String actionResult;
+
+    protected TagService tagService;
 
     public HttpServletRequest getRequest() {
         return ServletActionContext.getRequest();
@@ -72,7 +78,19 @@ public class BaseAction extends ActionSupport {
         return true;
     }
 
-    protected int doPager(int pageCount, int pageSize){
+    protected QueryParamsBuilder paginate(int total){
+        return paginate(total, 10);
+    }
+
+    protected QueryParamsBuilder paginate(int total, int defaultPageSize){
+        String limit = getRequest().getParameter("limit");
+        Integer pageSize = parseInt(limit, defaultPageSize);
+        Integer pageCount = (int) Math.ceil(total * 1.0 / pageSize);
+        int start = doPager(pageCount, pageSize);
+        return new QueryParamsBuilder().setLimit(pageSize).setStart(start);
+    }
+
+    private int doPager(int pageCount, int pageSize){
         int pageCurrent = 1;
         Object page = getRequest().getParameter("page");
         if(page != null && StringUtils.hasText(page.toString())){
@@ -86,6 +104,32 @@ public class BaseAction extends ActionSupport {
         request.setAttribute("pager", pager);
 
         int start = (pageCurrent - 1) * pageSize;
+        LOGGER.debug("paginate info: start => {}, limit => {}, current => {}, pageCount => {}", start, pageSize, pageCurrent, pageCount);
         return start;
     }
+
+    protected void doTagging(Integer i, Class<?> clazz) {
+        int articleId = i;
+        List<Integer> tags = new ArrayList<Integer>();
+        String[] tagsParams = getRequest().getParameterValues("tags");
+        LOGGER.debug("doTagging: request => {}", getRequest().getParameter("tags"));
+        for(String tagParam : tagsParams){
+            Integer tagId = ApplicationHelper.parseInt(tagParam);
+            if(tagId != null){
+                tags.add(tagId);
+            }else{
+                LOGGER.warn("Can't add tag => {}", tagParam);
+            }
+        }
+        tagService.tagging(articleId, clazz.getSimpleName(), tags);
+    }
+
+    public TagService getTagService() {
+        return tagService;
+    }
+
+    public void setTagService(TagService tagService) {
+        this.tagService = tagService;
+    }
+
 }

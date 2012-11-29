@@ -25,7 +25,6 @@ public class TagAction extends BaseAction {
 
     public static final String STATUS = "status";
     public static final String REASON = "reason";
-    private TagService tagService;
     private List<Tag> tags;
 
     private Map<String, Object> result = new HashMap<String, Object>();
@@ -42,28 +41,17 @@ public class TagAction extends BaseAction {
         return result;
     }
 
-    public void setTagService(TagService tagService) {
-        this.tagService = tagService;
-    }
-
-
     public String manageTags() {
         if (!checkUserPermission()) {
             return actionResult;
         }
-
-        String limit = getRequest().getParameter("limit");
-        Integer pageSize = parseInt(limit, 10);
-
-        Integer tagCount = tagService.count();
-        Integer pageCount = (int) Math.ceil(tagCount * 1.0 / pageSize);
-
-        int start = doPager(pageCount, pageSize);
+        Integer total = tagService.count();
+        QueryParamsBuilder builder = paginate(total);
 
         HttpServletRequest request = getRequest();
 
-        request.setAttribute("tagCount", tagCount);
-        request.setAttribute("tagList", tagService.where(new QueryParamsBuilder().setStart(start).setLimit(pageSize).build()));
+        request.setAttribute("tagCount", total);
+        request.setAttribute("tagList", tagService.where(builder.build()));
         return SUCCESS;
     }
 
